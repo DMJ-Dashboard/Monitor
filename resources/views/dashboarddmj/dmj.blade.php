@@ -58,7 +58,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Abouts Companys</a>
+                <a class="nav-link" href="#">Abouts</a>
             </li>
         </ul>
         {{-- <form class="form-inline my-2 my-lg-0">
