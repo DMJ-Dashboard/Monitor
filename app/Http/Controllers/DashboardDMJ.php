@@ -97,11 +97,11 @@ class DashboardDMJ extends Controller
         $data['totalsaldostok'] = $arraysaldostok98 + $arraysaldostok99;
 
         $plucksaldostokall99['saldostokall98'] = Stokbulan::select(
-                DB::raw('SUM((stokbulan.Nm1+stokbulan.Nm2+stokbulan.Nm3)-(stokbulan.Nk1+stokbulan.Nk2+stokbulan.Nk3) + Nawal) AS Sisa_saldoall99')
-            )->join('barang', 'stokbulan.kdbrg', '=', 'barang.kdbrg')
+            DB::raw('SUM((stokbulan.Nm1+stokbulan.Nm2+stokbulan.Nm3)-(stokbulan.Nk1+stokbulan.Nk2+stokbulan.Nk3) + Nawal) AS Sisa_saldoall99')
+        )->join('barang', 'stokbulan.kdbrg', '=', 'barang.kdbrg')
             ->join('supplier', 'supplier.KdSupplier', '=', 'barang.KdSupplier')
             ->where('stokbulan.kdGudang', "99")
-            ->where('stokbulan.tahun','2022')
+            ->where('stokbulan.tahun', '2022')
             ->where('supplier.KdSupplier', '!=', "k21")
             ->where('supplier.KdSupplier', '!=', "k24")
             ->where('supplier.KdSupplier', '!=', "k30")
@@ -114,11 +114,11 @@ class DashboardDMJ extends Controller
             ->pluck('Sisa_saldoall99');
 
         $plucksaldostokall98['saldostokall98'] = Stokbulan::select(
-                DB::raw('SUM((stokbulan.Nm1+stokbulan.Nm2+stokbulan.Nm3)-(stokbulan.Nk1+stokbulan.Nk2+stokbulan.Nk3) + Nawal) AS Sisa_saldoall98')
-            )->join('barang', 'stokbulan.kdbrg', '=', 'barang.kdbrg')
+            DB::raw('SUM((stokbulan.Nm1+stokbulan.Nm2+stokbulan.Nm3)-(stokbulan.Nk1+stokbulan.Nk2+stokbulan.Nk3) + Nawal) AS Sisa_saldoall98')
+        )->join('barang', 'stokbulan.kdbrg', '=', 'barang.kdbrg')
             ->join('supplier', 'supplier.KdSupplier', '=', 'barang.KdSupplier')
             ->where('stokbulan.kdGudang', "98")
-            ->where('stokbulan.tahun','2022')
+            ->where('stokbulan.tahun', '2022')
             ->where('supplier.KdSupplier', '!=', "k21")
             ->where('supplier.KdSupplier', '!=', "k24")
             ->where('supplier.KdSupplier', '!=', "k30")
@@ -131,16 +131,16 @@ class DashboardDMJ extends Controller
             ->pluck('Sisa_saldoall98');
 
         $data['saldostokall'] = Stokbulan::select(
-                // DB::raw('supplier.KdSupplier'),
-                DB::raw('supplier.NamaSupplier'),
-                DB::raw('SUM(stokbulan.Nawal+0) AS Sadlo_awal'),
-                DB::raw('SUM(stokbulan.Nm1+stokbulan.Nm2+stokbulan.Nm3) AS Total_masuk'),
-                DB::raw('SUM(stokbulan.Nk1+stokbulan.Nk2+stokbulan.Nk3) AS Total_keluar'),
-                DB::raw('SUM((stokbulan.Nm1+stokbulan.Nm2+stokbulan.Nm3)-(stokbulan.Nk1+stokbulan.Nk2+stokbulan.Nk3) + Nawal) AS Sisa_saldoall')
-            )->join('barang', 'stokbulan.kdbrg', '=', 'barang.kdbrg')
+            // DB::raw('supplier.KdSupplier'),
+            DB::raw('supplier.NamaSupplier'),
+            DB::raw('SUM(stokbulan.Nawal+0) AS Sadlo_awal'),
+            DB::raw('SUM(stokbulan.Nm1+stokbulan.Nm2+stokbulan.Nm3) AS Total_masuk'),
+            DB::raw('SUM(stokbulan.Nk1+stokbulan.Nk2+stokbulan.Nk3) AS Total_keluar'),
+            DB::raw('SUM((stokbulan.Nm1+stokbulan.Nm2+stokbulan.Nm3)-(stokbulan.Nk1+stokbulan.Nk2+stokbulan.Nk3) + Nawal) AS Sisa_saldoall')
+        )->join('barang', 'stokbulan.kdbrg', '=', 'barang.kdbrg')
             ->join('supplier', 'supplier.KdSupplier', '=', 'barang.KdSupplier')
 
-            ->where('stokbulan.tahun','2022')
+            ->where('stokbulan.tahun', '2022')
             ->where('supplier.KdSupplier', '!=', "k21")
             ->where('supplier.KdSupplier', '!=', "k24")
             ->where('supplier.KdSupplier', '!=', "k30")
@@ -153,7 +153,7 @@ class DashboardDMJ extends Controller
             ->groupBy("supplier.NamaSupplier")
             ->get();
 
-// dd($plucksaldostokall99);
+        // dd($plucksaldostokall99);
 
         $bulan = Fakturjual::select(DB::raw("MONTHNAME(TglKirim) as bulan"))
             ->GroupBy(DB::raw("MONTHNAME(TglKirim)"))
@@ -364,6 +364,38 @@ class DashboardDMJ extends Controller
             )
             ->pluck('salesmans');
 
+        $data['deliverydata'] = Fakturjual::
+            // ->where("TglKirim", date('Y-m-d'))
+            where("TglKirim", "2022-12-19")
+            ->GroupBy(DB::raw("Nodraft"))
+            ->select(
+                DB::raw("Nodraft"),
+                DB::raw("Kdslm,Tgl,Tglkirim"),
+                DB::raw('(
+                    CASE
+                        WHEN Stat=6 THEN "Posting"
+                        WHEN Stat=4 THEN "Batal"
+                        WHEN Stat=7 THEN "Input Batal"
+                        WHEN Stat=2 THEN "Terkirim"
+                        WHEN Stat=10 THEN "Delivery"
+                    ELSE "UNKNOW"
+                    END) AS Status_Kirim')
+            )
+            ->get();
+            
+        $data['deliverydatakirim'] = Fakturjual::
+            // ->where("TglKirim", date('Y-m-d'))
+            where("TglKirim", "2022-12-19")
+            ->count();
+
+        $data['deliverydatbatal'] = Fakturjual::
+            // ->where("TglKirim", date('Y-m-d'))
+            where("TglKirim", "2022-12-19")
+            ->where("Stat", "4")
+            ->count();
+
+        // dd($deliverydata);
+
         $data['bullanfilterNname'] = Fakturjual::select(DB::raw("MONTHNAME(TglKirim) as bulan"))
             ->GroupBy(DB::raw("MONTHNAME(TglKirim)"))
             ->OrderBy(DB::raw("MONTH(TglKirim)"))
@@ -417,8 +449,8 @@ class DashboardDMJ extends Controller
 
         $data['sumpenjualandb22'] = Fakturjual::whereMonth("TglKirim", date('m'))
             ->whereYear("TglKirim", date('Y'))
-            ->where("stat",'!=', '4')
-            ->where("stat",'!=', '1')
+            ->where("stat", '!=', '4')
+            ->where("stat", '!=', '1')
             // ->orwhere("stat", '2')
             ->sum('Netto');
 
@@ -531,7 +563,7 @@ class DashboardDMJ extends Controller
         $totalkartustok = $arraystokm - $arraystokk;
 
 
-        return view('dashboarddmj.dmj', ['detikused' => $detikused, 'plucksaldostokall99'=>$plucksaldostokall99, 'totalkartustok' => $totalkartustok, 'bulan' => $bulan, 'callinput' => $callinput, 'salesoutsalesman' => $salesoutsalesman, 'sumsalesman' => $sumsalesman, 'nilaireturs' => $nilaireturs, 'nilai' => $nilai, 'pieprincipal' => $pieprincipal, 'pieprincipalkd' => $pieprincipalkd, 'sukses' => $sukses, 'gagal' => $gagal, 'salesmans' => $salesmans], $data);
+        return view('dashboarddmj.dmj', ['detikused' => $detikused, 'plucksaldostokall99' => $plucksaldostokall99, 'totalkartustok' => $totalkartustok, 'bulan' => $bulan, 'callinput' => $callinput, 'salesoutsalesman' => $salesoutsalesman, 'sumsalesman' => $sumsalesman, 'nilaireturs' => $nilaireturs, 'nilai' => $nilai, 'pieprincipal' => $pieprincipal, 'pieprincipalkd' => $pieprincipalkd, 'sukses' => $sukses, 'gagal' => $gagal, 'salesmans' => $salesmans], $data);
     }
 
     public function carimonthly(Request $request)
@@ -599,11 +631,11 @@ class DashboardDMJ extends Controller
         $data['totalsaldostok'] = $arraysaldostok98 + $arraysaldostok99;
 
         $plucksaldostokall99['saldostokall98'] = Stokbulan::select(
-                DB::raw('SUM((stokbulan.Nm1+stokbulan.Nm2+stokbulan.Nm3)-(stokbulan.Nk1+stokbulan.Nk2+stokbulan.Nk3) + Nawal) AS Sisa_saldoall99')
-            )->join('barang', 'stokbulan.kdbrg', '=', 'barang.kdbrg')
+            DB::raw('SUM((stokbulan.Nm1+stokbulan.Nm2+stokbulan.Nm3)-(stokbulan.Nk1+stokbulan.Nk2+stokbulan.Nk3) + Nawal) AS Sisa_saldoall99')
+        )->join('barang', 'stokbulan.kdbrg', '=', 'barang.kdbrg')
             ->join('supplier', 'supplier.KdSupplier', '=', 'barang.KdSupplier')
             ->where('stokbulan.kdGudang', "99")
-            ->where('stokbulan.tahun','2022')
+            ->where('stokbulan.tahun', '2022')
             ->where('supplier.KdSupplier', '!=', "k21")
             ->where('supplier.KdSupplier', '!=', "k24")
             ->where('supplier.KdSupplier', '!=', "k30")
@@ -616,11 +648,11 @@ class DashboardDMJ extends Controller
             ->pluck('Sisa_saldoall99');
 
         $plucksaldostokall98['saldostokall98'] = Stokbulan::select(
-                DB::raw('SUM((stokbulan.Nm1+stokbulan.Nm2+stokbulan.Nm3)-(stokbulan.Nk1+stokbulan.Nk2+stokbulan.Nk3) + Nawal) AS Sisa_saldoall98')
-            )->join('barang', 'stokbulan.kdbrg', '=', 'barang.kdbrg')
+            DB::raw('SUM((stokbulan.Nm1+stokbulan.Nm2+stokbulan.Nm3)-(stokbulan.Nk1+stokbulan.Nk2+stokbulan.Nk3) + Nawal) AS Sisa_saldoall98')
+        )->join('barang', 'stokbulan.kdbrg', '=', 'barang.kdbrg')
             ->join('supplier', 'supplier.KdSupplier', '=', 'barang.KdSupplier')
             ->where('stokbulan.kdGudang', "98")
-            ->where('stokbulan.tahun','2022')
+            ->where('stokbulan.tahun', '2022')
             ->where('supplier.KdSupplier', '!=', "k21")
             ->where('supplier.KdSupplier', '!=', "k24")
             ->where('supplier.KdSupplier', '!=', "k30")
@@ -633,16 +665,16 @@ class DashboardDMJ extends Controller
             ->pluck('Sisa_saldoall98');
 
         $data['saldostokall'] = Stokbulan::select(
-                // DB::raw('supplier.KdSupplier'),
-                DB::raw('supplier.NamaSupplier'),
-                DB::raw('SUM(stokbulan.Nawal+0) AS Sadlo_awal'),
-                DB::raw('SUM(stokbulan.Nm1+stokbulan.Nm2+stokbulan.Nm3) AS Total_masuk'),
-                DB::raw('SUM(stokbulan.Nk1+stokbulan.Nk2+stokbulan.Nk3) AS Total_keluar'),
-                DB::raw('SUM((stokbulan.Nm1+stokbulan.Nm2+stokbulan.Nm3)-(stokbulan.Nk1+stokbulan.Nk2+stokbulan.Nk3) + Nawal) AS Sisa_saldoall')
-            )->join('barang', 'stokbulan.kdbrg', '=', 'barang.kdbrg')
+            // DB::raw('supplier.KdSupplier'),
+            DB::raw('supplier.NamaSupplier'),
+            DB::raw('SUM(stokbulan.Nawal+0) AS Sadlo_awal'),
+            DB::raw('SUM(stokbulan.Nm1+stokbulan.Nm2+stokbulan.Nm3) AS Total_masuk'),
+            DB::raw('SUM(stokbulan.Nk1+stokbulan.Nk2+stokbulan.Nk3) AS Total_keluar'),
+            DB::raw('SUM((stokbulan.Nm1+stokbulan.Nm2+stokbulan.Nm3)-(stokbulan.Nk1+stokbulan.Nk2+stokbulan.Nk3) + Nawal) AS Sisa_saldoall')
+        )->join('barang', 'stokbulan.kdbrg', '=', 'barang.kdbrg')
             ->join('supplier', 'supplier.KdSupplier', '=', 'barang.KdSupplier')
 
-            ->where('stokbulan.tahun','2022')
+            ->where('stokbulan.tahun', '2022')
             ->where('supplier.KdSupplier', '!=', "k21")
             ->where('supplier.KdSupplier', '!=', "k24")
             ->where('supplier.KdSupplier', '!=', "k30")
@@ -654,7 +686,7 @@ class DashboardDMJ extends Controller
             ->orwhere('stokbulan.kdGudang', "98")
             ->groupBy("supplier.NamaSupplier")
             ->get();
-            
+
         $echodate23 = Carbon::parse($request->monthfilter)->month;
         // dd($echodate23);
 

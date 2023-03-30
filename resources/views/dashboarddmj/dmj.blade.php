@@ -61,20 +61,14 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 <a class="nav-link" href="#">Abouts</a>
             </li>
         </ul>
-        {{-- <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form> --}}
+
     </div>
 </nav>
 <div class="wrapper">
     <div class="content">
         <section id="analytics-cards-dmj">
             <div class="dashboard px-3 pt-3">
-                {{-- <center class="pb-2">
-                    <h5>DASHBOARD DISTRINDO MULTIJAYA</h5> <br>
-                </center> --}}
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-md">
                         <div class="card"
                             style="background-color: #324c5c !important; border: 0.2px rgba(255, 255, 255, 0.425);
@@ -82,7 +76,6 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             <div class="card-header"
                                 style="background-color: #2e5266 !important; border: 0.2px rgba(255, 255, 255, 0.329);">
                                 <h3 class="card-title">INFORMASI MONTHLY </h3>
-                                {{-- <a href="" class="btn btn-ouTline-info" data-bs-target="#modallog" data-bs-toggle="modal">FILTER</a> --}}
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-bs-target="#modalfilter"
                                         data-bs-toggle="modal">
@@ -282,9 +275,9 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-8">
+                    {{-- <div class="col-sm-12 col-md-8">
                         <div class="card" style="height: 775px; background-color: #29404d !important;">
                             <div class="card-header" style="background-color: #2e5266 !important;">
                                 <h3 class="card-title">
@@ -306,10 +299,6 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             <a class="nav-link" href="#revenue-chart" data-toggle="tab">
                                                 <b>Monthly Sales Out</b></a>
                                         </li>
-                                        {{-- <li class="nav-item">
-                                            <a class="nav-link" href="#sales-chart" data-toggle="tab"> <b> Delivery Monitoring</b>
-                                            </a>
-                                        </li> --}}
                                     </ul>
                                 </div>
                             </div>
@@ -387,7 +376,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-md-4">
                         <div class="info-box mb-3 bg-white">
                             <span class="info-box-icon text-success">
@@ -397,9 +386,9 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 </a>
                             </span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Delivery Daily</span>
+                                <span class="info-box-text">Delivery Daily ( Jadwal - Terkirim - Batal )</span>
                                 <span class="info-box-number">
-                                    {{-- Rp {{ number_format($totalsaldostok, 0, '.' . '.') }} --}}
+                                    <p class="text-success"> - {{$deliverydatakirim}} - {{$deliverydatbatal}}</p>
                                 </span>
                             </div>
                         </div>
@@ -526,14 +515,13 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                     <div class="col-md-3 col-sm-12">
                         <div class="col-md">
                             <ul class="chart-legend clearfix">
-                                @foreach ($sumshutangperprincipal as $datak)
-                                    @foreach ($supplier as $datas)
+                                {{-- @foreach ($deliverydata as $datak)
                                         @if ($datak->KdSupplier == $datas->KdSupplier)
                                             <li style="font-size: 12px">{{ $datak->KdSupplier }} :
                                                 {{ $datas->NamaSupplier }}</li>
                                         @endif
                                     @endforeach
-                                @endforeach
+                                @endforeach --}}
                             </ul>
                         </div>
                     </div>
@@ -542,21 +530,19 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                     <table class="table table-striped table-hover" id="datatables">
                         <thead>
                             <tr>
-                                <th>Nama Supplier</th>
-                                <th>S.Awal</th>
-                                <th>S.Masuk</th>
-                                <th>S.Keluar</th>
-                                <th>S.Akhir</th>
+                                <th>Draft</th>
+                                <th>Jadwal</th>
+                                <th>Tglkirim</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($saldostokall as $data)
+                            @foreach ($deliverydata as $data)
                                 <tr>
-                                    <td>{{ $data->NamaSupplier }}</td>
-                                    <td>Rp {{ number_format($data->Saldo_awal, 0, '.' . '.') }}</td>
-                                    <td>Rp {{ number_format($data->Total_masuk, 0, '.' . '.') }}</td>
-                                    <td>Rp {{ number_format($data->Total_keluar, 0, '.' . '.') }}</td>
-                                    <td>Rp {{ number_format($data->Sisa_saldoall, 0, '.' . '.') }}</td>
+                                    <td>{{ $data->Nodraft }}</td>
+                                    <td>{{ $data->Tgl }}</td>
+                                    <td>{{ $data->Tglkirim }}</td>
+                                    <td>{{ $data->Status_Kirim }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
