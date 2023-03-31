@@ -68,7 +68,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
     <div class="content">
         <section id="analytics-cards-dmj">
             <div class="dashboard px-3 pt-3">
-                {{-- <div class="row">
+                <div class="row">
                     <div class="col-md">
                         <div class="card"
                             style="background-color: #324c5c !important; border: 0.2px rgba(255, 255, 255, 0.425);
@@ -103,11 +103,11 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             </span>
                                             <div class="info-box-content">
                                                 <?php
-
+                                                
                                                 setlocale(LC_TIME, 'id_ID.utf8');
                                                 $hariIni = new DateTime();
                                                 $curent_bln = strftime('%B %Y');
-
+                                                
                                                 ?>
                                                 <span class="info-box-text">Faktur Penjualan </span>
                                                 <hr style="padding: 0 !important; margin: 0 !important;">
@@ -132,11 +132,11 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             </span>
                                             <div class="info-box-content">
                                                 <?php
-
+                                                
                                                 setlocale(LC_TIME, 'id_ID.utf8');
                                                 $hariIni = new DateTime();
                                                 $curent_bln = strftime('%B %Y');
-
+                                                
                                                 ?>
                                                 <span class="info-box-text">Retur Penjualan </span>
                                                 <hr style="padding: 0 !important; margin: 0 !important;">
@@ -161,11 +161,11 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             </span>
                                             <div class="info-box-content">
                                                 <?php
-
+                                                
                                                 setlocale(LC_TIME, 'id_ID.utf8');
                                                 $hariIni = new DateTime();
                                                 $curent_bln = strftime('%B %Y');
-
+                                                
                                                 ?>
                                                 <span class="info-box-text">Piutang </span>
                                                 <hr style="padding: 0 !important; margin: 0 !important;">
@@ -192,11 +192,11 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             </span>
                                             <div class="info-box-content">
                                                 <?php
-
+                                                
                                                 setlocale(LC_TIME, 'id_ID.utf8');
                                                 $hariIni = new DateTime();
                                                 $curent_bln = strftime('%B %Y');
-
+                                                
                                                 ?>
                                                 <span class="info-box-text">Hutang </span>
                                                 <hr style="padding: 0 !important; margin: 0 !important;">
@@ -275,9 +275,9 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
                 <div class="row">
-                    {{-- <div class="col-sm-12 col-md-8">
+                    <div class="col-sm-12 col-md-8">
                         <div class="card" style="height: 775px; background-color: #29404d !important;">
                             <div class="card-header" style="background-color: #2e5266 !important;">
                                 <h3 class="card-title">
@@ -376,19 +376,20 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 </div>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
                     <div class="col-md-4">
                         <div class="info-box mb-3 bg-white">
                             <span class="info-box-icon text-success">
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#modalsaldostok">
-                                    <i class="fa-solid fa-truck fa-beat-fade" style="--fa-secondary-color: #4b6eaa;"></i>
+                                    <i class="fa-solid fa-truck fa-beat-fade"
+                                        style="--fa-secondary-color: #4b6eaa;"></i>
                                     {{-- <i class="fa-solid fa-warehouse"></i> --}}
                                 </a>
                             </span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Delivery Daily ( Jadwal - Terkirim - Batal )</span>
                                 <span class="info-box-number">
-                                    <p class="text-success"> - {{$deliverydatakirim}} - {{$deliverydatbatal}}</p>
+                                    <p class="text-success"> {{ $deliverydraft }} - - {{ $deliverydatbatal }}</p>
                                 </span>
                             </div>
                         </div>
@@ -409,7 +410,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                         </div>
 
                         <div class="info-box mb-3 bg-white">
-                            <span class="info-box-icon text-warning"><i class="fa-solid fa-spin fa-arrows-rotate"></i></span>
+                            <span class="info-box-icon text-warning"><i
+                                    class="fa-solid fa-spin fa-arrows-rotate"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Monthly Retur Pembelian</span>
                                 <span class="info-box-number">
@@ -419,7 +421,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                         </div>
 
                         <div class="info-box mb-3 bg-white">
-                            <span class="info-box-icon text-info"><i class="fas fa-cloud-download-alt fa-bounce"></i></span>
+                            <span class="info-box-icon text-info"><i
+                                    class="fas fa-cloud-download-alt fa-bounce"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Total SO Daily</span>
                                 <span class="info-box-number" style="font-size: 1.3rem">
@@ -430,7 +433,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                         </div>
 
                         <div class="info-box mb-3 bg-white">
-                            <span class="info-box-icon text-red"><i class="fa-solid fa-circle-xmark fa-flip"></i></span>
+                            <span class="info-box-icon text-red"><i
+                                    class="fa-solid fa-circle-xmark fa-flip"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Monthly Faktur Batal</span>
                                 <span class="info-box-number">
@@ -533,6 +537,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 <th>Draft</th>
                                 <th>Jadwal</th>
                                 <th>Tglkirim</th>
+                                <th>Waktu Kirim</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -542,6 +547,16 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                     <td>{{ $data->Nodraft }}</td>
                                     <td>{{ $data->Tgl }}</td>
                                     <td>{{ $data->Tglkirim }}</td>
+
+                                    <td>
+                                        @if ($data->Waktu_kirim > 3)
+                                            <p class="" style="color: #ff0101 !important;">
+                                                {{ $data->Waktu_kirim }} Hari </p>
+                                        @else
+                                            <p class="" style="color: #000000 !important;">
+                                                {{ $data->Waktu_kirim }} Hari </p>
+                                        @endif
+                                    </td>
                                     <td>{{ $data->Status_Kirim }}</td>
                                 </tr>
                             @endforeach

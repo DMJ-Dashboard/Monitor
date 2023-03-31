@@ -18,10 +18,13 @@ use App\Models\StokKartu;
 use App\Models\Supplier;
 use App\Models\TargetSalesman;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 
 class DashboardDMJ extends Controller
 {
+
+
     public function createtarget(Request $request)
     {
         $targetsales = new TargetSalesman();
@@ -33,6 +36,7 @@ class DashboardDMJ extends Controller
     }
     public function dashboarddmj()
     {
+        $data = Cache::get('key');
 
         $saldostok99 = Stokbulan::join('barang', 'stokbulan.kdbrg', '=', 'barang.kdbrg')
             ->join('supplier', 'supplier.KdSupplier', '=', 'barang.KdSupplier')
@@ -364,33 +368,33 @@ class DashboardDMJ extends Controller
             )
             ->pluck('salesmans');
 
-        $data['deliverydata'] = Fakturjual::
-            // ->where("TglKirim", date('Y-m-d'))
-            where("TglKirim", "2022-12-19")
+        $data['deliverydata'] = Fakturjual::where("TglKirim", date('Y-m-d'))
             ->GroupBy(DB::raw("Nodraft"))
             ->select(
                 DB::raw("Nodraft"),
-                DB::raw("Kdslm,Tgl,Tglkirim"),
+                DB::raw("Kdslm,Tgl,Tglkirim, DATEDIFF(Tglkirim,Tgl) AS Waktu_kirim"),
                 DB::raw('(
                     CASE
                         WHEN Stat=6 THEN "Posting"
                         WHEN Stat=4 THEN "Batal"
                         WHEN Stat=7 THEN "Input Batal"
                         WHEN Stat=2 THEN "Terkirim"
-                        WHEN Stat=10 THEN "Delivery"
-                    ELSE "UNKNOW"
+                        WHEN Stat=10 THEN "Loading"
+                    ELSE "INPUT"
                     END) AS Status_Kirim')
             )
             ->get();
             
-        $data['deliverydatakirim'] = Fakturjual::
+        $data['deliverydraft'] = Fakturjual::
             // ->where("TglKirim", date('Y-m-d'))
-            where("TglKirim", "2022-12-19")
+            where("TglKirim", date('Y-m-d'))
+            ->select(DB::raw('DISTINCT Nodraft'))
             ->count();
 
         $data['deliverydatbatal'] = Fakturjual::
             // ->where("TglKirim", date('Y-m-d'))
-            where("TglKirim", "2022-12-19")
+            where("TglKirim", date('Y-m-d'))
+            ->GroupBy(DB::raw("Nodraft"))
             ->where("Stat", "4")
             ->count();
 
