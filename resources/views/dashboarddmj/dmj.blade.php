@@ -103,15 +103,15 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             </span>
                                             <div class="info-box-content">
                                                 <?php
-                                                
+
                                                 setlocale(LC_TIME, 'id_ID.utf8');
                                                 $hariIni = new DateTime();
                                                 $curent_bln = strftime('%B %Y');
-                                                
+
                                                 ?>
                                                 <span class="info-box-text">Faktur Penjualan </span>
                                                 <hr style="padding: 0 !important; margin: 0 !important;">
-                                                <span class="info-box-number"> Tatal {{ $penjaualndb22 }} Faktur
+                                                <span class="info-box-number"> Total {{ $penjaualndb22 }} Faktur
                                                     Jual</span>
                                                 <span class="info-box-number">
                                                     Penjualan Rp
@@ -132,11 +132,11 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             </span>
                                             <div class="info-box-content">
                                                 <?php
-                                                
+
                                                 setlocale(LC_TIME, 'id_ID.utf8');
                                                 $hariIni = new DateTime();
                                                 $curent_bln = strftime('%B %Y');
-                                                
+
                                                 ?>
                                                 <span class="info-box-text">Retur Penjualan </span>
                                                 <hr style="padding: 0 !important; margin: 0 !important;">
@@ -161,11 +161,11 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             </span>
                                             <div class="info-box-content">
                                                 <?php
-                                                
+
                                                 setlocale(LC_TIME, 'id_ID.utf8');
                                                 $hariIni = new DateTime();
                                                 $curent_bln = strftime('%B %Y');
-                                                
+
                                                 ?>
                                                 <span class="info-box-text">Piutang </span>
                                                 <hr style="padding: 0 !important; margin: 0 !important;">
@@ -192,11 +192,11 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             </span>
                                             <div class="info-box-content">
                                                 <?php
-                                                
+
                                                 setlocale(LC_TIME, 'id_ID.utf8');
                                                 $hariIni = new DateTime();
                                                 $curent_bln = strftime('%B %Y');
-                                                
+
                                                 ?>
                                                 <span class="info-box-text">Hutang </span>
                                                 <hr style="padding: 0 !important; margin: 0 !important;">
@@ -380,7 +380,10 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                     <div class="col-md-4">
                         <div class="info-box mb-3 bg-white">
                             <span class="info-box-icon text-success">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#modalsaldostok">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#modaldelivery
+
+
+                                ">
                                     <i class="fa-solid fa-truck fa-beat-fade"
                                         style="--fa-secondary-color: #4b6eaa;"></i>
                                     {{-- <i class="fa-solid fa-warehouse"></i> --}}
@@ -504,7 +507,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
     </div>
 </div>
 
-<div class="modal fade" id="modalsaldostok" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modaldelivery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -1273,7 +1276,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
 <script>
     const salessum = {!! json_encode($sumsalesman) !!}
     const salesoutman = {!! json_encode($salesoutsalesman) !!}
-    console.log(sales);
+    // console.log(sales);
     // const month = {!! json_encode($bulan) !!}
     // const pencapaian = {!! json_encode($nilai) !!}
     Highcharts.chart('containersum', {

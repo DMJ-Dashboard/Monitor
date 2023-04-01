@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-ini_set('max_execution_time', 240);
+ini_set('max_execution_time', 960);
 /*
 |--------------------------------------------------------------------------
 | Check If The Application Is Under Maintenance
