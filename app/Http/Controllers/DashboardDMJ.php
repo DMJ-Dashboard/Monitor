@@ -233,7 +233,7 @@ class DashboardDMJ extends Controller
                 DB::raw('COUNT(customer_log.status) AS suksescard'),
                 DB::raw('SEC_TO_TIME(SUM(TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(cekin))) AS used_time'),
                 // DB::raw('SUM(TIME_TO_SEC(cekout) - TIME_TO_SEC(cekin) AS used_sec'),
-                DB::raw('SUM(TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(cekin))/23600*100 AS used_sec'),
+                DB::raw('SUM(TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(cekin))/23400*100 AS used_sec'),
                 // DB::raw('SUM(TIME_TO_SEC(cekout) - TIME_TO_SEC(cekin))/18000*100 AS used_sec'),
                 DB::raw('SUM(customer_log.salesorder) AS penjualan')
             )
