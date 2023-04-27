@@ -91,7 +91,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             </div>
                             <div class="card-body" style="background-color: #243b47 !important;">
                                 <div class="row">
-                                    <div class="col-md-3 col-sm-6 col-12">
+                                    <div class="col-md-6 col-lg-3 col-sm-6 col-12">
                                         <div class="info-box shadow-lg"
                                             style="background-color: #29404d !important; border: 0.2px rgba(255, 255, 255, 0.329);
                                     border-style: solid;">
@@ -120,7 +120,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-6 col-12">
+                                    <div class="col-md-6 col-lg-3 col-sm-6 col-12">
                                         <div class="info-box shadow-lg"
                                             style="background-color: #29404d !important; border: 0.2px rgba(255, 255, 255, 0.329);
                                     border-style: solid;">
@@ -149,7 +149,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-6 col-12">
+                                    <div class="col-md-6 col-lg-3 col-sm-6 col-12">
                                         <div class="info-box shadow-lg"
                                             style="background-color: #29404d !important; border: 0.2px rgba(255, 255, 255, 0.329);
                                     border-style: solid;">
@@ -179,7 +179,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-6 col-12">
+                                    <div class="col-md-6 col-lg-3 col-sm-6 col-12">
                                         <div class="info-box shadow-lg"
                                             style="background-color: #29404d !important; border: 0.2px rgba(255, 255, 255, 0.329);
                                     border-style: solid;">
@@ -227,7 +227,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                         <center>
                                             <div class="row">
                                                 @foreach ($targets as $datas)
-                                                    <div id="kolom__jcust" class="col-sm-1 col-md-2 text-center mt-3">
+                                                    <div id="kolom__jcust" class="col-lg-2 col-sm-3 col-md-3 text-center mt-3">
                                                         @foreach ($countsales as $datac)
                                                             @if ($datac->Kdslm == $datas->salesmans->KdSlm)
                                                                 @if ($datac->csales >= $datas->jcust)
@@ -277,7 +277,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 col-md-8">
+                    <div class="col-sm-12 col-md-12 col-lg-9">
                         <div class="card" style="height: 775px; background-color: #29404d !important;">
                             <div class="card-header" style="background-color: #2e5266 !important;">
                                 <h3 class="card-title">
@@ -377,7 +377,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-12 col-lg-3">
                         <div class="info-box mb-3 bg-white">
                             <span class="info-box-icon text-success">
                                 <a href="#" data-bs-toggle="modal"
