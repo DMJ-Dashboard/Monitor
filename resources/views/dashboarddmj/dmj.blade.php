@@ -14,13 +14,17 @@
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
 <style>
-    @media only screen and (min-device-width: 620px) {
+    @media only screen and (min-device-width: 420px) {
         .kolom__jcust {
             font-size: 13px !important;
+            padding: 0px !important;
         }
     }
 
-
+    .kolom__jcust {
+        font-size: 13px !important;
+        padding: 0 !important;
+    }
 </style>
 
 <head>
@@ -222,7 +226,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <h6>
-                                            Penjualan Customer Monthly ( *Sales - Target* )
+                                            Sales AO Monthly (Sales - Target)
                                         </h6>
                                     </div>
                                     <div class="col-sm-6">
@@ -235,7 +239,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                         <center>
                                             <div class="row">
                                                 @foreach ($targets as $datas)
-                                                    <div id="kolom__jcust"
+                                                    <div id="kolom__jcust" style="padding: 0 !important;"
                                                         class="col-lg-2 col-sm-2 col-md-3 text-center mt-3">
                                                         @foreach ($countsales as $datac)
                                                             @if ($datac->Kdslm == $datas->salesmans->KdSlm)
@@ -247,7 +251,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         data-max="300">
                                                                     <div class="knob-label"
                                                                         style="padding-top: 1rem !important;">
-                                                                        *{{ $datas->salesmans->NmSlm }} -
+                                                                        {{ $datas->salesmans->NmSlm }} -
                                                                         {{ $datas->jcust }}
                                                                     </div>
                                                                 @elseif($datac->csales < '100')
@@ -258,7 +262,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         data-max="300">
                                                                     <div class="knob-label"
                                                                         style="padding-top: 1rem !important;">
-                                                                        *{{ $datas->salesmans->NmSlm }} -
+                                                                        {{ $datas->salesmans->NmSlm }} -
                                                                         {{ $datas->jcust }}
                                                                     </div>
                                                                 @elseif($datac->csales >= '100')
@@ -269,7 +273,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         data-max="300">
                                                                     <div class="knob-label"
                                                                         style="padding-top: 1rem !important;">
-                                                                        *{{ $datas->salesmans->NmSlm }} -
+                                                                        {{ $datas->salesmans->NmSlm }} -
                                                                         {{ $datas->jcust }}
                                                                     </div>
                                                                 @endif
@@ -286,7 +290,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 col-md-9 col-lg-9">
+                    <div class="col-sm-12 col-md-9 col-lg-12">
                         <div class="card" style="height: 775px; background-color: #29404d !important;">
                             <div class="card-header" style="background-color: #2e5266 !important;">
                                 <h3 class="card-title">
@@ -327,8 +331,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                             class="btn btn-outline-info float-right m-2 top-1"
                                                             style="
                                                         padding-top: 3;
-                                                        padding-bottom: 3;">Detail
-                                                            Log</button>
+                                                        padding-bottom: 3;">Detail</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -386,27 +389,27 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-lg-3">
-                        <div class="info-box mb-3 bg-white">
+                </div>
+                <div class="row">
+                    <div class="col-2"></div>
+                    {{-- <div class="col-sm-4 col-md-3 col-lg-3"> --}}
+                        <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
                             <span class="info-box-icon text-success">
                                 <a href="#" data-bs-toggle="modal"
-                                    data-bs-target="#modaldelivery
-
-
-                                ">
+                                    data-bs-target="#modaldelivery">
                                     <i class="fa-solid fa-truck fa-beat-fade"
                                         style="--fa-secondary-color: #4b6eaa;"></i>
                                     {{-- <i class="fa-solid fa-warehouse"></i> --}}
                                 </a>
                             </span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Delivery Daily ( Jadwal - Terkirim - Batal )</span>
+                                <span class="info-box-text">Delivery Daily </span>
                                 <span class="info-box-number">
                                     <p class="text-success"> {{ $deliverydraft }} - - {{ $deliverydatbatal }}</p>
                                 </span>
                             </div>
                         </div>
-                        <div class="info-box mb-3 bg-white">
+                        <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
                             <span class="info-box-icon text-success">
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#modalsaldostok">
                                     <i class="fa-solid fa-warehouse"></i>
@@ -421,8 +424,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             </div>
 
                         </div>
-
-                        <div class="info-box mb-3 bg-white">
+                        <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
                             <span class="info-box-icon text-warning"><i
                                     class="fa-solid fa-spin fa-arrows-rotate"></i></span>
                             <div class="info-box-content">
@@ -432,8 +434,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 </span>
                             </div>
                         </div>
-
-                        <div class="info-box mb-3 bg-white">
+                        <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
                             <span class="info-box-icon text-info"><i
                                     class="fas fa-cloud-download-alt fa-bounce"></i></span>
                             <div class="info-box-content">
@@ -444,8 +445,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             </div>
 
                         </div>
-
-                        <div class="info-box mb-3 bg-white">
+                        <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
                             <span class="info-box-icon text-red"><i
                                     class="fa-solid fa-circle-xmark fa-flip"></i></span>
                             <div class="info-box-content">
@@ -456,7 +456,9 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             </div>
 
                         </div>
-                    </div>
+                    <div class="col-1"></div>
+
+                    {{-- </div> --}}
                 </div>
             </div>
         </section>
