@@ -132,6 +132,22 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <title>DMJ DASHBOARD - 2022</title>
 </head>
+<?php
+$tgl = date('Y-m-d');
+
+$set_hari = date('D', strtotime($tgl));
+
+$nama_hari = [
+    'Sun' => 'Minggu',
+    'Mon' => 'Senin',
+    'Tue' => 'Selasa',
+    'Wed' => 'Rabu',
+    'Thu' => 'Kamis',
+    'Fri' => 'Jumat',
+    'Sat' => 'Sabtu',
+];
+$datename = $nama_hari[$set_hari];
+?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light px-5"
     style="background-color: #324c5c !important; border: 0.2px rgba(255, 255, 255, 0.425);
 border-style: solid; color:aliceblue !important;">
@@ -151,10 +167,10 @@ border-style: solid; color:aliceblue !important;">
                 </a>
                 <ul class="dropdown-menu"
                     style="background-color: #233945; border: 1px #75bd3f; color: white; border-style: solid;">
-                    <li><a class="dropdown-item" href="{{route('DMJBTA')}}">DMJ Batu Raja</a></li>
-                    <li><a class="dropdown-item" href="{{ route('DMJS')}}">DMJ Palembang</a></li>
-                    <li><a class="dropdown-item" href="{{ route('IKA')}}">IKA Palembang</a></li>
-                    <li><a class="dropdown-item" href="{{ route('IKABDG')}}">IKA Bandung</a></li>
+                    <li><a class="dropdown-item" href="{{ route('DMJBTA') }}">DMJ Batu Raja</a></li>
+                    <li><a class="dropdown-item" href="{{ route('DMJS') }}">DMJ Palembang</a></li>
+                    <li><a class="dropdown-item" href="{{ route('IKA') }}">IKA Palembang</a></li>
+                    <li><a class="dropdown-item" href="{{ route('IKABDG') }}">IKA Bandung</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
@@ -335,7 +351,7 @@ border-style: solid; color:aliceblue !important;">
                             <div class="card-header" style="background-color: #2e5266 !important;">
                                 <h3 class="card-title">
                                     <i class="fas fa-chart-pie mr-1"></i>
-                                    Perfomance
+                                    Perfomance 
                                 </h3>
                                 <div class="card-tools">
                                     <ul class="nav nav-pills ml-auto">
@@ -396,7 +412,8 @@ border-style: solid; color:aliceblue !important;">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card-body" style="color: rgb(157, 161, 172); text-align:center">
+                                            <div class="card-body"
+                                                style="color: rgb(157, 161, 172); text-align:center">
                                                 <h3 class="mt-3">EMPTY DATA!!</h3>
                                                 <div id="containercall" style="overflow: hidden; padding-top: 3em;">
                                                 </div>
@@ -427,7 +444,8 @@ border-style: solid; color:aliceblue !important;">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card-body" style="color: rgb(157, 161, 172); text-align:center">
+                                            <div class="card-body"
+                                                style="color: rgb(157, 161, 172); text-align:center">
                                                 <h3 class="mt-3">EMPTY DATA!!</h3>
                                                 <div id="containerareaspline"></div>
                                             </div>
@@ -553,14 +571,14 @@ border-style: solid; color:aliceblue !important;">
             name: 'Sales Out Salesman',
             data: salesoutIKA,
             zones: [{
-                    value: 150000000,
-                    color: '#f1014a'
-                }, {
-                    value: 250000000,
-                    color: '#ff8f1c'
-                }, {
-                    color: '#7ccc6c'
-                }]
+                value: 150000000,
+                color: '#f1014a'
+            }, {
+                value: 250000000,
+                color: '#ff8f1c'
+            }, {
+                color: '#7ccc6c'
+            }]
         }]
     });
 </script>
@@ -603,4 +621,3 @@ border-style: solid; color:aliceblue !important;">
         }]
     });
 </script>
-

@@ -221,6 +221,7 @@ class DashboardDMJ extends Controller
 
 
         $data['custlogs2'] = Customerlog::join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
+            // ->join('somobileheader', 'customer_log.kdslm', '=', 'somobileheader.kdslm')
             ->where('customer_log.tgl', date('Y-m-d'))
             ->where('customer_log.cekin', '!=', NULL)
             ->where('customer_log.kdslm', '!=', "")
@@ -235,7 +236,9 @@ class DashboardDMJ extends Controller
                 // DB::raw('SUM(TIME_TO_SEC(cekout) - TIME_TO_SEC(cekin) AS used_sec'),
                 DB::raw('SUM(TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(cekin))/23400*100 AS used_sec'),
                 // DB::raw('SUM(TIME_TO_SEC(cekout) - TIME_TO_SEC(cekin))/18000*100 AS used_sec'),
-                DB::raw('SUM(customer_log.salesorder) AS penjualan')
+                DB::raw('SUM(customer_log.salesorder) AS penjualan'),
+                // DB::raw('SUM(somobileheader.netto) AS nettoSO'),
+                // DB::raw('COUNT(somobileheader.netto) AS ecSO'),
             )
             ->get();
 
@@ -389,6 +392,7 @@ class DashboardDMJ extends Controller
                         WHEN kdslm = 23 THEN "IRAWAN"
                         WHEN kdslm = 44 THEN "EVA LUSITA"
                         WHEN kdslm = 72 THEN "UMAR"
+                        WHEN kdslm = 60 THEN "FENNY TIMOTIUS"
                     ELSE "UNKNOW"
                     END) AS salesmans')
             )
@@ -474,7 +478,8 @@ class DashboardDMJ extends Controller
         $data['penjaualndb22'] = Fakturjual::whereMonth("TglKirim", date('m'))
             ->whereYear("TglKirim", date('Y'))
             // ->where("stat", '6')
-            ->where("stat", '2')
+            ->where("stat", '!=', '4')
+            ->where("stat", '!=', '1')
             ->count();
 
         $data['sumpenjualandb22'] = Fakturjual::whereMonth("TglKirim", date('m'))
@@ -601,11 +606,11 @@ class DashboardDMJ extends Controller
     public function carimonthly(Request $request)
     {
         $data['deliverydata'] = Fakturjual::where("TglKirim", date('Y-m-d'))
-        ->GroupBy(DB::raw("Nodraft"))
-        ->select(
-            DB::raw("Nodraft"),
-            DB::raw("Kdslm,Tgl,Tglkirim, DATEDIFF(Tglkirim,Tgl) AS Waktu_kirim"),
-            DB::raw('(
+            ->GroupBy(DB::raw("Nodraft"))
+            ->select(
+                DB::raw("Nodraft"),
+                DB::raw("Kdslm,Tgl,Tglkirim, DATEDIFF(Tglkirim,Tgl) AS Waktu_kirim"),
+                DB::raw('(
                 CASE
                     WHEN Stat=6 THEN "Posting"
                     WHEN Stat=4 THEN "Batal"
@@ -614,11 +619,11 @@ class DashboardDMJ extends Controller
                     WHEN Stat=10 THEN "Loading"
                 ELSE "INPUT"
                 END) AS Status_Kirim')
-        )
-        ->get();
+            )
+            ->get();
 
         $data['deliverydraft'] = Fakturjual::
-        // ->where("TglKirim", date('Y-m-d'))
+            // ->where("TglKirim", date('Y-m-d'))
             where("TglKirim", date('Y-m-d'))
             ->select(DB::raw('DISTINCT Nodraft'))
             ->count();

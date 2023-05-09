@@ -13,11 +13,19 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
+<style>
+    @media only screen and (min-device-width: 620px) {
+        .kolom__jcust {
+            font-size: 13px !important;
+        }
+    }
 
+
+</style>
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="refresh" content="900; url=/dashboard_DMJ">
+    <meta http-equiv="refresh" content="1500; url=/dashboard_DMJ">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ asset('/dmj/dist/css/style.css') }}">
@@ -227,7 +235,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                         <center>
                                             <div class="row">
                                                 @foreach ($targets as $datas)
-                                                    <div id="kolom__jcust" class="col-lg-2 col-sm-3 col-md-3 text-center mt-3">
+                                                    <div id="kolom__jcust"
+                                                        class="col-lg-2 col-sm-2 col-md-3 text-center mt-3">
                                                         @foreach ($countsales as $datac)
                                                             @if ($datac->Kdslm == $datas->salesmans->KdSlm)
                                                                 @if ($datac->csales >= $datas->jcust)
@@ -241,7 +250,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         *{{ $datas->salesmans->NmSlm }} -
                                                                         {{ $datas->jcust }}
                                                                     </div>
-                                                                @elseif($datac->csales <= '100')
+                                                                @elseif($datac->csales < '100')
                                                                     <input data-readonly="true" type="text"
                                                                         class="knob" value="{{ $datac->csales }}"
                                                                         data-width="90" data-height="90"
@@ -252,7 +261,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         *{{ $datas->salesmans->NmSlm }} -
                                                                         {{ $datas->jcust }}
                                                                     </div>
-                                                                @elseif($datac->csales > '100')
+                                                                @elseif($datac->csales >= '100')
                                                                     <input data-readonly="true" type="text"
                                                                         class="knob" value="{{ $datac->csales }}"
                                                                         data-width="90" data-height="90"
@@ -277,7 +286,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-9">
+                    <div class="col-sm-12 col-md-9 col-lg-9">
                         <div class="card" style="height: 775px; background-color: #29404d !important;">
                             <div class="card-header" style="background-color: #2e5266 !important;">
                                 <h3 class="card-title">
@@ -377,7 +386,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 col-lg-3">
+                    <div class="col-md-3 col-lg-3">
                         <div class="info-box mb-3 bg-white">
                             <span class="info-box-icon text-success">
                                 <a href="#" data-bs-toggle="modal"
@@ -694,7 +703,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                     <div class="" style="font-weight: 550; cursor: pointer;">
                                                         <i class="fas fa-user mr-4 ml-1"
                                                             style="color: #3cd2a5 !important;"></i>Total Call :
-                                                        {{ $data->callinputcard }} /
+                                                        {{ $data->callinputcard }} / {{ $data->ecSO }}
                                                     </div>
                                                 </div>
                                                 <div class="grid-container1">
@@ -754,9 +763,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                             @elseif ($data->used_sec >= '100')
                                                                 <input data-skin="tron" data-thickness="0.2"
                                                                     data-readonly="true" type="text"
-                                                                    class="knob"
-                                                                    type="text"
-                                                                    value="100%"
+                                                                    class="knob" type="text" value="100%"
                                                                     data-width="120" data-height="120"
                                                                     data-fgColor="#3cd2a5" data-min="0"
                                                                     data-max="100">
@@ -767,8 +774,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                             @else
                                                                 <input data-skin="tron" data-thickness="0.2"
                                                                     data-readonly="true" type="text"
-                                                                    class="knob"
-                                                                    type="text"
+                                                                    class="knob" type="text"
                                                                     value="{{ number_format($data->used_sec) }}%"
                                                                     data-width="120" data-height="120"
                                                                     data-fgColor="#3cd2a5" data-min="0"
