@@ -5,18 +5,116 @@ namespace App\Http\Controllers;
 use App\Models\DashboardIKAJ;
 use App\Models\HutangIKA;
 use App\Models\PiutangIKA;
+use App\Models\PjpPersonildetailIKAJ;
+use App\Models\PjpPersonilheaderIKAJ;
 use App\Models\ReturbeliIKA;
 use App\Models\ReturjualIKA;
 use App\Models\SOheaderIKA;
 use App\Models\StokbulanIKA;
 use App\Models\StokkartuIKA;
+use App\Models\TagihanMobileDetail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class DashboardIKAController extends Controller
 {
+    public function show($nobukti)
+    {
+        $hari = date('l');
+        /*$new = date('l, F d, Y', strtotime($Today));*/
+        if ($hari == "Sunday") {
+            $hariindo = "Minggu";
+        } elseif ($hari == "Monday") {
+            $hariindo = "SENIN";
+        } elseif ($hari == "Tuesday") {
+            $hariindo = "SELASA";
+        } elseif ($hari == "Wednesday") {
+            $hariindo = "RABU";
+        } elseif ($hari == "Thursday") {
+            $hariindo = "KAMIS";
+        } elseif ($hari == "Friday") {
+            $hariindo = "JUMAT";
+        } elseif ($hari == "Saturday") {
+            $hariindo = "SABTU";
+        }
+        $mingguke = PjpPersonildetailIKAJ::whereYear("pjppersonildetail.lastmodified", date('Y'))
+            ->select(
+                DB::raw("DISTINCT FLOOR((DAYOFMONTH(CURDATE())-1 + WEEKDAY(CONCAT(YEAR(CURDATE()),'-',MONTH(CURDATE()),'-01')))/7) + 1 AS minggukebrp")
+            )
+            ->get();
+
+        $data['salesmanpjpname'] = PjpPersonildetailIKAJ::where('nobukti', $nobukti)
+            ->join('salesman', 'salesman.kdslm', '=', 'pjppersonildetail.kdslm')
+            ->GroupBy('salesman.kdslm')
+            ->select(
+                DB::raw("salesman.NmSlm"),
+            )
+            ->get();
+
+        // $data['showpjp'] = PjpPersonildetailIKAJ::where('nobukti', $nobukti)->get();
+
+        $showpjppersonildetail = PjpPersonildetailIKAJ::where('pjppersonildetail.nobukti', $nobukti)
+            ->join('salesman', 'salesman.kdslm', '=', 'pjppersonildetail.kdslm')
+            ->join('customer', 'customer.Custno', '=', 'pjppersonildetail.Custno')
+            ->join('tagihanmobileheader', 'tagihanmobileheader.kdslm', '=', 'pjppersonildetail.kdslm')
+            ->join('tagihanmobiledetail', 'tagihanmobiledetail.nobukti', '=', 'tagihanmobileheader.nobukti')
+            // ->join('tagihanmobileheader', 'tagihanmobiledetail.nobukti', '=', 'tagihanmobileheader.nobukti')
+            // ->whereYear("pjppersonildetail.lastmodified", date('Y'))
+            ->where('pjppersonildetail.cabang', "20")
+            ->where('pjppersonildetail.hari', $hariindo)
+            ->select(
+                DB::raw("pjppersonildetail.M1"),
+                DB::raw("pjppersonildetail.M2"),
+                DB::raw("pjppersonildetail.M3"),
+                DB::raw("pjppersonildetail.M4"),
+                DB::raw("pjppersonildetail.M5"),
+                DB::raw("pjppersonildetail.hari as haripjp"),
+                DB::raw("pjppersonildetail.nobukti as NoOfPJPd"),
+                DB::raw("salesman.Nmslm as NamaSalesOfPJPd"),
+                DB::raw("salesman.Kdslm"),
+                DB::raw("customer.Custno as CustnoOfPJPd"),
+                DB::raw("customer.Alamat1"),
+                DB::raw("customer.CustName as NamaCustOfPJPd"),
+                DB::raw("SUM(tagihanmobiledetail.netto) as NilaiTagihan"),
+                DB::raw("SUM(tagihanmobiledetail.nilaibayar)"),
+                DB::raw("SUM(tagihanmobiledetail.netto)-SUM(tagihanmobiledetail.nilaibayar) AS sisa"),
+                DB::raw("FLOOR((DAYOFMONTH(CURDATE())-1 + WEEKDAY(CONCAT(YEAR(CURDATE()),'-',MONTH(CURDATE()),'-01')))/7) + 1 AS weeks_of_monthd")
+            )
+            ->groupBy('pjppersonildetail.custno')
+            ->get();
+        // dd($showpjppersonildetail[0]['Kdslm']);
+
+        $tagihandetail = TagihanMobileDetail::where('tagihanmobileheader.tgl', date('Y-m-d'))
+            ->where('tagihanmobileheader.kdslm', $showpjppersonildetail[0]['Kdslm'])
+            ->join('tagihanmobileheader', 'tagihanmobileheader.nobukti', '=', 'tagihanmobiledetail.nobukti')
+            ->select(
+                DB::raw("tagihanmobileheader.kdslm"),
+                DB::raw("tagihanmobileheader.tgl"),
+                DB::raw("tagihanmobiledetail.custno"),
+                DB::raw("tagihanmobiledetail.nobukti"),
+                DB::raw("SUM(tagihanmobiledetail.netto)"),
+                DB::raw("SUM(tagihanmobiledetail.nilaibayar)"),
+                DB::raw("SUM(tagihanmobiledetail.netto)-SUM(tagihanmobiledetail.nilaibayar) AS sisa"),
+            )
+            ->groupBy('tagihanmobiledetail.custno')
+            ->orderBy('tagihanmobileheader.kdslm')
+            ->get();
+
+        dd($tagihandetail);
+        return view("dashboarddmj.showpjp", ['mingguke' => $mingguke, 'showpjppersonildetail' => $showpjppersonildetail, 'tagihandetail' => $tagihandetail], $data);
+    }
     public function dashboardika()
     {
+        $data['pjppersonilheader'] = PjpPersonilheaderIKAJ::join('salesman', 'salesman.kdslm', '=', 'pjppersonilheader.kdslm')
+            ->where("salesman.stat", "1")
+            // ->whereYear("pjppersonilheader.lastmodified", date('Y'))
+            ->groupBy(DB::raw("salesman.kdslm"))
+            ->select(
+                DB::raw("pjppersonilheader.nobukti as NoOfPJPh"),
+                DB::raw("salesman.Nmslm as NamaSalesOfPJPh"),
+                DB::raw("pjppersonilheader.lastmodified"),
+                DB::raw("FLOOR((DAYOFMONTH(CURDATE())-1 + WEEKDAY(CONCAT(YEAR(CURDATE()),'-',MONTH(CURDATE()),'-01')))/7) + 1 AS weeks_of_monthh")
+            )->get();
 
         $data['penjaualndb22'] = DashboardIKAJ::whereMonth("TglKirim", date('m'))
             ->whereYear("TglKirim", date('Y'))

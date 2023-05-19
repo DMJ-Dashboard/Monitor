@@ -28,6 +28,7 @@ Route::controller(DashboardDMJ::class)->group(function () {
 });
 Route::controller(DashboardIKAController::class)->group(function () {
     Route::get('/dashboard_IKA', 'dashboardika')->name('IKA');
+    Route::get('/showpjp_IKA/{nobukti}', 'show')->name('showpjp');
 });
 Route::controller(DashboardIKABDGController::class)->group(function () {
     Route::get('/dashboard_IKABDG', 'dashboardikabdg')->name('IKABDG');

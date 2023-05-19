@@ -484,6 +484,41 @@ border-style: solid; color:aliceblue !important;">
                 </div>
             </div>
         </section>
+        <div class="table-responsive">
+            <h4></h4>
+            <table class="table table-hover" id="datatable" style="color: rgb(255, 255, 255)">
+                <thead>
+                    <tr>
+                        <th>Kode PJP</th>
+                        <th>Salesman</th>
+                        <th>Last Modified</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($pjppersonilheader as $item1)
+                        {{-- @foreach ($pjppersonildetail as $item2) --}}
+                            {{-- @if ($item2->NamaSalesOfPJP == $item1->NamaSalesOfPJPh) --}}
+                                <tr>
+                                    <td>{{ $item1->NoOfPJPh }}</td>
+                                    <td>{{ $item1->NamaSalesOfPJPh }}</td>
+                                    <td>{{ $item1->lastmodified }}</td>
+                                    <td>
+                                        <a href="{{ route('showpjp', $item1->NoOfPJPh) }}"
+                                            class="btn btn-info">
+                                            SHOW DETAIL
+                                            {{-- <i class="fa fa-edit fa-lg text-black"></i> --}}
+                                        </a>
+                                    </td>
+                                </tr>
+                            {{-- @endif --}}
+                        {{-- @endforeach --}}
+                    @endforeach
+
+                </tbody>
+            </table>
+
+        </div>
     </div>
 </div>
 
