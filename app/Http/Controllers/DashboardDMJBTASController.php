@@ -16,8 +16,40 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardDMJBTASController extends Controller
 {
+
+
     public function dashboarddmjbta()
     {
+        
+
+        $hari = date('l');
+        if ($hari=="Sunday") {
+            echo "Minggu, ";
+            $hariindo="Minggu";
+        }elseif ($hari=="Monday") {
+            echo "Senin, ";
+            $hariindo="SENIN";
+        }elseif ($hari=="Tuesday") {
+            echo "Selasa, ";
+            $hariindo="SELASA";
+        }elseif ($hari=="Wednesday") {
+            echo "Rabu, ";
+            $hariindo="RABU";
+        }elseif ($hari=="Thursday") {
+            echo("Kamis, ");
+            $hariindo="KAMIS";
+        }elseif ($hari=="Friday") {
+            echo "Jum'at, ";
+            $hariindo="JUMAT";
+        }elseif ($hari=="Saturday") {
+            echo "Sabtu, ";
+            $hariindo="SABTU";
+        }
+
+        // dd($hariindo);
+        $weekofmonth = DB::select("select FLOOR((DAYOFMONTH(CURDATE())-1 + WEEKDAY(CONCAT(YEAR(CURDATE()),'-',MONTH(CURDATE()),'-01')))/7) + 1 AS weeks_of_month");
+        // $dayofweek = DB::select("select DAYOFWEEK(CURDATE()-1) as day_of_week");
+        // dd($weekofmonth);
 
         $data['penjaualndb22'] = DashboardBTAJ::whereMonth("TglKirim", date('m'))
             ->whereYear("TglKirim", date('Y'))

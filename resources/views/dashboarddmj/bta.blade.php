@@ -351,7 +351,7 @@ border-style: solid; color:aliceblue !important;">
                             <div class="card-header" style="background-color: #2e5266 !important;">
                                 <h3 class="card-title">
                                     <i class="fas fa-chart-pie mr-1"></i>
-                                    Perfomance 
+                                    Perfomance
                                 </h3>
                                 <div class="card-tools">
                                     <ul class="nav nav-pills ml-auto">
@@ -501,8 +501,31 @@ border-style: solid; color:aliceblue !important;">
                     </div>
                 </div>
             </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th>Supplier</th>
+                                    <th>Netto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{-- @foreach ($sumshutangperprincipal as $data)
+                                            <tr>
+                                                <td>{{ $data->KdSupplier }}</td>
+                                                <td>Rp {{ number_format($data->sumprincipal, 0, '.' . '.') }}</td>
+                                            </tr>
+                                        @endforeach --}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
         </section>
     </div>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"></script>
