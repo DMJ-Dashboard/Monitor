@@ -15,6 +15,7 @@ use App\Models\StokkartuIKA;
 use App\Models\TagihanMobileDetail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Foreach_;
 
 class DashboardIKAController extends Controller
 {
@@ -55,7 +56,7 @@ class DashboardIKAController extends Controller
 
         $showpjppersonildetail = PjpPersonildetailIKAJ::where('pjppersonildetail.nobukti', $nobukti)
             ->join('salesman', 'salesman.kdslm', '=', 'pjppersonildetail.kdslm')
-            ->join('customer', 'customer.Custno', '=', 'pjppersonildetail.Custno')
+            ->join('customer', 'customer.Custno', '=', 'pjppersonildetail.Custno1')
             ->join('tagihanmobileheader', 'tagihanmobileheader.kdslm', '=', 'pjppersonildetail.kdslm')
             ->join('tagihanmobiledetail', 'tagihanmobiledetail.nobukti', '=', 'tagihanmobileheader.nobukti')
             // ->join('tagihanmobileheader', 'tagihanmobiledetail.nobukti', '=', 'tagihanmobileheader.nobukti')
@@ -75,12 +76,12 @@ class DashboardIKAController extends Controller
                 DB::raw("customer.Custno as CustnoOfPJPd"),
                 DB::raw("customer.Alamat1"),
                 DB::raw("customer.CustName as NamaCustOfPJPd"),
-                DB::raw("SUM(tagihanmobiledetail.netto) as NilaiTagihan"),
-                DB::raw("SUM(tagihanmobiledetail.nilaibayar)"),
-                DB::raw("SUM(tagihanmobiledetail.netto)-SUM(tagihanmobiledetail.nilaibayar) AS sisa"),
+                // DB::raw("SUM(tagihanmobiledetail.netto) as NilaiTagihan"),
+                // DB::raw("SUM(tagihanmobiledetail.nilaibayar)"),
+                // DB::raw("SUM(tagihanmobiledetail.netto)-SUM(tagihanmobiledetail.nilaibayar) AS sisa"),
                 DB::raw("FLOOR((DAYOFMONTH(CURDATE())-1 + WEEKDAY(CONCAT(YEAR(CURDATE()),'-',MONTH(CURDATE()),'-01')))/7) + 1 AS weeks_of_monthd")
             )
-            ->groupBy('pjppersonildetail.custno')
+            ->groupBy('pjppersonildetail.custno1')
             ->get();
         // dd($showpjppersonildetail[0]['Kdslm']);
 
@@ -92,15 +93,17 @@ class DashboardIKAController extends Controller
                 DB::raw("tagihanmobileheader.tgl"),
                 DB::raw("tagihanmobiledetail.custno"),
                 DB::raw("tagihanmobiledetail.nobukti"),
-                DB::raw("SUM(tagihanmobiledetail.netto)"),
-                DB::raw("SUM(tagihanmobiledetail.nilaibayar)"),
+                DB::raw("SUM(tagihanmobiledetail.netto) as NilaiTagihan"),
+                DB::raw("SUM(tagihanmobiledetail.nilaibayar) as Bayaran"),
                 DB::raw("SUM(tagihanmobiledetail.netto)-SUM(tagihanmobiledetail.nilaibayar) AS sisa"),
             )
             ->groupBy('tagihanmobiledetail.custno')
             ->orderBy('tagihanmobileheader.kdslm')
             ->get();
+            foreach ($tagihandetail as $value) {
 
-        dd($tagihandetail);
+            }
+        // dd($tagihandetail );
         return view("dashboarddmj.showpjp", ['mingguke' => $mingguke, 'showpjppersonildetail' => $showpjppersonildetail, 'tagihandetail' => $tagihandetail], $data);
     }
     public function dashboardika()

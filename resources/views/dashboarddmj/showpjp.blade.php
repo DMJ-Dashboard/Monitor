@@ -223,63 +223,66 @@
 
                         ?>
                         {{-- @foreach ($tagihandetail as $item2) --}}
-                        @foreach ($showpjppersonildetail as $item1)
-                            @if ($item1->weeks_of_monthd == '1')
-                                @if ($item1->M1 == '1')
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $item1->CustnoOfPJPd }}</td>
-                                        <td>{{ $item1->NamaCustOfPJPd }}</td>
-                                        <td>{{ $item1->Alamat1 }}</td>
-                                    </tr>
+                            @foreach ($showpjppersonildetail as $item1)
+                                @if ($item1->weeks_of_monthd == '1')
+                                    @if ($item1->M1 == '1')
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $item1->CustnoOfPJPd }}</td>
+                                            <td>{{ $item1->NamaCustOfPJPd }}</td>
+                                            <td>{{ $item1->Alamat1 }}</td>
+                                        </tr>
+                                    @endif
                                 @endif
-                            @endif
-                            @if ($item1->weeks_of_monthd == '2')
-                                @if ($item1->M2 == '1')
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $item1->CustnoOfPJPd }}</td>
-                                        <td>{{ $item1->NamaCustOfPJPd }}</td>
-                                        <td>{{ $item1->Alamat1 }}</td>
-                                    </tr>
+                                @if ($item1->weeks_of_monthd == '2')
+                                    @if ($item1->M2 == '1')
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $item1->CustnoOfPJPd }}</td>
+                                            <td>{{ $item1->NamaCustOfPJPd }}</td>
+                                            <td>{{ $item1->Alamat1 }}</td>
+                                        </tr>
+                                    @endif
                                 @endif
-                            @endif
-                            @if ($item1->weeks_of_monthd == '3')
-                                @if ($item1->M3 == '1')
-                                    {{-- @if ($item2->M3 == '1') --}}
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $item1->CustnoOfPJPd }}</td>
-                                        <td>{{ $item1->NamaCustOfPJPd }}</td>
-                                        <td>{{ $item1->Alamat1 }}</td>
-                                        <td>{{ $item1->NilaiTagihan }}</td>
-                                        <td>{{ $item1->nilaibayar }}</td>
-                                        <td>{{ $item1->sisa }}</td>
-                                    </tr>
-                                    {{-- @endif --}}
+                                @if ($item1->weeks_of_monthd == '3')
+                                    @if ($item1->M3 == '1')
+                                        {{-- @if ($item2->M3 == '1') --}}
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $item1->CustnoOfPJPd }}</td>
+                                            <td>{{ $item1->NamaCustOfPJPd }}</td>
+                                            <td>{{ $item1->Alamat1 }}</td>
+                                            {{-- @if ($item2->custno == $item1->CustnoOfPJPd) --}}
+                                                {{-- <td>{{ $tagihandetail[0]['NilaiTagihan'] }}</td> --}}
+                                                {{-- <td>{{ $item2->NilaiTagihan}}</td> --}}
+                                                {{-- <td>{{ $item2->Bayaran }}</td> --}}
+                                                {{-- <td>{{ $item2->sisa }}</td> --}}
+                                            {{-- @endif --}}
+                                        </tr>
+                                        {{-- @endif --}}
+                                    @endif
                                 @endif
-                            @endif
-                            @if ($item1->weeks_of_monthd == '4')
-                                @if ($item1->M4 == '1')
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $item1->CustnoOfPJPd }}</td>
-                                        <td>{{ $item1->NamaCustOfPJPd }}</td>
-                                        <td>{{ $item1->Alamat1 }}</td>
-                                    </tr>
+                                @if ($item1->weeks_of_monthd == '4')
+                                    @if ($item1->M4 == '1')
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $item1->CustnoOfPJPd }}</td>
+                                            <td>{{ $item1->NamaCustOfPJPd }}</td>
+                                            <td>{{ $item1->Alamat1 }}</td>
+                                        </tr>
+                                    @endif
                                 @endif
-                            @endif
-                            @if ($item1->weeks_of_monthd == '5')
-                                @if ($item1->M5 == '1')
-                                    <tr>
-                                        <td>{{ $mp++ }}</td>
-                                        <td>{{ $item1->CustnoOfPJPd }}</td>
-                                        <td>{{ $item1->NamaCustOfPJPd }}</td>
-                                        <td>{{ $item1->Alamat1 }}</td>
-                                    </tr>
+                                @if ($item1->weeks_of_monthd == '5')
+                                    @if ($item1->M5 == '1')
+                                        <tr>
+                                            <td>{{ $mp++ }}</td>
+                                            <td>{{ $item1->CustnoOfPJPd }}</td>
+                                            <td>{{ $item1->NamaCustOfPJPd }}</td>
+                                            <td>{{ $item1->Alamat1 }}</td>
+                                        </tr>
+                                    @endif
                                 @endif
-                            @endif
-                        @endforeach
+                            @endforeach
                         {{-- @endforeach --}}
                     </tbody>
                 </table>
