@@ -501,7 +501,7 @@ border-style: solid; color:aliceblue !important;">
                             {{-- @if ($item2->NamaSalesOfPJP == $item1->NamaSalesOfPJPh) --}}
                                 <tr>
                                     <td>{{ $item1->NoOfPJPh }}</td>
-                                    <td>{{ $item1->NamaSalesOfPJPh }}</td>
+                                    <td>{{ $item1->NamaSalesOfPJPh }} ({{$item1->Kdslm}})</td>
                                     <td>{{ $item1->lastmodified }}</td>
                                     <td>
                                         <a href="{{ route('showpjp', $item1->NoOfPJPh) }}"

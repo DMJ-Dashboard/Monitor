@@ -223,17 +223,21 @@ class DashboardDMJ extends Controller
         $data['custlogs2'] = Customerlog::join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
             // ->join('somobileheader', 'customer_log.kdslm', '=', 'somobileheader.kdslm')
             ->where('customer_log.tgl', date('Y-m-d'))
+            // ->where('somobileheader.tgl', date('Y-m-d'))
             ->where('customer_log.cekin', '!=', NULL)
             ->where('customer_log.kdslm', '!=', "")
+            // ->where("somobileheader.kdslm","=", "customer_log.kdslm")
             ->orderBy(DB::raw("salesman.kdslm"))
             ->groupBy(DB::raw("salesman.NmSlm"))
             ->select(
                 DB::raw('salesman.NmSlm as salesmans'),
                 DB::raw('MIN(customer_log.cekin) AS firstcekin'),
                 DB::raw('COUNT(customer_log.cekin) AS callinputcard'),
-                DB::raw('COUNT(customer_log.status) AS suksescard'),
+                // DB::raw('COUNT(customer_log.statusorder) AS suksescard'),
+                // DB::raw('COUNT(CASE WHEN customer_log.statusorder = "sukses" THEN 1 END) AS suksescard'),
+                DB::raw('COUNT(CASE WHEN customer_log.statusorder = "sukses" OR customer_log.status = "sukses" THEN 1 END) AS suksescard'),
                 DB::raw('SEC_TO_TIME(SUM(TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(cekin))) AS used_time'),
-                // DB::raw('SUM(TIME_TO_SEC(cekout) - TIME_TO_SEC(cekin) AS used_sec'),
+                // DB::raw('SUM(somobileheader.netto) as Total_SO'),
                 DB::raw('SUM(TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(cekin))/23400*100 AS used_sec'),
                 // DB::raw('SUM(TIME_TO_SEC(cekout) - TIME_TO_SEC(cekin))/18000*100 AS used_sec'),
                 DB::raw('SUM(customer_log.salesorder) AS penjualan'),

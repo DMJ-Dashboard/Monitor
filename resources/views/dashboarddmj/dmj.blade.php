@@ -226,7 +226,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <h6>
-                                            Sales AO Monthly (Sales - Target)
+                                            Sales OA Monthly (Sales - Target)
                                         </h6>
                                     </div>
                                     <div class="col-sm-6">
@@ -705,7 +705,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                     <div class="" style="font-weight: 550; cursor: pointer;">
                                                         <i class="fas fa-user mr-4 ml-1"
                                                             style="color: #3cd2a5 !important;"></i>Total Call :
-                                                        {{ $data->callinputcard }} / {{ $data->ecSO }}
+                                                        {{ $data->callinputcard }} / {{ $data->suksescard }}
                                                     </div>
                                                 </div>
                                                 <div class="grid-container1">

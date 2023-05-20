@@ -56,9 +56,9 @@ class DashboardIKAController extends Controller
 
         $showpjppersonildetail = PjpPersonildetailIKAJ::where('pjppersonildetail.nobukti', $nobukti)
             ->join('salesman', 'salesman.kdslm', '=', 'pjppersonildetail.kdslm')
-            ->join('customer', 'customer.Custno', '=', 'pjppersonildetail.Custno1')
-            ->join('tagihanmobileheader', 'tagihanmobileheader.kdslm', '=', 'pjppersonildetail.kdslm')
-            ->join('tagihanmobiledetail', 'tagihanmobiledetail.nobukti', '=', 'tagihanmobileheader.nobukti')
+            ->join('customer', 'customer.Custno', '=', 'pjppersonildetail.Custno')
+            // ->join('tagihanmobileheader', 'tagihanmobileheader.kdslm', '=', 'pjppersonildetail.kdslm')
+            // ->join('tagihanmobiledetail', 'tagihanmobiledetail.nobukti', '=', 'tagihanmobileheader.nobukti')
             // ->join('tagihanmobileheader', 'tagihanmobiledetail.nobukti', '=', 'tagihanmobileheader.nobukti')
             // ->whereYear("pjppersonildetail.lastmodified", date('Y'))
             ->where('pjppersonildetail.cabang', "20")
@@ -73,7 +73,7 @@ class DashboardIKAController extends Controller
                 DB::raw("pjppersonildetail.nobukti as NoOfPJPd"),
                 DB::raw("salesman.Nmslm as NamaSalesOfPJPd"),
                 DB::raw("salesman.Kdslm"),
-                DB::raw("customer.Custno as CustnoOfPJPd"),
+                DB::raw("pjppersonildetail.Custno as CustnoOfPJPd"),
                 DB::raw("customer.Alamat1"),
                 DB::raw("customer.CustName as NamaCustOfPJPd"),
                 // DB::raw("SUM(tagihanmobiledetail.netto) as NilaiTagihan"),
@@ -115,6 +115,7 @@ class DashboardIKAController extends Controller
             ->select(
                 DB::raw("pjppersonilheader.nobukti as NoOfPJPh"),
                 DB::raw("salesman.Nmslm as NamaSalesOfPJPh"),
+                DB::raw("salesman.Kdslm"),
                 DB::raw("pjppersonilheader.lastmodified"),
                 DB::raw("FLOOR((DAYOFMONTH(CURDATE())-1 + WEEKDAY(CONCAT(YEAR(CURDATE()),'-',MONTH(CURDATE()),'-01')))/7) + 1 AS weeks_of_monthh")
             )->get();
