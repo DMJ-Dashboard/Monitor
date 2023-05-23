@@ -151,10 +151,10 @@ border-style: solid; color:aliceblue !important;">
                 </a>
                 <ul class="dropdown-menu"
                     style="background-color: #233945; border: 1px #75bd3f; color: white; border-style: solid;">
-                    <li><a class="dropdown-item" href="{{route('DMJBTA')}}">DMJ Batu Raja</a></li>
-                    <li><a class="dropdown-item" href="{{ route('DMJS')}}">DMJ Palembang</a></li>
-                    <li><a class="dropdown-item" href="{{ route('IKA')}}">IKA Palembang</a></li>
-                    <li><a class="dropdown-item" href="{{ route('IKABDG')}}">IKA Bandung</a></li>
+                    <li><a class="dropdown-item" href="{{ route('DMJBTA') }}">DMJ Batu Raja</a></li>
+                    <li><a class="dropdown-item" href="{{ route('DMJS') }}">DMJ Palembang</a></li>
+                    <li><a class="dropdown-item" href="{{ route('IKA') }}">IKA Palembang</a></li>
+                    <li><a class="dropdown-item" href="{{ route('IKABDG') }}">IKA Bandung</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
@@ -396,7 +396,8 @@ border-style: solid; color:aliceblue !important;">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card-body" style="color: rgb(157, 161, 172); text-align:center">
+                                            <div class="card-body"
+                                                style="color: rgb(157, 161, 172); text-align:center">
                                                 <h3 class="mt-3">EMPTY DATA!!</h3>
                                                 <div id="containercall" style="overflow: hidden; padding-top: 3em;">
                                                 </div>
@@ -427,7 +428,8 @@ border-style: solid; color:aliceblue !important;">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card-body" style="color: rgb(157, 161, 172); text-align:center">
+                                            <div class="card-body"
+                                                style="color: rgb(157, 161, 172); text-align:center">
                                                 <h3 class="mt-3">EMPTY DATA!!</h3>
                                                 <div id="containerareaspline"></div>
                                             </div>
@@ -483,6 +485,14 @@ border-style: solid; color:aliceblue !important;">
                     </div>
                 </div>
             </div>
+            <div class="keterangan" style="
+                  width: 50%;
+                  column-count: 3;
+                  column-gap: 60px;">
+                <hr style="width: 100% !important; height: 25%">
+                <hr style="width: 100% !important; height: 25%">
+            </div>
+
         </section>
         <div class="table-responsive">
             <h4></h4>
@@ -498,27 +508,27 @@ border-style: solid; color:aliceblue !important;">
                 <tbody>
                     @foreach ($pjppersonilheader as $item1)
                         {{-- @foreach ($pjppersonildetail as $item2) --}}
-                            {{-- @if ($item2->NamaSalesOfPJP == $item1->NamaSalesOfPJPh) --}}
-                                <tr>
-                                    <td>{{ $item1->NoOfPJPh }}</td>
-                                    <td>{{ $item1->NamaSalesOfPJPh }} ({{$item1->Kdslm}})</td>
-                                    <td>{{ $item1->lastmodified }}</td>
-                                    <td>
-                                        <a href="{{ route('showpjp', $item1->NoOfPJPh) }}"
-                                            class="btn btn-info">
-                                            SHOW DETAIL
-                                            {{-- <i class="fa fa-edit fa-lg text-black"></i> --}}
-                                        </a>
-                                    </td>
-                                </tr>
-                            {{-- @endif --}}
+                        {{-- @if ($item2->NamaSalesOfPJP == $item1->NamaSalesOfPJPh) --}}
+                        <tr>
+                            <td>{{ $item1->NoOfPJPh }}</td>
+                            <td>{{ $item1->NamaSalesOfPJPh }} ({{ $item1->Kdslm }})</td>
+                            <td>{{ $item1->lastmodified }}</td>
+                            <td>
+                                <a href="{{ route('showpjp', $item1->NoOfPJPh) }}" class="btn btn-info">
+                                    SHOW DETAIL
+                                    {{-- <i class="fa fa-edit fa-lg text-black"></i> --}}
+                                </a>
+                            </td>
+                        </tr>
+                        {{-- @endif --}}
                         {{-- @endforeach --}}
                     @endforeach
 
                 </tbody>
             </table>
 
-        </div>
+
+        </div>
     </div>
 </div>
 
@@ -588,14 +598,14 @@ border-style: solid; color:aliceblue !important;">
             name: 'Sales Out Salesman',
             data: salesoutIKA,
             zones: [{
-                    value: 150000000,
-                    color: '#f1014a'
-                }, {
-                    value: 250000000,
-                    color: '#ff8f1c'
-                }, {
-                    color: '#7ccc6c'
-                }]
+                value: 150000000,
+                color: '#f1014a'
+            }, {
+                value: 250000000,
+                color: '#ff8f1c'
+            }, {
+                color: '#7ccc6c'
+            }]
         }]
     });
 </script>
@@ -638,4 +648,3 @@ border-style: solid; color:aliceblue !important;">
         }]
     });
 </script>
-

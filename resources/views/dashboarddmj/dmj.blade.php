@@ -226,7 +226,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <h6>
-                                            Sales OA Monthly (Sales - Target)
+                                            Sales OA Monthly (Sales - Target) <i data-bs-target="#modalinfowarna" data-bs-toggle="modal" class="fa-solid fa-circle-info fa-beat-fade fa-lg" style="cursor: pointer !important;"></i>
+                                            <hr style="width: 2% !important; height: 25%">
                                         </h6>
                                     </div>
                                     <div class="col-sm-6">
@@ -243,11 +244,11 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                         class="col-lg-2 col-sm-2 col-md-3 text-center mt-3">
                                                         @foreach ($countsales as $datac)
                                                             @if ($datac->Kdslm == $datas->salesmans->KdSlm)
-                                                                @if ($datac->csales >= $datas->jcust)
+                                                                @if ($datac->csales >= $datas->jcust || $datac->csales == $datas->jcust)
                                                                     <input data-readonly="true" type="text"
                                                                         class="knob" value="{{ $datac->csales }}"
                                                                         data-width="90" data-height="90"
-                                                                        data-fgColor="#3cd2a5" data-min="0"
+                                                                        data-fgColor="#80d1d0" data-min="0"
                                                                         data-max="300">
                                                                     <div class="knob-label"
                                                                         style="padding-top: 1rem !important;">
@@ -258,18 +259,30 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                     <input data-readonly="true" type="text"
                                                                         class="knob" value="{{ $datac->csales }}"
                                                                         data-width="90" data-height="90"
-                                                                        data-fgColor="#f1014a" data-min="0"
+                                                                        data-fgColor="#ff3333" data-min="0"
                                                                         data-max="300">
                                                                     <div class="knob-label"
                                                                         style="padding-top: 1rem !important;">
                                                                         {{ $datas->salesmans->NmSlm }} -
                                                                         {{ $datas->jcust }}
                                                                     </div>
-                                                                @elseif($datac->csales >= '100')
+                                                                @elseif($datac->csales < '120')
                                                                     <input data-readonly="true" type="text"
                                                                         class="knob" value="{{ $datac->csales }}"
                                                                         data-width="90" data-height="90"
-                                                                        data-fgColor="#ff8f1c" data-min="0"
+                                                                        {{-- data-fgColor="#91e32d" data-min="0" --}}
+                                                                        data-fgColor="#fff873" data-min="0"
+                                                                        data-max="300">
+                                                                    <div class="knob-label"
+                                                                        style="padding-top: 1rem !important;">
+                                                                        {{ $datas->salesmans->NmSlm }} -
+                                                                        {{ $datas->jcust }}
+                                                                    </div>
+                                                                @elseif($datac->csales >= '120')
+                                                                    <input data-readonly="true" type="text"
+                                                                        class="knob" value="{{ $datac->csales }}"
+                                                                        data-width="90" data-height="90"
+                                                                        data-fgColor="#a6f04d" data-min="0"
                                                                         data-max="300">
                                                                     <div class="knob-label"
                                                                         style="padding-top: 1rem !important;">
@@ -799,6 +812,40 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                         @endforeach
                         {{-- @endforeach --}}
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalinfowarna" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+    tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">INFO COLOR</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <i class="fa-solid fa-tag fa-bounce fa-xl" style="color: #ff3333;">
+                                    <br> 1 - 99
+                                </i>
+                            </div>
+                            <div class="col-sm-3">
+                                <i class="fa-solid fa-tag fa-bounce fa-xl" style="color: #fff873;"></i>
+                            </div>
+                            <div class="col-sm-3">
+                                <i class="fa-solid fa-tag fa-bounce fa-xl" style="color: #a6f04d;"></i>
+                            </div>
+                            <div class="col-sm-3">
+                                <i class="fa-solid fa-tag fa-bounce fa-xl" style="color: #80d1d0;"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

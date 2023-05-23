@@ -57,13 +57,13 @@ class DashboardIKAController extends Controller
         $showpjppersonildetail = PjpPersonildetailIKAJ::where('pjppersonildetail.nobukti', $nobukti)
             ->join('salesman', 'salesman.kdslm', '=', 'pjppersonildetail.kdslm')
             ->join('customer', 'customer.Custno', '=', 'pjppersonildetail.Custno')
-            // ->join('tagihanmobileheader', 'tagihanmobileheader.kdslm', '=', 'pjppersonildetail.kdslm')
-            // ->join('tagihanmobiledetail', 'tagihanmobiledetail.nobukti', '=', 'tagihanmobileheader.nobukti')
+            ->join('tagihanmobileheader', 'tagihanmobileheader.kdslm', '=', 'pjppersonildetail.kdslm')
+            ->join('tagihanmobiledetail', 'tagihanmobiledetail.nobukti', '=', 'tagihanmobileheader.nobukti')
             // ->join('tagihanmobileheader', 'tagihanmobiledetail.nobukti', '=', 'tagihanmobileheader.nobukti')
-            // ->whereYear("pjppersonildetail.lastmodified", date('Y'))
             ->where('pjppersonildetail.cabang', "20")
             ->where('pjppersonildetail.hari', $hariindo)
             ->select(
+                // DB::raw('COUNT(CASE WHEN customer_log.statusorder = "sukses" OR customer_log.status = "sukses" THEN 1 END) AS suksescard'),
                 DB::raw("pjppersonildetail.M1"),
                 DB::raw("pjppersonildetail.M2"),
                 DB::raw("pjppersonildetail.M3"),
