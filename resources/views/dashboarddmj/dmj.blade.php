@@ -226,7 +226,10 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <h6>
-                                            Sales OA Monthly (Sales - Target) <i data-bs-target="#modalinfowarna" data-bs-toggle="modal" class="fa-solid fa-circle-info fa-beat-fade fa-lg" style="cursor: pointer !important;"></i>
+                                            Sales OA Monthly (Sales - Target) <i data-bs-target="#modalinfowarna"
+                                                data-bs-toggle="modal"
+                                                class="fa-solid fa-circle-info fa-beat-fade fa-lg"
+                                                style="cursor: pointer !important;"></i>
                                             <hr style="width: 2% !important; height: 25%">
                                         </h6>
                                     </div>
@@ -270,9 +273,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                     <input data-readonly="true" type="text"
                                                                         class="knob" value="{{ $datac->csales }}"
                                                                         data-width="90" data-height="90"
-                                                                        {{-- data-fgColor="#91e32d" data-min="0" --}}
-                                                                        data-fgColor="#fff873" data-min="0"
-                                                                        data-max="300">
+                                                                        {{-- data-fgColor="#91e32d" data-min="0" --}} data-fgColor="#fff873"
+                                                                        data-min="0" data-max="300">
                                                                     <div class="knob-label"
                                                                         style="padding-top: 1rem !important;">
                                                                         {{ $datas->salesmans->NmSlm }} -
@@ -406,69 +408,66 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 <div class="row">
                     <div class="col-2"></div>
                     {{-- <div class="col-sm-4 col-md-3 col-lg-3"> --}}
-                        <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
-                            <span class="info-box-icon text-success">
-                                <a href="#" data-bs-toggle="modal"
-                                    data-bs-target="#modaldelivery">
-                                    <i class="fa-solid fa-truck fa-beat-fade"
-                                        style="--fa-secondary-color: #4b6eaa;"></i>
-                                    {{-- <i class="fa-solid fa-warehouse"></i> --}}
-                                </a>
+                    <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
+                        <span class="info-box-icon text-success">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#modaldelivery">
+                                <i class="fa-solid fa-truck fa-beat-fade" style="--fa-secondary-color: #4b6eaa;"></i>
+                                {{-- <i class="fa-solid fa-warehouse"></i> --}}
+                            </a>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Delivery Daily </span>
+                            <span class="info-box-number">
+                                <p class="text-success"> {{ $deliverydraft }} - - {{ $deliverydatbatal }}</p>
                             </span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Delivery Daily </span>
-                                <span class="info-box-number">
-                                    <p class="text-success"> {{ $deliverydraft }} - - {{ $deliverydatbatal }}</p>
-                                </span>
-                            </div>
                         </div>
-                        <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
-                            <span class="info-box-icon text-success">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#modalsaldostok">
-                                    <i class="fa-solid fa-warehouse"></i>
-                                </a>
+                    </div>
+                    <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
+                        <span class="info-box-icon text-success">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#modalsaldostok">
+                                <i class="fa-solid fa-warehouse"></i>
+                            </a>
+                        </span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Warehouse Balance</span>
+                            <span class="info-box-number">
+                                Rp {{ number_format($totalsaldostok, 0, '.' . '.') }}
                             </span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">Warehouse Balance</span>
-                                <span class="info-box-number">
-                                    Rp {{ number_format($totalsaldostok, 0, '.' . '.') }}
-                                </span>
-                            </div>
-
                         </div>
-                        <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
-                            <span class="info-box-icon text-warning"><i
-                                    class="fa-solid fa-spin fa-arrows-rotate"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Monthly Retur Pembelian</span>
-                                <span class="info-box-number">
-                                    Rp {{ number_format($sumreturbeli, 0, '.' . '.') }}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
-                            <span class="info-box-icon text-info"><i
-                                    class="fas fa-cloud-download-alt fa-bounce"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Total SO Daily</span>
-                                <span class="info-box-number" style="font-size: 1.3rem">
-                                    Rp {{ number_format($sumsodaily, 0, '.' . '.') }}
-                                </span>
-                            </div>
 
+                    </div>
+                    <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
+                        <span class="info-box-icon text-warning"><i
+                                class="fa-solid fa-spin fa-arrows-rotate"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Monthly Retur Pembelian</span>
+                            <span class="info-box-number">
+                                Rp {{ number_format($sumreturbeli, 0, '.' . '.') }}
+                            </span>
                         </div>
-                        <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
-                            <span class="info-box-icon text-red"><i
-                                    class="fa-solid fa-circle-xmark fa-flip"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Monthly Faktur Batal</span>
-                                <span class="info-box-number">
-                                    Rp {{ number_format($fakturbatal, 0, '.' . '.') }}
-                                </span>
-                            </div>
+                    </div>
+                    <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
+                        <span class="info-box-icon text-info"><i
+                                class="fas fa-cloud-download-alt fa-bounce"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Total SO Daily</span>
+                            <span class="info-box-number" style="font-size: 1.3rem">
+                                Rp {{ number_format($sumsodaily, 0, '.' . '.') }}
+                            </span>
+                        </div>
 
+                    </div>
+                    <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
+                        <span class="info-box-icon text-red"><i class="fa-solid fa-circle-xmark fa-flip"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Monthly Faktur Batal</span>
+                            <span class="info-box-number">
+                                Rp {{ number_format($fakturbatal, 0, '.' . '.') }}
+                            </span>
                         </div>
+
+                    </div>
                     <div class="col-1"></div>
 
                     {{-- </div> --}}
@@ -830,7 +829,34 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
             <div class="modal-body">
                 <div class="content">
                     <div class="container">
-                        <div class="row">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <i class="fa-solid fa-tag fa-bounce fa-2xl" style="color: #ff3333;">
+                                        </i>
+                                    </th>
+                                    <th>
+                                        <i class="fa-solid fa-tag fa-bounce fa-2xl" style="color: #fff873;"></i>
+                                    </th>
+                                    <th>
+                                        <i class="fa-solid fa-tag fa-bounce fa-2xl" style="color: #a6f04d;"></i>
+                                    </th>
+                                    <th>
+                                        <i class="fa-solid fa-tag fa-bounce fa-2xl" style="color: #80d1d0;"></i>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1-99</td>
+                                    <td>100 - 119</td>
+                                    <td>120+</td>
+                                    <td>Target Hit</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        {{-- <div class="row">
                             <div class="col-sm-3">
                                 <i class="fa-solid fa-tag fa-bounce fa-xl" style="color: #ff3333;">
                                     <br> 1 - 99
@@ -845,7 +871,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             <div class="col-sm-3">
                                 <i class="fa-solid fa-tag fa-bounce fa-xl" style="color: #80d1d0;"></i>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
