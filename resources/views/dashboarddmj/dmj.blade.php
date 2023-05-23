@@ -226,11 +226,10 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <h6>
-                                            Sales OA Monthly (Sales - Target) <i data-bs-target="#modalinfowarna"
-                                                data-bs-toggle="modal"
+                                            Sales OA Monthly (Sales - Target) <i alt="Info_warna"
+                                                data-bs-target="#modalinfowarna" data-bs-toggle="modal"
                                                 class="fa-solid fa-circle-info fa-beat-fade fa-lg"
                                                 style="cursor: pointer !important;"></i>
-                                            <hr style="width: 2% !important; height: 25%">
                                         </h6>
                                     </div>
                                     <div class="col-sm-6">
@@ -823,7 +822,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">INFO COLOR</h1>
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">INFO TARGET WARNA EC</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
