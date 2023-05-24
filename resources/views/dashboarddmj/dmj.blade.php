@@ -832,17 +832,32 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             <thead>
                                 <tr>
                                     <th>
-                                        <i class="fa-solid fa-tag fa-bounce fa-2xl" style="color: #ff3333;">
-                                        </i>
+                                        <input data-readonly="true" type="text" class="knob" value="99"
+                                            data-width="90" data-height="90" data-fgColor="#ff3333" data-min="0"
+                                            data-max="300">
+
+                                        {{-- <i class="fa-solid fa-tag fa-bounce fa-2xl" style="color: #ff3333;"></i> --}}
                                     </th>
                                     <th>
-                                        <i class="fa-solid fa-tag fa-bounce fa-2xl" style="color: #fff873;"></i>
+                                        <input data-readonly="true" type="text" class="knob" value="119"
+                                            data-width="90" data-height="90" data-fgColor="#fff873" data-min="0"
+                                            data-max="300">
+
+                                        {{-- <i class="fa-solid fa-tag fa-bounce fa-2xl" style="color: #fff873;"></i> --}}
                                     </th>
                                     <th>
-                                        <i class="fa-solid fa-tag fa-bounce fa-2xl" style="color: #a6f04d;"></i>
+                                        <input data-readonly="true" type="text" class="knob" value="120"
+                                            data-width="90" data-height="90" data-fgColor="#a6f04d" data-min="0"
+                                            data-max="300">
+
+                                        {{-- <i class="fa-solid fa-tag fa-bounce fa-2xl" style="color: #a6f04d;"></i> --}}
                                     </th>
                                     <th>
-                                        <i class="fa-solid fa-tag fa-bounce fa-2xl" style="color: #80d1d0;"></i>
+                                        <input data-readonly="true" type="text" class="knob" value="300"
+                                            data-width="90" data-height="90" data-fgColor="#80d1d0" data-min="0"
+                                            data-max="300">
+
+                                        {{-- <i class="fa-solid fa-tag fa-bounce fa-2xl" style="color: #80d1d0;"></i> --}}
                                     </th>
                                 </tr>
                             </thead>
@@ -855,22 +870,23 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 </tr>
                             </tbody>
                         </table>
-                        {{-- <div class="row">
-                            <div class="col-sm-3">
-                                <i class="fa-solid fa-tag fa-bounce fa-xl" style="color: #ff3333;">
-                                    <br> 1 - 99
-                                </i>
-                            </div>
-                            <div class="col-sm-3">
-                                <i class="fa-solid fa-tag fa-bounce fa-xl" style="color: #fff873;"></i>
-                            </div>
-                            <div class="col-sm-3">
-                                <i class="fa-solid fa-tag fa-bounce fa-xl" style="color: #a6f04d;"></i>
-                            </div>
-                            <div class="col-sm-3">
-                                <i class="fa-solid fa-tag fa-bounce fa-xl" style="color: #80d1d0;"></i>
-                            </div>
-                        </div> --}}
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input id="color__target" data-readonly="false" type="text"
+                                            class="knob" value="1" data-width="90" data-height="90"
+                                            data-fgColor="#ff3333" data-min="0" data-max="300">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Input Available</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
             </div>
@@ -1051,6 +1067,31 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
     </div>
 </div>
 
+<script>
+    $("#color__target").on("input", function() {
+        canChangeColor();
+    });
+
+    function canChangeColor() {
+        var can = true;
+        $("#color__target").each(function() {
+            if ($(this).val() >= 100) {
+                $('#color__target').css({
+                    background: 'green'
+                })
+            }
+        });
+        // if (can) {
+        //     $('.btn').css({
+        //         background: 'green'
+        //     })
+        // } else {
+        //     $('.btn').css({
+        //         background: 'red'
+        //     })
+        // }
+    }
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
