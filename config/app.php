@@ -210,6 +210,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Python' => \NikolayOsokin\Transliterate\Facades\Python::class,
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ])->toArray(),

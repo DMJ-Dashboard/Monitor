@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class TagihanMobileHeader extends Model
 {
     use HasFactory;
-    use HasFactory;
     protected $connection = 'mysql3';
     protected $table = "tagihanmobileheader";
 }

@@ -715,7 +715,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                     </div>
                                                     <div class="" style="font-weight: 550; cursor: pointer;">
                                                         <i class="fas fa-user mr-4 ml-1"
-                                                            style="color: #3cd2a5 !important;"></i>Total Call :
+                                                            style="color: #3cd2a5 !important;"></i>Call/EC :
                                                         {{ $data->callinputcard }} / {{ $data->suksescard }}
                                                     </div>
                                                 </div>
@@ -739,7 +739,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 </div>
                                                 <div class="grid-container1">
                                                     <div class="" style="font-weight: 550; cursor: pointer;">
-                                                        <i class="fas fa-clock mr-4 ml-1"
+                                                        <i class="fas fa-clock mr-3 ml-1"
                                                             style="color: #3cd2a5 !important;"></i>Time Used :
                                                         {{ $data->used_time }}
                                                     </div>
@@ -749,6 +749,20 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                         <i class="fa-solid fa-dollar-sign mr-4 ml-1"
                                                             style="color: #3cd2a5 !important;"></i>Total SO : Rp
                                                         {{ number_format($data->penjualan, 0, '.' . '.') }}
+                                                    </div>
+                                                </div>
+                                                <div class="grid-container1">
+                                                    <div class="" style="font-weight: 550; cursor: pointer;">
+                                                        <i class="fa-solid fa-credit-card mr-3 ml-1"
+                                                            style="color: #3cd2a5 !important;"></i>LPH/Tagih :
+                                                            (0) Rp{{ number_format($data->sumtagihanhm, 0, '.' . '.') }} / (0) Rp...
+                                                    </div>
+                                                </div>
+                                                <div class="grid-container1">
+                                                    <div class="" style="font-weight: 550; cursor: pointer;">
+                                                        <i class="fa-solid fa-shop mr-3 ml-1"
+                                                            style="color: #3cd2a5 !important;"></i>PJP/Visit :
+                                                            {{$data->count_pjp}} / {{$data->callinputcard}} ({{ number_format($data->pjp_percentage, 0, '.' . '.') }}%)
                                                     </div>
                                                 </div>
 
