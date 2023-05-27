@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customerlog;
+use App\Models\TagihanMobileDetail;
 use Illuminate\Http\Request;
 use App\Models\Fakturjual;
 use App\Models\Hutang;
@@ -246,16 +247,56 @@ class DashboardDMJ extends Controller
         //     )
         //     ->get();
 
+        $hari = date('l');
+        /*$new = date('l, F d, Y', strtotime($Today));*/
+        if ($hari == "Sunday") {
+            $hariindo = "Minggu";
+        } elseif ($hari == "Monday") {
+            $hariindo = "SENIN";
+        } elseif ($hari == "Tuesday") {
+            $hariindo = "SELASA";
+        } elseif ($hari == "Wednesday") {
+            $hariindo = "RABU";
+        } elseif ($hari == "Thursday") {
+            $hariindo = "KAMIS";
+        } elseif ($hari == "Friday") {
+            $hariindo = "JUMAT";
+        } elseif ($hari == "Saturday") {
+            $hariindo = "SABTU";
+        }
 
-        $subquerypjpdetail = PjpPersonildetailIKAJ::select('kdslm', DB::raw('COUNT(custno) AS count_pjp'))
-            ->where('hari', 'JUMAT')
-            // ->whereNotNull('M4')
-            ->where('m4', '!=', '')
+        $mingguke = PjpPersonildetailIKAJ::whereYear("pjppersonildetail.lastmodified", date('Y'))
+            ->select(
+                DB::raw("DISTINCT FLOOR((DAYOFMONTH(CURDATE())-1 + WEEKDAY(CONCAT(YEAR(CURDATE()),'-',MONTH(CURDATE()),'-01')))/7) + 1 AS minggukebrp")
+            )
+            ->get();
+
+        $subquerypjpdetail = PjpPersonildetailIKAJ::select(
+            'kdslm',
+            DB::raw('COUNT(custno) AS count_pjp'),
+            DB::raw("pjppersonildetail.M1"),
+            DB::raw("pjppersonildetail.M2"),
+            DB::raw("pjppersonildetail.M3"),
+            DB::raw("pjppersonildetail.M4"),
+            DB::raw("pjppersonildetail.M5"),
+        )
+            ->where('hari', $hariindo)
             ->groupBy('kdslm');
 
-        $subquerytagihanheadmob= TagihanMobileHeader::select('kdslm', DB::raw('SUM(totalfaktur) AS sumtagihanhm'))
+        $subquerytagihanheadmob = TagihanMobileHeader::select(
+            'kdslm',
+            DB::raw('SUM(totalfaktur) AS sumtagihanhm'),
+            DB::raw('count(totalfaktur) AS counttagihanhm'),
+        )
             ->where('Tgl', date('Y-m-d'))
             ->groupBy('kdslm');
+        $subquerytagihanheadmob = TagihanMobileDetail::select(
+            'kdslm',
+            DB::raw('count(NoFaktur) AS counttagihandm'),
+        )
+            ->where('Tgl', date('Y-m-d'))
+            ->groupBy('kdslm');
+
 
         $data['custlogs2'] = Customerlog::join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
             ->leftJoinSub($subquerypjpdetail, 'pjp', function ($join) {
@@ -279,6 +320,7 @@ class DashboardDMJ extends Controller
                 DB::raw('SUM(customer_log.salesorder) AS penjualan'),
                 DB::raw('IFNULL(pjp.count_pjp, 0) AS count_pjp'),
                 DB::raw('IFNULL(taghm.sumtagihanhm, 0) AS sumtagihanhm'),
+                DB::raw('IFNULL(taghm.counttagihandm, 0) AS counttagihandm'),
                 DB::raw('( COUNT(customer_log.cekin)) / IFNULL(pjp.count_pjp, 0) * 100 AS pjp_percentage'),
             )
             ->get();

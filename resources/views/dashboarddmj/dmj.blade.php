@@ -755,7 +755,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                     <div class="" style="font-weight: 550; cursor: pointer;">
                                                         <i class="fa-solid fa-credit-card mr-3 ml-1"
                                                             style="color: #3cd2a5 !important;"></i>LPH/Tagih :
-                                                            (0) Rp{{ number_format($data->sumtagihanhm, 0, '.' . '.') }} / (0) Rp...
+                                                            ({{$data->counttagihanhm}}) Rp{{ number_format($data->sumtagihanhm, 0, '.' . '.') }} / (0) Rp...
                                                     </div>
                                                 </div>
                                                 <div class="grid-container1">
