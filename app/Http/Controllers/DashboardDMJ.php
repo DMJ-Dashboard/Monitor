@@ -290,12 +290,15 @@ class DashboardDMJ extends Controller
         )
             ->where('Tgl', date('Y-m-d'))
             ->groupBy('kdslm');
-        $subquerytagihanheadmob = TagihanMobileDetail::select(
-            'kdslm',
-            DB::raw('count(NoFaktur) AS counttagihandm'),
+
+        $subquerytagihandetmob = TagihanMobileDetail::select(
+            'tagihanmobileheader.kdslm',
+            DB::raw('count(tagihanmobiledetail.NoFaktur) AS counttagihandm'),
+            DB::raw('SUM(tagihanmobiledetail.NoFaktur) AS sumtagihandm'),
         )
-            ->where('Tgl', date('Y-m-d'))
-            ->groupBy('kdslm');
+            ->join('tagihanmobileheader', 'tagihanmobileheader.nobukti', '=', 'tagihanmobiledetail.nobukti')
+            ->where('tagihanmobiledetail.tgl', date('Y-m-d'))
+            ->groupBy('tagihanmobileheader.kdslm');
 
 
         $data['custlogs2'] = Customerlog::join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
@@ -305,6 +308,9 @@ class DashboardDMJ extends Controller
             ->leftJoinSub($subquerytagihanheadmob, 'taghm', function ($join) {
                 $join->on('salesman.kdslm', '=', 'taghm.kdslm');
             })
+            // ->leftJoinSub($subquerytagihandetmob, 'tagdm', function ($join) {
+            //     $join->on('tagihanmobileheader.kdslm', '=', 'tagdm.kdslm');
+            // })
             ->where('customer_log.tgl', date('Y-m-d'))
             ->whereNotNull('customer_log.cekin')
             ->where('customer_log.kdslm', '!=', '')
@@ -319,14 +325,11 @@ class DashboardDMJ extends Controller
                 DB::raw('SUM(CASE WHEN customer_log.tgl = CURDATE() THEN TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(customer_log.cekin) ELSE 0 END)/23400*100 AS used_sec'),
                 DB::raw('SUM(customer_log.salesorder) AS penjualan'),
                 DB::raw('IFNULL(pjp.count_pjp, 0) AS count_pjp'),
-                DB::raw('IFNULL(taghm.sumtagihanhm, 0) AS sumtagihanhm'),
-                DB::raw('IFNULL(taghm.counttagihandm, 0) AS counttagihandm'),
+                // DB::raw('IFNULL(taghm.sumtagihanhm, 0) AS sumtagihanhm'),
+                // DB::raw('IFNULL(tagdm.counttagihandm, 0) AS counttagihandm'),
                 DB::raw('( COUNT(customer_log.cekin)) / IFNULL(pjp.count_pjp, 0) * 100 AS pjp_percentage'),
             )
             ->get();
-
-
-
 
         //subquery percobaan
         // $data['custlogs2'] = Customerlog::join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
