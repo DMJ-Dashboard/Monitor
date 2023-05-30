@@ -272,16 +272,18 @@ class DashboardDMJ extends Controller
             ->get();
 
         $subquerypjpdetail = PjpPersonildetailIKAJ::select(
-            'kdslm',
-            DB::raw('COUNT(custno) AS count_pjp'),
+            'pjppersonildetail.kdslm',
+            DB::raw('COUNT(pjppersonildetail.custno) AS count_pjp'),
             DB::raw("pjppersonildetail.M1"),
             DB::raw("pjppersonildetail.M2"),
             DB::raw("pjppersonildetail.M3"),
             DB::raw("pjppersonildetail.M4"),
             DB::raw("pjppersonildetail.M5"),
-        )
-            ->where('hari', $hariindo)
-            ->groupBy('kdslm');
+        )->join('salesman', 'pjppersonildetail.kdslm', '=', 'salesman.kdslm')
+            ->where('pjppersonildetail.hari', $hariindo)
+            ->where('salesman.stat','=', '1')
+            ->groupBy('pjppersonildetail.kdslm')
+            ->orderBy('pjppersonildetail.kdslm');
 
         $subquerytagihanheadmob = TagihanMobileHeader::select(
             'kdslm',
@@ -291,6 +293,7 @@ class DashboardDMJ extends Controller
             ->where('Tgl', date('Y-m-d'))
             ->groupBy('kdslm');
 
+        // dd($subquerypjpdetail);
         $subquerytagihandetmob = TagihanMobileDetail::select(
             'tagihanmobileheader.kdslm',
             DB::raw('count(tagihanmobiledetail.NoFaktur) AS counttagihandm'),
@@ -325,9 +328,16 @@ class DashboardDMJ extends Controller
                 DB::raw('SUM(CASE WHEN customer_log.tgl = CURDATE() THEN TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(customer_log.cekin) ELSE 0 END)/23400*100 AS used_sec'),
                 DB::raw('SUM(customer_log.salesorder) AS penjualan'),
                 DB::raw('IFNULL(pjp.count_pjp, 0) AS count_pjp'),
+                DB::raw("pjp.M1"),
+                DB::raw("pjp.M2"),
+                DB::raw("pjp.M3"),
+                DB::raw("pjp.M4"),
+                DB::raw("pjp.M5"),
                 // DB::raw('IFNULL(taghm.sumtagihanhm, 0) AS sumtagihanhm'),
                 // DB::raw('IFNULL(tagdm.counttagihandm, 0) AS counttagihandm'),
                 DB::raw('( COUNT(customer_log.cekin)) / IFNULL(pjp.count_pjp, 0) * 100 AS pjp_percentage'),
+                DB::raw("FLOOR((DAYOFMONTH(CURDATE())-1 + WEEKDAY(CONCAT(YEAR(CURDATE()),'-',MONTH(CURDATE()),'-01')))/7) + 1 AS weeks_of_monthd")
+
             )
             ->get();
 

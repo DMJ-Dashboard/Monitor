@@ -755,14 +755,46 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                     <div class="" style="font-weight: 550; cursor: pointer;">
                                                         <i class="fa-solid fa-credit-card mr-3 ml-1"
                                                             style="color: #3cd2a5 !important;"></i>LPH/Tagih :
-                                                            ({{$data->counttagihanhm}}) Rp{{ number_format($data->sumtagihanhm, 0, '.' . '.') }} / (0) Rp...
+                                                        ({{ $data->counttagihanhm }})
+                                                        Rp{{ number_format($data->sumtagihanhm, 0, '.' . '.') }} / (0)
+                                                        Rp...
                                                     </div>
                                                 </div>
                                                 <div class="grid-container1">
                                                     <div class="" style="font-weight: 550; cursor: pointer;">
                                                         <i class="fa-solid fa-shop mr-3 ml-1"
                                                             style="color: #3cd2a5 !important;"></i>PJP/Visit :
-                                                            {{$data->count_pjp}} / {{$data->callinputcard}} ({{ number_format($data->pjp_percentage, 0, '.' . '.') }}%)
+                                                        @if ($data->weeks_of_monthd == '1')
+                                                            @if ($data->M1 == '1')
+                                                                {{ $data->count_pjp }} / {{ $data->callinputcard }}
+                                                                ({{ number_format($data->pjp_percentage, 0, '.' . '.') }}%)
+                                                            @endif
+                                                        @endif
+                                                        @if ($data->weeks_of_monthd == '2')
+                                                            @if ($data->M2 == '1')
+                                                                {{ $data->count_pjp }} / {{ $data->callinputcard }}
+                                                                ({{ number_format($data->pjp_percentage, 0, '.' . '.') }}%)
+                                                            @endif
+                                                        @endif
+                                                        @if ($data->weeks_of_monthd == '3')
+                                                            @if ($data->M3 == '1')
+                                                                {{ $data->count_pjp }} / {{ $data->callinputcard }}
+                                                                ({{ number_format($data->pjp_percentage, 0, '.' . '.') }}%)
+                                                            @endif
+                                                        @endif
+                                                        @if ($data->weeks_of_monthd == '4')
+                                                            @if ($data->M4 == '1')
+                                                                {{ $data->count_pjp }} / {{ $data->callinputcard }}
+                                                                ({{ number_format($data->pjp_percentage, 0, '.' . '.') }}%)
+                                                            @endif
+                                                        @endif
+                                                        @if ($data->weeks_of_monthd == '5')
+                                                            @if ($data->M5 == '1')
+                                                                {{ $data->count_pjp }} / {{ $data->callinputcard }}
+                                                                ({{ number_format($data->pjp_percentage, 0, '.' . '.') }}%)
+                                                            @endif
+                                                        @endif
+
                                                     </div>
                                                 </div>
 
@@ -771,34 +803,74 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="col-sm-6 col-md-12 text-center">
-                                                            @if ($data->used_sec <= '65')
+                                                            @if ($data->used_sec <'65')
                                                                 <input data-skin="tron" data-thickness="0.2"
                                                                     data-readonly="true" type="text"
                                                                     class="knob"
                                                                     value="{{ number_format($data->used_sec) }}%"
                                                                     data-width="120" data-height="120"
-                                                                    data-fgColor="#3cd2a5" data-min="0"
+                                                                    data-fgColor="#ff4a4a" data-min="0"
                                                                     data-max="100">
                                                                 <div class="knob-label"
                                                                     style="padding-top: 1rem !important;">
-                                                                    <p
-                                                                        style="
-                                                                    color: #f1014a !important;">
+                                                                    <p>
                                                                         <b> {{ $data->salesmans }} </b>
                                                                     </p>
                                                                 </div>
-                                                            @elseif ($data->used_sec >= '100')
+                                                            @elseif ($data->used_sec <= '79')
+                                                                <input data-skin="tron" data-thickness="0.2"
+                                                                    data-readonly="true" type="text"
+                                                                    class="knob"
+                                                                    value="{{ number_format($data->used_sec) }}%"
+                                                                    data-width="120" data-height="120"
+                                                                    data-fgColor="#fff873" data-min="0"
+                                                                    data-max="100">
+                                                                <div class="knob-label"
+                                                                    style="padding-top: 1rem !important;">
+                                                                    <p>
+                                                                        <b> {{ $data->salesmans }} </b>
+                                                                    </p>
+                                                                </div>
+                                                            @elseif ($data->used_sec <= '89')
+                                                                <input data-skin="tron" data-thickness="0.2"
+                                                                    data-readonly="true" type="text"
+                                                                    class="knob"
+                                                                    value="{{ number_format($data->used_sec) }}%"
+                                                                    data-width="120" data-height="120"
+                                                                    data-fgColor="#a6f04d" data-min="0"
+                                                                    data-max="100">
+                                                                <div class="knob-label"
+                                                                    style="padding-top: 1rem !important;">
+                                                                    <p>
+                                                                        <b> {{ $data->salesmans }} </b>
+                                                                    </p>
+                                                                </div>
+                                                            @elseif ($data->used_sec >= '90')
+                                                                <input data-skin="tron" data-thickness="0.2"
+                                                                    data-readonly="true" type="text"
+                                                                    class="knob"
+                                                                    value="{{ number_format($data->used_sec) }}%"
+                                                                    data-width="120" data-height="120"
+                                                                    data-fgColor="#80d1d0" data-min="0"
+                                                                    data-max="100">
+                                                                <div class="knob-label"
+                                                                    style="padding-top: 1rem !important;">
+                                                                    <p>
+                                                                        <b> {{ $data->salesmans }} </b>
+                                                                    </p>
+                                                                </div>
+                                                            @else
                                                                 <input data-skin="tron" data-thickness="0.2"
                                                                     data-readonly="true" type="text"
                                                                     class="knob" type="text" value="100%"
                                                                     data-width="120" data-height="120"
-                                                                    data-fgColor="#3cd2a5" data-min="0"
+                                                                    data-fgColor="#80d1d0" data-min="0"
                                                                     data-max="100">
                                                                 <div class="knob-label"
                                                                     style="padding-top: 1rem !important;">
                                                                     *{{ $data->salesmans }}
                                                                 </div>
-                                                            @else
+                                                            {{-- @else
                                                                 <input data-skin="tron" data-thickness="0.2"
                                                                     data-readonly="true" type="text"
                                                                     class="knob" type="text"
@@ -809,7 +881,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                 <div class="knob-label"
                                                                     style="padding-top: 1rem !important;">
                                                                     *{{ $data->salesmans }}
-                                                                </div>
+                                                                </div> --}}
                                                             @endif
 
                                                         </div>
