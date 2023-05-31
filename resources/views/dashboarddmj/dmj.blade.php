@@ -692,7 +692,10 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 style="background-color: #3e789c !important; border: 0.2px rgba(255, 255, 255, 0.993);">
 
                 <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">ANALYSIS CARD LOG SALESMAN
-                    {{ date('Y-m-d') }}</h1>
+                    {{ date('Y-m-d') }}</h1> <i alt="Info_warna_anylog"
+                    data-bs-target="#modalinfowarnaanylog" data-bs-toggle="modal"
+                    class="fa-solid fa-circle-info fa-beat-fade fa-lg"
+                    style="cursor: pointer !important;"></i>
                 <a href="" class="btn btn-outline-info ml-2" data-bs-target="#modallog"
                     data-bs-toggle="modal">Detail Analysis</a>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -859,10 +862,24 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         <b> {{ $data->salesmans }} </b>
                                                                     </p>
                                                                 </div>
+                                                            @elseif ($data->used_sec >= '100')
+                                                                <input data-skin="tron" data-thickness="0.2"
+                                                                    data-readonly="true" type="text"
+                                                                    class="knob"
+                                                                    value="100"
+                                                                    data-width="120" data-height="120"
+                                                                    data-fgColor="#80d1d0" data-min="0"
+                                                                    data-max="100">
+                                                                <div class="knob-label"
+                                                                    style="padding-top: 1rem !important;">
+                                                                    <p>
+                                                                        <b> {{ $data->salesmans }} </b>
+                                                                    </p>
+                                                                </div>
                                                             @else
                                                                 <input data-skin="tron" data-thickness="0.2"
                                                                     data-readonly="true" type="text"
-                                                                    class="knob" type="text" value="100%"
+                                                                    class="knob" type="text" value="100"
                                                                     data-width="120" data-height="120"
                                                                     data-fgColor="#80d1d0" data-min="0"
                                                                     data-max="100">
@@ -870,18 +887,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                     style="padding-top: 1rem !important;">
                                                                     *{{ $data->salesmans }}
                                                                 </div>
-                                                            {{-- @else
-                                                                <input data-skin="tron" data-thickness="0.2"
-                                                                    data-readonly="true" type="text"
-                                                                    class="knob" type="text"
-                                                                    value="{{ number_format($data->used_sec) }}%"
-                                                                    data-width="120" data-height="120"
-                                                                    data-fgColor="#3cd2a5" data-min="0"
-                                                                    data-max="100">
-                                                                <div class="knob-label"
-                                                                    style="padding-top: 1rem !important;">
-                                                                    *{{ $data->salesmans }}
-                                                                </div> --}}
+
                                                             @endif
 
                                                         </div>
@@ -973,6 +979,57 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             </tbody>
                         </table>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalinfowarnaanylog" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+    tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 mr-2" id="exampleModalToggleLabel2">INFO TARGET WARNA CUST LOG</h1>
+                <i class="fa-solid fa-close fa-lg " data-bs-target="#rincicardsaleslog" data-bs-toggle="modal"></i>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="container">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input data-readonly="true" type="text" class="knob" value="64"
+                                            data-width="90" data-height="90" data-fgColor="#ff3333" data-min="0"
+                                            data-max="300">
+                                    </th>
+                                    <th>
+                                        <input data-readonly="true" type="text" class="knob" value="79"
+                                            data-width="90" data-height="90" data-fgColor="#fff873" data-min="0"
+                                            data-max="300">
+                                    </th>
+                                    <th>
+                                        <input data-readonly="true" type="text" class="knob" value="89"
+                                            data-width="90" data-height="90" data-fgColor="#a6f04d" data-min="0"
+                                            data-max="300">
+                                    </th>
+                                    <th>
+                                        <input data-readonly="true" type="text" class="knob" value="90"
+                                            data-width="90" data-height="90" data-fgColor="#80d1d0" data-min="0"
+                                            data-max="300">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1-64</td>
+                                    <td>65 - 79</td>
+                                    <td>89</td>
+                                    <td>90+</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
