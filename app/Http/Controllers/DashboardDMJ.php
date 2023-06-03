@@ -281,27 +281,60 @@ class DashboardDMJ extends Controller
             DB::raw("pjppersonildetail.M5"),
         )->join('salesman', 'pjppersonildetail.kdslm', '=', 'salesman.kdslm')
             ->where('pjppersonildetail.hari', $hariindo)
-            ->where('salesman.stat','=', '1')
+            ->where('salesman.stat', '=', '1')
             ->groupBy('pjppersonildetail.kdslm')
             ->orderBy('pjppersonildetail.kdslm');
 
-        $subquerytagihanheadmob = TagihanMobileHeader::select(
+        $subqueryec = Somobileheader::select(
             'kdslm',
-            DB::raw('SUM(totalfaktur) AS sumtagihanhm'),
-            DB::raw('count(totalfaktur) AS counttagihanhm'),
+            DB::raw('COUNT(nobukti) as jumlah_ec_sombhead')
         )
-            ->where('Tgl', date('Y-m-d'))
-            ->groupBy('kdslm');
+            ->where('tgl', date('Y-m-d'))
+            ->groupBy('kdslm')
+            ->orderBy('kdslm');
 
-        // dd($subquerypjpdetail);
-        $subquerytagihandetmob = TagihanMobileDetail::select(
+        $tanggalHariIni = Carbon::today();
+
+        // $subqueryec = Soheader::select('kdslm')
+        //     ->where(function ($query) use ($tanggalHariIni) {
+        //         $query->whereRaw('DAY(tgl) = 7')
+        //             ->where('tgl', '=', $tanggalHariIni->copy()->addDays(2));
+        //     })
+        //     ->orWhere(function ($query) use ($tanggalHariIni) {
+        //         $query->whereRaw('DAY(tgl) != 7')
+        //             ->where('tgl', '=', $tanggalHariIni->copy()->addDay(1));
+        //     })
+        //     ->groupBy('kdslm')
+        //     ->orderBy('kdslm')
+        //     ->count('*');
+
+
+        // $subqueryec = Soheader::select('kdslm', DB::raw('COUNT(*) as jumlah_ec_sombhead'))
+        //     ->where(function ($query) use ($tanggalHariIni) {
+        //         if ($tanggalHariIni->isSaturday()) {
+        //             $query->where('tgl', '=', $tanggalHariIni->copy()->addDays(2));
+        //         } else {
+        //             $query->where('tgl', '=', $tanggalHariIni->copy()->addDay());
+        //         }
+        //     })
+        //     ->groupBy('kdslm')
+        //     ->orderBy('kdslm');
+        // dd($subqueryec);
+
+        $subquerytagihanheadmob = TagihanMobileHeader::select(
             'tagihanmobileheader.kdslm',
-            DB::raw('count(tagihanmobiledetail.NoFaktur) AS counttagihandm'),
-            DB::raw('SUM(tagihanmobiledetail.NoFaktur) AS sumtagihandm'),
+            'tagihanmobiledetail.nobukti as nobuktidet',
+            DB::raw('tagihanmobileheader.totalfaktur AS sumtagihanhm'),
+            DB::raw('tagihanmobileheader.jfaktur AS counttagihandm'),
+            DB::raw('tagihanmobileheader.totalbayar AS bayartagihan'),
+            DB::raw('count(CASE WHEN tagihanmobiledetail.nilaibayar !=0.00 THEN tagihanmobiledetail.nilaibayar ELSE 0 END) AS countbayartagihan'),
+
         )
-            ->join('tagihanmobileheader', 'tagihanmobileheader.nobukti', '=', 'tagihanmobiledetail.nobukti')
-            ->where('tagihanmobiledetail.tgl', date('Y-m-d'))
-            ->groupBy('tagihanmobileheader.kdslm');
+            ->join('tagihanmobiledetail', 'tagihanmobiledetail.nobukti', '=', 'tagihanmobileheader.nobukti')
+            ->where('tagihanmobileheader.tgl', date('Y-m-d'))
+            ->groupBy('tagihanmobileheader.kdslm')
+            // ->get()
+        ;
 
 
         $data['custlogs2'] = Customerlog::join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
@@ -311,9 +344,9 @@ class DashboardDMJ extends Controller
             ->leftJoinSub($subquerytagihanheadmob, 'taghm', function ($join) {
                 $join->on('salesman.kdslm', '=', 'taghm.kdslm');
             })
-            // ->leftJoinSub($subquerytagihandetmob, 'tagdm', function ($join) {
-            //     $join->on('tagihanmobileheader.kdslm', '=', 'tagdm.kdslm');
-            // })
+            ->leftJoinSub($subqueryec, 'ec', function ($join) {
+                $join->on('salesman.kdslm', '=', 'ec.kdslm');
+            })
             ->where('customer_log.tgl', date('Y-m-d'))
             ->whereNotNull('customer_log.cekin')
             ->where('customer_log.kdslm', '!=', '')
@@ -333,73 +366,16 @@ class DashboardDMJ extends Controller
                 DB::raw("pjp.M3"),
                 DB::raw("pjp.M4"),
                 DB::raw("pjp.M5"),
-                // DB::raw('IFNULL(taghm.sumtagihanhm, 0) AS sumtagihanhm'),
-                // DB::raw('IFNULL(tagdm.counttagihandm, 0) AS counttagihandm'),
+                DB::raw('IFNULL(ec.jumlah_ec_sombhead, 0) AS jumlah_ec_sombhead'),
+                DB::raw('IFNULL(taghm.sumtagihanhm, 0) AS sumtagihanhm'),
+                DB::raw('IFNULL(taghm.countbayartagihan, 0) AS countbayartagihan'),
+                DB::raw('IFNULL(taghm.bayartagihan, 0) AS bayartagihan'),
+                DB::raw('IFNULL(taghm.counttagihandm, 0) AS counttagihandm'),
                 DB::raw('( COUNT(customer_log.cekin)) / IFNULL(pjp.count_pjp, 0) * 100 AS pjp_percentage'),
                 DB::raw("FLOOR((DAYOFMONTH(CURDATE())-1 + WEEKDAY(CONCAT(YEAR(CURDATE()),'-',MONTH(CURDATE()),'-01')))/7) + 1 AS weeks_of_monthd")
 
             )
             ->get();
-
-        //subquery percobaan
-        // $data['custlogs2'] = Customerlog::join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
-        //     ->leftJoin(function ($join) {
-        //         $join->select('kdslm', DB::raw('COUNT(custno) AS count_pjp'))
-        //             ->from('pjppersonildetail')
-        //             ->where('hari', 'JUMAT')
-        //             ->whereNotNull('M4')
-        //             ->groupBy('kdslm');
-        //     }, 'salesman.kdslm', '=', 'pjp.kdslm')
-        //     ->where('customer_log.tgl', date('Y-m-d'))
-        //     ->whereNotNull('customer_log.cekin')
-        //     ->where('customer_log.kdslm', '!=', '')
-        //     ->groupBy('salesman.NmSlm')
-        //     ->orderBy('salesman.kdslm')
-        //     ->select(
-        //         'salesman.NmSlm as salesmans',
-        //         DB::raw('MIN(customer_log.cekin) AS firstcekin'),
-        //         DB::raw('COUNT(customer_log.cekin) AS callinputcard'),
-        //         DB::raw('COUNT(CASE WHEN customer_log.statusorder = "sukses" OR customer_log.status = "sukses" THEN 1 END) AS suksescard'),
-        //         DB::raw('SEC_TO_TIME(SUM(TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(customer_log.cekin))) AS used_time'),
-        //         DB::raw('SUM(CASE WHEN customer_log.tgl = CURDATE() THEN TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(customer_log.cekin) ELSE 0 END)/23400*100 AS used_sec'),
-        //         DB::raw('SUM(customer_log.salesorder) AS penjualan'),
-        //         DB::raw('IFNULL(pjp.count_pjp, 0) AS count_pjp')
-        //     )->get();
-
-
-        // $data['custlogs2'] = Customerlog::where('tgl', date('Y-m-d'))
-        //     ->where('cekin', '!=', NULL)
-        //     ->where('kdslm', '!=', "")
-        //     // ->select(DB::raw('kdslm, TIMEDIFF(cekout, cekin) AS used_time'))
-        //     ->select(
-        //         DB::raw('(
-        //         CASE
-        //             WHEN kdslm = 01 THEN "JANAWIK"
-        //             WHEN kdslm = 19 THEN "APRIYANTO"
-        //             WHEN kdslm = 54 THEN "AWALUDIN"
-        //             WHEN kdslm = 48 THEN "SUSI"
-        //             WHEN kdslm = 41 THEN "KANTA"
-        //             WHEN kdslm = 36 THEN "NOVI YANTI"
-        //             WHEN kdslm = 34 THEN "AGUS"
-        //             WHEN kdslm = 20 THEN "HASAN"
-        //             WHEN kdslm = 32 THEN "HERMAN"
-        //             WHEN kdslm = 25 THEN "KUSNADI"
-        //             WHEN kdslm = 23 THEN "IRAWAN"
-        //             WHEN kdslm = 44 THEN "EVA LUSITA"
-        //             WHEN kdslm = 72 THEN "UMAR"
-        //         ELSE "UNKNOW"
-        //         END) AS salesmans'),
-        //         DB::raw('MIN(cekin) AS firstcekin'),
-        //         DB::raw('kdslm, COUNT(cekin) AS callinputcard'),
-        //         DB::raw('kdslm, COUNT(status) AS suksescard'),
-        //         DB::raw('SEC_TO_TIME(SUM(TIME_TO_SEC(cekout) - TIME_TO_SEC(cekin))) AS used_time'),
-        //         // DB::raw('SUM(TIME_TO_SEC(cekout) - TIME_TO_SEC(cekin) AS used_sec'),
-        //         DB::raw('SUM(TIME_TO_SEC(cekout) - TIME_TO_SEC(cekin))/23600*100 AS used_sec'),
-        //         // DB::raw('SUM(TIME_TO_SEC(cekout) - TIME_TO_SEC(cekin))/18000*100 AS used_sec'),
-        //         DB::raw('SUM(salesorder) AS penjualan')
-        //     )
-        //     ->groupBy(DB::raw("kdslm"))
-        //     ->get();
 
         $detikused = Customerlog::where('tgl', date('Y-m-d'))
             ->where('statusorder', '!=', NULL)

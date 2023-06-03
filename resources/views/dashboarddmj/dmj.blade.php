@@ -25,6 +25,12 @@
         font-size: 13px !important;
         padding: 0 !important;
     }
+
+    body {
+        /* zoom: 0.9;
+        -moz-transform: scale(0.9);
+        -webkit-zoom: 0.9; */
+    }
 </style>
 
 <head>
@@ -692,9 +698,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 style="background-color: #3e789c !important; border: 0.2px rgba(255, 255, 255, 0.993);">
 
                 <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">ANALYSIS CARD LOG SALESMAN
-                    {{ date('Y-m-d') }}</h1> <i alt="Info_warna_anylog"
-                    data-bs-target="#modalinfowarnaanylog" data-bs-toggle="modal"
-                    class="fa-solid fa-circle-info fa-beat-fade fa-lg"
+                    {{ date('Y-m-d') }}</h1> <i alt="Info_warna_anylog" data-bs-target="#modalinfowarnaanylog"
+                    data-bs-toggle="modal" class="fa-solid fa-circle-info fa-beat-fade fa-lg"
                     style="cursor: pointer !important;"></i>
                 <a href="" class="btn btn-outline-info ml-2" data-bs-target="#modallog"
                     data-bs-toggle="modal">Detail Analysis</a>
@@ -719,7 +724,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                     <div class="" style="font-weight: 550; cursor: pointer;">
                                                         <i class="fas fa-user mr-4 ml-1"
                                                             style="color: #3cd2a5 !important;"></i>Call/EC :
-                                                        {{ $data->callinputcard }} / {{ $data->suksescard }}
+                                                        {{ $data->callinputcard }} / {{ $data->jumlah_ec_sombhead }}
                                                     </div>
                                                 </div>
                                                 <div class="grid-container1">
@@ -757,10 +762,18 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 <div class="grid-container1">
                                                     <div class="" style="font-weight: 550; cursor: pointer;">
                                                         <i class="fa-solid fa-credit-card mr-3 ml-1"
-                                                            style="color: #3cd2a5 !important;"></i>LPH/Tagih :
-                                                        ({{ $data->counttagihanhm }})
-                                                        Rp{{ number_format($data->sumtagihanhm, 0, '.' . '.') }} / (0)
-                                                        Rp...
+                                                            style="color: #3cd2a5 !important;"></i>LPH
+                                                        ({{ $data->counttagihandm }})
+                                                        Rp {{ number_format($data->sumtagihanhm, 0, '.' . '.') }}
+
+                                                    </div>
+                                                </div>
+                                                <div class="grid-container1">
+                                                    <div class="" style="font-weight: 550; cursor: pointer;">
+                                                        <i class="fa-solid fa-cash-register fa-beat mr-3 ml-1"
+                                                            style="color: #3cd2a5 !important;"></i>Tagih :
+                                                        ({{ $data->countbayartagihan }})
+                                                        Rp {{ number_format($data->bayartagihan, 0, '.' . '.') }}
                                                     </div>
                                                 </div>
                                                 <div class="grid-container1">
@@ -806,7 +819,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="col-sm-6 col-md-12 text-center">
-                                                            @if ($data->used_sec <'65')
+                                                            @if ($data->used_sec < '65')
                                                                 <input data-skin="tron" data-thickness="0.2"
                                                                     data-readonly="true" type="text"
                                                                     class="knob"
@@ -865,11 +878,9 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                             @elseif ($data->used_sec >= '100')
                                                                 <input data-skin="tron" data-thickness="0.2"
                                                                     data-readonly="true" type="text"
-                                                                    class="knob"
-                                                                    value="100"
-                                                                    data-width="120" data-height="120"
-                                                                    data-fgColor="#80d1d0" data-min="0"
-                                                                    data-max="100">
+                                                                    class="knob" value="100" data-width="120"
+                                                                    data-height="120" data-fgColor="#80d1d0"
+                                                                    data-min="0" data-max="100">
                                                                 <div class="knob-label"
                                                                     style="padding-top: 1rem !important;">
                                                                     <p>
@@ -887,9 +898,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                     style="padding-top: 1rem !important;">
                                                                     *{{ $data->salesmans }}
                                                                 </div>
-
                                                             @endif
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1002,22 +1011,22 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                     <th>
                                         <input data-readonly="true" type="text" class="knob" value="64"
                                             data-width="90" data-height="90" data-fgColor="#ff3333" data-min="0"
-                                            data-max="300">
+                                            data-max="100">
                                     </th>
                                     <th>
                                         <input data-readonly="true" type="text" class="knob" value="79"
                                             data-width="90" data-height="90" data-fgColor="#fff873" data-min="0"
-                                            data-max="300">
+                                            data-max="100">
                                     </th>
                                     <th>
                                         <input data-readonly="true" type="text" class="knob" value="89"
                                             data-width="90" data-height="90" data-fgColor="#a6f04d" data-min="0"
-                                            data-max="300">
+                                            data-max="100">
                                     </th>
                                     <th>
                                         <input data-readonly="true" type="text" class="knob" value="90"
                                             data-width="90" data-height="90" data-fgColor="#80d1d0" data-min="0"
-                                            data-max="300">
+                                            data-max="100">
                                     </th>
                                 </tr>
                             </thead>
@@ -1025,7 +1034,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 <tr>
                                     <td>1-64</td>
                                     <td>65 - 79</td>
-                                    <td>89</td>
+                                    <td>80 - 89</td>
                                     <td>90+</td>
                                 </tr>
                             </tbody>
