@@ -26,6 +26,12 @@
         padding: 0 !important;
     }
 
+    .nav-pills {
+        --bs-nav-pills-border-radius: 0.375rem;
+        --bs-nav-pills-link-active-color: #fff;
+        --bs-nav-pills-link-active-bg: #1f656b !important;
+    }
+
     body {
         /* zoom: 0.9;
         -moz-transform: scale(0.9);
@@ -608,83 +614,116 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">LOG SALES ORDER DAILY {{ date('Y-m-d') }}
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">LOG SALES DAILY {{ date('Y-m-d') }}
                 </h1>
                 <button type="button" class="btn-close" data-bs-target="#rincicardsaleslog"
                     data-bs-toggle="modal"></button>
             </div>
-            <div class="modal-body">
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover text-dark" id="tblAkun">
-                        <thead style="text-align: center !important;">
-                            <tr class="text-dark">
-                                <th text-align="center">No</th>
-                                <th align="center">Nama Salesman</th>
-                                <th align="center">Nama Customer</th>
-                                <th align="center">Cek In</th>
-                                <th align="center">Cek Out</th>
-                                <th align="center">Waktu Digunakan</th>
-                                {{-- <th>Status Oder</th> --}}
-                                <th align="center">Status Call</th>
-                                <th align="center">Sales Order</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-dark">
-                            <?php $no = 1;
-                            ?>
-                            {{-- @foreach ($salesmanall as $dataslm) --}}
-                            @foreach ($custlogs1 as $data)
-                                <tr>
-                                    <td align="center" width="1%">{{ $no++ }}</td>
-                                    <td width="3%">
-                                        @if ($data->kdslm == 01)
-                                            JANAWIK
-                                        @elseif ($data->kdslm == 23)
-                                            IRAWAN
-                                        @elseif ($data->kdslm == 54)
-                                            AWALUDIN
-                                        @elseif ($data->kdslm == 32)
-                                            HERMAN
-                                        @elseif ($data->kdslm == 20)
-                                            HASAN FIKRI
-                                        @elseif ($data->kdslm == 34)
-                                            AGUS
-                                        @elseif ($data->kdslm == 36)
-                                            NOVI YANTI
-                                        @elseif ($data->kdslm == 44)
-                                            EVA
-                                        @elseif ($data->kdslm == 41)
-                                            KANTA
-                                        @elseif ($data->kdslm == 48)
-                                            SUSI
-                                        @elseif ($data->kdslm == 19)
-                                            APRIYANTO
-                                        @elseif ($data->kdslm == 72)
-                                            UMAR
-                                        @endif
-                                    </td>
-                                    {{-- <td width="5%">( {{ $data->kdslm  }} )</td> --}}
-                                    <td width="5%">( {{ $data->custno }} ) - {{ $data->custname }}</td>
-                                    <td width="2%">{{ $data->cekin }}</td>
-                                    <td width="2%">{{ $data->cekout }}</td>
-                                    @if ($data->used_time <= '00:05:00')
-                                        <td width="2%" class="text-danger"> <b> {{ $data->used_time }} </b></td>
-                                    @else
-                                        <td width="2%">{{ $data->used_time }}</td>
-                                    @endif
-                                    {{-- <td>{{ $data->statusorder }}</td> --}}
-                                    {{-- <td>{{ $data->statusbayar }}</td> --}}
-                                    @if ($data->status == 'Gagal')
-                                        <td width="10%">{{ $data->status }} ( {{ $data->alasangagal }} )</td>
-                                    @elseif ($data->status == 'Sukses')
-                                        <td width="10%">{{ $data->status }}</td>
-                                    @endif
-                                    <td width="7%">Rp {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
-                                </tr>
-                            @endforeach
-                            {{-- @endforeach --}}
-                        </tbody>
-                    </table>
+            <div class="card">
+                <div class="card-header" style="background-color: #243b47">
+                    <div class="card-tools">
+                        <ul class="nav nav-pills ml-auto text-black">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#cust-log" data-toggle="tab"> <b> Cust Log </b>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#tagihan-log" data-toggle="tab">
+                                    <b>Tagihan Log</b></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content p-0">
+                        <div class="chart tab-pane active" id="cust-log">
+                            <div class="modal-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover text-dark" id="tblAkun">
+                                        <thead style="text-align: center !important;">
+                                            <tr class="text-dark">
+                                                <th text-align="center">No</th>
+                                                <th align="center">Nama Salesman</th>
+                                                <th align="center">Nama Customer</th>
+                                                <th align="center">Cek In</th>
+                                                <th align="center">Cek Out</th>
+                                                <th align="center">Waktu Digunakan</th>
+                                                {{-- <th>Status Oder</th> --}}
+                                                <th align="center">Status Call</th>
+                                                <th align="center">Sales Order</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-dark">
+                                            <?php $no = 1;
+                                            ?>
+                                            {{-- @foreach ($salesmanall as $dataslm) --}}
+                                            @foreach ($custlogs1 as $data)
+                                                <tr>
+                                                    <td align="center" width="1%">{{ $no++ }}</td>
+                                                    <td width="3%">
+                                                        @if ($data->kdslm == 01)
+                                                            JANAWIK
+                                                        @elseif ($data->kdslm == 23)
+                                                            IRAWAN
+                                                        @elseif ($data->kdslm == 54)
+                                                            AWALUDIN
+                                                        @elseif ($data->kdslm == 32)
+                                                            HERMAN
+                                                        @elseif ($data->kdslm == 20)
+                                                            HASAN FIKRI
+                                                        @elseif ($data->kdslm == 34)
+                                                            AGUS
+                                                        @elseif ($data->kdslm == 36)
+                                                            NOVI YANTI
+                                                        @elseif ($data->kdslm == 44)
+                                                            EVA
+                                                        @elseif ($data->kdslm == 41)
+                                                            KANTA
+                                                        @elseif ($data->kdslm == 48)
+                                                            SUSI
+                                                        @elseif ($data->kdslm == 19)
+                                                            APRIYANTO
+                                                        @elseif ($data->kdslm == 72)
+                                                            UMAR
+                                                        @endif
+                                                    </td>
+                                                    {{-- <td width="5%">( {{ $data->kdslm  }} )</td> --}}
+                                                    <td width="5%">( {{ $data->custno }} ) -
+                                                        {{ $data->custname }}
+                                                    </td>
+                                                    <td width="2%">{{ $data->cekin }}</td>
+                                                    <td width="2%">{{ $data->cekout }}</td>
+                                                    @if ($data->used_time <= '00:05:00')
+                                                        <td width="2%" class="text-danger"> <b>
+                                                                {{ $data->used_time }} </b>
+                                                        </td>
+                                                    @else
+                                                        <td width="2%">{{ $data->used_time }}</td>
+                                                    @endif
+                                                    {{-- <td>{{ $data->statusorder }}</td> --}}
+                                                    {{-- <td>{{ $data->statusbayar }}</td> --}}
+                                                    @if ($data->status == 'Gagal')
+                                                        <td width="10%">{{ $data->status }} (
+                                                            {{ $data->alasangagal }}
+                                                            )</td>
+                                                    @elseif ($data->status == 'Sukses')
+                                                        <td width="10%">{{ $data->status }}</td>
+                                                    @endif
+                                                    <td width="7%">Rp
+                                                        {{ number_format($data->salesorder, 0, '.' . '.') }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            {{-- @endforeach --}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart tab-pane" id="tagihan-log">
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -773,7 +812,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                         <i class="fa-solid fa-cash-register fa-beat mr-3 ml-1"
                                                             style="color: #3cd2a5 !important;"></i>Tagih :
                                                         ({{ $data->countbayartagihan }})
-                                                        Rp {{ number_format($data->bayartagihan, 0, '.' . '.') }}
+                                                        Rp {{ number_format($data->bayartagihan, 0, '.' . '.') }} ->
+                                                        Rp {{ number_format($data->SisaTagihan, 0, '.' . '.') }}
                                                     </div>
                                                 </div>
                                                 <div class="grid-container1">

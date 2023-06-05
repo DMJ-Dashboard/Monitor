@@ -327,6 +327,7 @@ class DashboardDMJ extends Controller
             DB::raw('tagihanmobileheader.totalfaktur AS sumtagihanhm'),
             DB::raw('tagihanmobileheader.jfaktur AS counttagihandm'),
             DB::raw('tagihanmobileheader.totalbayar AS bayartagihan'),
+            DB::raw('tagihanmobileheader.totalfaktur - tagihanmobileheader.totalbayar AS SisaTagihan'),
             DB::raw('count(CASE WHEN tagihanmobiledetail.nilaibayar !=0.00 THEN tagihanmobiledetail.nilaibayar ELSE 0 END) AS countbayartagihan'),
 
         )
@@ -367,6 +368,7 @@ class DashboardDMJ extends Controller
                 DB::raw("pjp.M4"),
                 DB::raw("pjp.M5"),
                 DB::raw('IFNULL(ec.jumlah_ec_sombhead, 0) AS jumlah_ec_sombhead'),
+                DB::raw('IFNULL(taghm.SisaTagihan, 0) AS SisaTagihan'),
                 DB::raw('IFNULL(taghm.sumtagihanhm, 0) AS sumtagihanhm'),
                 DB::raw('IFNULL(taghm.countbayartagihan, 0) AS countbayartagihan'),
                 DB::raw('IFNULL(taghm.bayartagihan, 0) AS bayartagihan'),
