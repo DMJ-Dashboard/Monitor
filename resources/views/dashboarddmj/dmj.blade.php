@@ -771,23 +771,22 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                         <div class=""
                                                             style="font-weight: 550; cursor: pointer;">
                                                             <i class="fa-solid fa-hourglass-half mr-4 ml-1"
-                                                                style="color: #ff0101 !important;"></i>First Checkin :
-                                                            <i></i> {{ $data->firstcekin }}
+                                                                style="color: #ff0101 !important;"></i>First/Last :
+                                                            <i></i> {{ $data->firstcekin }} - {{ $data->lastcekin }}
                                                         </div>
                                                     @else
                                                         <div class=""
                                                             style="font-weight: 550; cursor: pointer;">
                                                             <i class="fa-solid fa-hourglass-half mr-4 ml-1"
-                                                                style="color: #3cd2a5 !important;"></i>First Checkin :
-                                                            {{ $data->firstcekin }}
+                                                                style="color: #3cd2a5 !important;"></i>First/Last :
+                                                            {{ $data->firstcekin }} - {{ $data->lastcekin }}
                                                         </div>
                                                     @endif
-
                                                 </div>
                                                 <div class="grid-container1">
                                                     <div class="" style="font-weight: 550; cursor: pointer;">
                                                         <i class="fas fa-clock mr-3 ml-1"
-                                                            style="color: #3cd2a5 !important;"></i>Time Used :
+                                                            style="color: #3cd2a5 !important;"></i>Time Used / Remaining :
                                                         {{ $data->used_time }}
                                                     </div>
                                                 </div>
@@ -812,8 +811,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                         <i class="fa-solid fa-cash-register fa-beat mr-3 ml-1"
                                                             style="color: #3cd2a5 !important;"></i>Tagih :
                                                         ({{ $data->countbayartagihan }})
-                                                        Rp {{ number_format($data->bayartagihan, 0, '.' . '.') }} ->
-                                                        Rp {{ number_format($data->SisaTagihan, 0, '.' . '.') }}
+                                                        Rp {{ number_format($data->bayartagihan, 0, '.' . '.') }}
+                                                        ( {{ number_format($data->SisaTagihan, 0, '.' . '.') }} )
                                                     </div>
                                                 </div>
                                                 <div class="grid-container1">
@@ -1127,7 +1126,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 <div class="form-group">
                                     <label for="jnilai">Target Penjualan</label>
                                     <input type="number" name="jnilai" id="jnilai" class="form-control"
-                                        placeholder="Masukkan Target Penjualan" value="{{ old('jnilai') }}" required>
+                                        placeholder="Masukkan Target Penjualan" value="{{ old('jnilai') }}"
+                                        required>
                                 </div>
                             </div>
                             <button type='submit' class="btn btn-success">Simpan</button>
