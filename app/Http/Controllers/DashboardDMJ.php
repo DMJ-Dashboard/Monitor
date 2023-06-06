@@ -197,6 +197,7 @@ class DashboardDMJ extends Controller
             ->pluck('bulan');
 
         $data['custlogs1'] = Customerlog::join('customer', 'customer_log.custno', '=', 'customer.CustNo')
+            ->join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
             ->where('customer_log.tgl', date('Y-m-d'))
             ->where('customer_log.cekin', '!=', NULL)
             ->where('customer_log.kdslm', '!=', "")
@@ -218,7 +219,9 @@ class DashboardDMJ extends Controller
                 //     WHEN customer_log.kdslm = 72 THEN "UMAR"
                 // ELSE "UNKNOW"
                 // END) AS salesmans'),
-                DB::raw('*,customer.custname, TIMEDIFF(cekout, cekin) AS used_time')
+                DB::raw('customer_log.*'),
+                DB::raw('salesman.Nmslm'),
+                DB::raw('customer.custname, TIMEDIFF(cekout, cekin) AS used_time')
             )
             ->get();
         // dd($custlogs1);
@@ -321,15 +324,33 @@ class DashboardDMJ extends Controller
         //     ->groupBy('kdslm')
         //     ->orderBy('kdslm');
         // dd($subqueryec);
+        $data['tagihancustlogsales'] = TagihanMobileHeader::join('tagihanmobiledetail', 'tagihanmobileheader.nobukti', '=', 'tagihanmobiledetail.nobukti')
+            ->join('salesman', 'tagihanmobileheader.kdslm', '=', 'salesman.kdslm')
+            // ->join('customer', 'tagihanmobiledetail.custno', '=', 'customer.custno')
+            ->where('tagihanmobileheader.tgl', date('Y-m-d'))
+            ->select(
+                DB::raw('tagihanmobiledetail.custno'),
+                // DB::raw('customer.custname'),
+                DB::raw('salesman.Nmslm'),
+                DB::raw('tagihanmobiledetail.nolph'),
+                DB::raw('SUM(tagihanmobiledetail.nilaibayar) as nilaibayar'),
+                DB::raw('SUM(tagihanmobiledetail.netto) as netto'),
+                DB::raw('SUM(tagihanmobiledetail.netto) - SUM(tagihanmobiledetail.nilaibayar) as sisa_bayar'),
+            )
+            ->groupBy('tagihanmobiledetail.custno')
+            ->orderByDesc(DB::raw('SUM(tagihanmobiledetail.netto) - SUM(tagihanmobiledetail.nilaibayar)'))
+            ->get();
+        // dd($tagihandetaillog);
 
         $subquerytagihanheadmob = TagihanMobileHeader::select(
             'tagihanmobileheader.kdslm',
             'tagihanmobiledetail.nobukti as nobuktidet',
-            DB::raw('tagihanmobileheader.totalfaktur AS sumtagihanhm'),
             DB::raw('tagihanmobileheader.jfaktur AS counttagihandm'),
+            DB::raw('tagihanmobileheader.totalfaktur AS sumtagihanhm'),
             DB::raw('tagihanmobileheader.totalbayar AS bayartagihan'),
             DB::raw('tagihanmobileheader.totalfaktur - tagihanmobileheader.totalbayar AS SisaTagihan'),
-            DB::raw('count(CASE WHEN tagihanmobiledetail.nilaibayar !=0.00 THEN tagihanmobiledetail.nilaibayar ELSE 0 END) AS countbayartagihan'),
+
+            DB::raw('COUNT(CASE WHEN tagihanmobiledetail.nilaibayar > 0.00 THEN 1 ELSE NULL END) AS countbayartagihan'),
 
         )
             ->join('tagihanmobiledetail', 'tagihanmobiledetail.nobukti', '=', 'tagihanmobileheader.nobukti')

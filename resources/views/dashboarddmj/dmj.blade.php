@@ -636,7 +636,11 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 </div>
                 <div class="card-body">
                     <div class="tab-content p-0">
+
                         <div class="chart tab-pane active" id="cust-log">
+                            <center>
+                                <b>SALESMAN CHECKIN DAILY</b>
+                            </center>
                             <div class="modal-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-hover text-dark" id="tblAkun">
@@ -656,38 +660,10 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                         <tbody class="text-dark">
                                             <?php $no = 1;
                                             ?>
-                                            {{-- @foreach ($salesmanall as $dataslm) --}}
                                             @foreach ($custlogs1 as $data)
                                                 <tr>
                                                     <td align="center" width="1%">{{ $no++ }}</td>
-                                                    <td width="3%">
-                                                        @if ($data->kdslm == 01)
-                                                            JANAWIK
-                                                        @elseif ($data->kdslm == 23)
-                                                            IRAWAN
-                                                        @elseif ($data->kdslm == 54)
-                                                            AWALUDIN
-                                                        @elseif ($data->kdslm == 32)
-                                                            HERMAN
-                                                        @elseif ($data->kdslm == 20)
-                                                            HASAN FIKRI
-                                                        @elseif ($data->kdslm == 34)
-                                                            AGUS
-                                                        @elseif ($data->kdslm == 36)
-                                                            NOVI YANTI
-                                                        @elseif ($data->kdslm == 44)
-                                                            EVA
-                                                        @elseif ($data->kdslm == 41)
-                                                            KANTA
-                                                        @elseif ($data->kdslm == 48)
-                                                            SUSI
-                                                        @elseif ($data->kdslm == 19)
-                                                            APRIYANTO
-                                                        @elseif ($data->kdslm == 72)
-                                                            UMAR
-                                                        @endif
-                                                    </td>
-                                                    {{-- <td width="5%">( {{ $data->kdslm  }} )</td> --}}
+                                                    <td width="2%">{{ $data->Nmslm }}</td>
                                                     <td width="5%">( {{ $data->custno }} ) -
                                                         {{ $data->custname }}
                                                     </td>
@@ -700,8 +676,6 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                     @else
                                                         <td width="2%">{{ $data->used_time }}</td>
                                                     @endif
-                                                    {{-- <td>{{ $data->statusorder }}</td> --}}
-                                                    {{-- <td>{{ $data->statusbayar }}</td> --}}
                                                     @if ($data->status == 'Gagal')
                                                         <td width="10%">{{ $data->status }} (
                                                             {{ $data->alasangagal }}
@@ -714,13 +688,55 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                            {{-- @endforeach --}}
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
                         <div class="chart tab-pane" id="tagihan-log">
+                            <center>
+                                <b> TAGIHAN SALES DAILY</b>
+                            </center>
+                            <div class="modal-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover text-dark" id="tblAkun">
+                                        <thead style="text-align: center !important;">
+                                            <tr class="text-dark">
+                                                <th text-align="center">No</th>
+                                                <th align="center">Customer</th>
+                                                <th align="center">Salesman</th>
+                                                <th align="center">LPH</th>
+                                                <th align="center">Nilai Tagihan</th>
+                                                <th align="center">Nilai Bayar</th>
+                                                <th align="center">Sisa Bayar</th>
+                                                <th align="center">Order</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-dark">
+                                            <?php $no = 1;
+
+                                            ?>
+                                            @foreach ($tagihancustlogsales as $data)
+                                                <tr>
+                                                    <td align="center" width="1%">{{ $no++ }}</td>
+                                                    <td width="2%">{{ $data->custno }}</td>
+                                                    <td width="5%">{{ $data->Nmslm }}</td>
+                                                    <td width="2%">{{ $data->nolph }}</td>
+                                                    <td>Rp {{ number_format($data->netto, 0, '.' . '.') }}</td>
+                                                    <td>Rp {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
+                                                    @if ($data->sisa_bayar <= '0')
+                                                        <td><button class="btn btn-info disabled">LUNAS</button></td>
+                                                    @else
+                                                        <td>Rp {{ number_format($data->sisa_bayar, 0, '.' . '.') }}
+                                                        </td>
+                                                    @endif
+                                                    <td></td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -746,7 +762,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
             </div>
             <div class="modal-body"
                 style="background-color: #1d4157 !important; border: 0.2px rgba(255, 255, 255, 0.979);"">
-                <div class="table-responsive">
+                <div class="table-responsive" style="font-size: 0.8rem">
                     <div class="row" style="margin: 0 !important;">
                         {{-- @foreach ($suksescard as $data2) --}}
                         @foreach ($custlogs2 as $data)
@@ -786,14 +802,14 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 <div class="grid-container1">
                                                     <div class="" style="font-weight: 550; cursor: pointer;">
                                                         <i class="fas fa-clock mr-3 ml-1"
-                                                            style="color: #3cd2a5 !important;"></i>Time Used / Remaining :
-                                                        {{ $data->used_time }}
+                                                            style="color: #3cd2a5 !important;"></i>Used/Remaining :
+                                                        {{ $data->used_time }} /
                                                     </div>
                                                 </div>
                                                 <div class="grid-container1">
                                                     <div class="" style="font-weight: 550; cursor: pointer;">
                                                         <i class="fa-solid fa-dollar-sign mr-4 ml-1"
-                                                            style="color: #3cd2a5 !important;"></i>Total SO : Rp
+                                                            style="color: #3cd2a5 !important;"></i>SO : Rp
                                                         {{ number_format($data->penjualan, 0, '.' . '.') }}
                                                     </div>
                                                 </div>
@@ -900,7 +916,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         <b> {{ $data->salesmans }} </b>
                                                                     </p>
                                                                 </div>
-                                                            @elseif ($data->used_sec >= '90')
+                                                            @elseif ($data->used_sec <= '99')
                                                                 <input data-skin="tron" data-thickness="0.2"
                                                                     data-readonly="true" type="text"
                                                                     class="knob"
@@ -926,7 +942,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         <b> {{ $data->salesmans }} </b>
                                                                     </p>
                                                                 </div>
-                                                            @else
+                                                            {{-- @else
                                                                 <input data-skin="tron" data-thickness="0.2"
                                                                     data-readonly="true" type="text"
                                                                     class="knob" type="text" value="100"
@@ -937,6 +953,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                     style="padding-top: 1rem !important;">
                                                                     *{{ $data->salesmans }}
                                                                 </div>
+                                                            @endif --}}
                                                             @endif
                                                         </div>
                                                     </div>
