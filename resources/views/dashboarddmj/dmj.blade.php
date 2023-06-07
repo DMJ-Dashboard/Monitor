@@ -683,9 +683,9 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                     @elseif ($data->status == 'Sukses')
                                                         <td width="10%">{{ $data->status }}</td>
                                                     @endif
-                                                    <td width="7%">Rp
+                                                    {{-- <td width="7%">Rp
                                                         {{ number_format($data->salesorder, 0, '.' . '.') }}
-                                                    </td>
+                                                    </td> --}}
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -696,6 +696,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                         <div class="chart tab-pane" id="tagihan-log">
                             <center>
                                 <b> TAGIHAN SALES DAILY</b>
+
                             </center>
                             <div class="modal-body">
                                 <div class="table-responsive">
@@ -706,6 +707,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 <th align="center">Customer</th>
                                                 <th align="center">Salesman</th>
                                                 <th align="center">LPH</th>
+                                                <th align="center">Tanggal LPH</th>
                                                 <th align="center">Nilai Tagihan</th>
                                                 <th align="center">Nilai Bayar</th>
                                                 <th align="center">Sisa Bayar</th>
@@ -719,18 +721,26 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             @foreach ($tagihancustlogsales as $data)
                                                 <tr>
                                                     <td align="center" width="1%">{{ $no++ }}</td>
-                                                    <td width="2%">{{ $data->custno }}</td>
-                                                    <td width="5%">{{ $data->Nmslm }}</td>
+                                                    <td width="1%">{{ $data->custname }}</td>
+                                                    <td width="3%">{{ $data->Nmslm }}</td>
                                                     <td width="2%">{{ $data->nolph }}</td>
-                                                    <td>Rp {{ number_format($data->netto, 0, '.' . '.') }}</td>
-                                                    <td>Rp {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
+                                                    <td width="7%">{{ $data->tgl }}</td>
+                                                    <td width="7%">Rp
+                                                        {{ number_format($data->netto, 0, '.' . '.') }}</td>
+                                                    <td width="7%">Rp
+                                                        {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
                                                     @if ($data->sisa_bayar <= '0')
-                                                        <td><button class="btn btn-info disabled">LUNAS</button></td>
-                                                    @else
-                                                        <td>Rp {{ number_format($data->sisa_bayar, 0, '.' . '.') }}
+                                                        <td width="7%">
+
+                                                            <i class="fa-solid fa-circle-check fa-xl fa-fade"
+                                                                style="color: #34c595;"></i>
                                                         </td>
-                                                    @endif
-                                                    <td></td>
+                                                    @else
+                                                        <td width="7%">Rp
+                                                            {{ number_format($data->sisa_bayar, 0, '.' . '.') }}
+                                                        </td>
+                                                    @endifS
+                                                    <td width="5%"></td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -942,7 +952,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         <b> {{ $data->salesmans }} </b>
                                                                     </p>
                                                                 </div>
-                                                            {{-- @else
+                                                                {{-- @else
                                                                 <input data-skin="tron" data-thickness="0.2"
                                                                     data-readonly="true" type="text"
                                                                     class="knob" type="text" value="100"

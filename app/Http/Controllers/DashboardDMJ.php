@@ -202,23 +202,6 @@ class DashboardDMJ extends Controller
             ->where('customer_log.cekin', '!=', NULL)
             ->where('customer_log.kdslm', '!=', "")
             ->select(
-                // DB::raw('(
-                // CASE
-                //     WHEN customer_log.kdslm = 01 THEN "JANAWIK"
-                //     WHEN customer_log.kdslm = 19 THEN "APRIYANTO"
-                //     WHEN customer_log.kdslm = 54 THEN "AWALUDIN"
-                //     WHEN customer_log.kdslm = 48 THEN "SUSI"
-                //     WHEN customer_log.kdslm = 41 THEN "KANTA"
-                //     WHEN customer_log.kdslm = 36 THEN "NOVI YANTI"
-                //     WHEN customer_log.kdslm = 34 THEN "AGUS"
-                //     WHEN customer_log.kdslm = 20 THEN "HASAN"
-                //     WHEN customer_log.kdslm = 32 THEN "HERMAN"
-                //     WHEN customer_log.kdslm = 25 THEN "KUSNADI"
-                //     WHEN customer_log.kdslm = 23 THEN "IRAWAN"
-                //     WHEN customer_log.kdslm = 44 THEN "EVA LUSITA"
-                //     WHEN customer_log.kdslm = 72 THEN "UMAR"
-                // ELSE "UNKNOW"
-                // END) AS salesmans'),
                 DB::raw('customer_log.*'),
                 DB::raw('salesman.Nmslm'),
                 DB::raw('customer.custname, TIMEDIFF(cekout, cekin) AS used_time')
@@ -291,7 +274,7 @@ class DashboardDMJ extends Controller
         $subqueryec = Somobileheader::select(
             'kdslm',
             DB::raw('COUNT( CASE WHEN stat != 0 THEN 1 END ) as jumlah_ec_sombhead'),
-            DB::raw('COUNT( CASE WHEN stat != 0 THEN 1 END ) as sukses')
+            DB::raw('COUNT(DISTINCT custno) as sukses')
         )
             ->where('tgl', date('Y-m-d'))
             ->groupBy('kdslm')
@@ -326,13 +309,18 @@ class DashboardDMJ extends Controller
         // dd($subqueryec);
         $data['tagihancustlogsales'] = TagihanMobileHeader::join('tagihanmobiledetail', 'tagihanmobileheader.nobukti', '=', 'tagihanmobiledetail.nobukti')
             ->join('salesman', 'tagihanmobileheader.kdslm', '=', 'salesman.kdslm')
-            // ->join('customer', 'tagihanmobiledetail.custno', '=', 'customer.custno')
+            ->join('customer', 'tagihanmobiledetail.custno', '=', 'customer.custno')
             ->where('tagihanmobileheader.tgl', date('Y-m-d'))
+            ->whereNotNull('customer.NoMember')
+            // ->where('customer.NoMember','!=','')
+            // ->where('customer.NPWP','!=','')
+            ->where('salesman.Stat','=','1')
             ->select(
                 DB::raw('tagihanmobiledetail.custno'),
-                // DB::raw('customer.custname'),
+                DB::raw('customer.custname'),
                 DB::raw('salesman.Nmslm'),
-                DB::raw('tagihanmobiledetail.nolph'),
+                DB::raw('tagihanmobileheader.nolph'),
+                DB::raw('tagihanmobiledetail.tgl'),
                 DB::raw('SUM(tagihanmobiledetail.nilaibayar) as nilaibayar'),
                 DB::raw('SUM(tagihanmobiledetail.netto) as netto'),
                 DB::raw('SUM(tagihanmobiledetail.netto) - SUM(tagihanmobiledetail.nilaibayar) as sisa_bayar'),
