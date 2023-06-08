@@ -683,9 +683,9 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                     @elseif ($data->status == 'Sukses')
                                                         <td width="10%">{{ $data->status }}</td>
                                                     @endif
-                                                    {{-- <td width="7%">Rp
+                                                    <td width="7%">Rp
                                                         {{ number_format($data->salesorder, 0, '.' . '.') }}
-                                                    </td> --}}
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -721,7 +721,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             @foreach ($tagihancustlogsales as $data)
                                                 <tr>
                                                     <td align="center" width="1%">{{ $no++ }}</td>
-                                                    <td width="1%">{{ $data->custname }}</td>
+                                                    <td width="1%">{{ $data->custno }}</td>
                                                     <td width="3%">{{ $data->Nmslm }}</td>
                                                     <td width="2%">{{ $data->nolph }}</td>
                                                     <td width="7%">{{ $data->tgl }}</td>
@@ -739,7 +739,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                         <td width="7%">Rp
                                                             {{ number_format($data->sisa_bayar, 0, '.' . '.') }}
                                                         </td>
-                                                    @endifS
+                                                    @endif
                                                     <td width="5%"></td>
                                                 </tr>
                                             @endforeach

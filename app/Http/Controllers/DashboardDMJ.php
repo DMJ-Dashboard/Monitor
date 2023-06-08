@@ -579,9 +579,9 @@ class DashboardDMJ extends Controller
             ->pluck('KdSupplier');
 
         setlocale(LC_TIME, 'id_ID.utf8');
-
+        $tanggalAwalBulan = Carbon::now()->startOfMonth()->toDateString();
         // //card faktur penjualan
-        $data['penjaualndb22'] = Fakturjual::whereBetween("TglKirim", ['2023-05-01', date('Y-m-d')])
+        $data['penjaualndb22'] = Fakturjual::whereBetween("TglKirim", [$tanggalAwalBulan, date('Y-m-d')])
             // whereMonth("TglKirim", date('m'))
             //     ->whereYear("TglKirim", date('Y'))
             // ->where("stat", '6')
@@ -592,7 +592,7 @@ class DashboardDMJ extends Controller
             ->orwhere("stat", '10')
             ->count();
 
-        $data['sumpenjualandb22'] = Fakturjual::whereBetween("TglKirim", ['2023-05-01', date('Y-m-d')])
+        $data['sumpenjualandb22'] = Fakturjual::whereBetween("TglKirim", [$tanggalAwalBulan, date('Y-m-d')])
             // whereMonth("TglKirim", date('m'))
             ->where("stat", '6')
             ->orwhere("stat", '2')
