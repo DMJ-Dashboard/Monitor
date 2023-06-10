@@ -82,7 +82,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Abouts</a>
+                <a class="nav-link" href="{{ route('Report')}}">Report</a>
             </li>
         </ul>
 
@@ -635,8 +635,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="tab-content p-0">
-
+                    {{-- MAINTANCE --}}
+                    {{-- <div class="tab-content p-0">
                         <div class="chart tab-pane active" id="cust-log">
                             <center>
                                 <b>SALESMAN CHECKIN DAILY</b>
@@ -652,7 +652,6 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 <th align="center">Cek In</th>
                                                 <th align="center">Cek Out</th>
                                                 <th align="center">Waktu Digunakan</th>
-                                                {{-- <th>Status Oder</th> --}}
                                                 <th align="center">Status Call</th>
                                                 <th align="center">Sales Order</th>
                                             </tr>
@@ -748,26 +747,27 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 </div>
                             </div>
                         </div>
-
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 <div class="modal fade" id="rincicardsaleslog" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
     tabindex="-1">
     <div class="modal-dialog modal-fullscreen modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header"
                 style="background-color: #3e789c !important; border: 0.2px rgba(255, 255, 255, 0.993);">
-
                 <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">ANALYSIS CARD LOG SALESMAN
                     {{ date('Y-m-d') }}</h1> <i alt="Info_warna_anylog" data-bs-target="#modalinfowarnaanylog"
                     data-bs-toggle="modal" class="fa-solid fa-circle-info fa-beat-fade fa-lg"
                     style="cursor: pointer !important;"></i>
-                <a href="" class="btn btn-outline-info ml-2" data-bs-target="#modallog"
-                    data-bs-toggle="modal">Detail Analysis</a>
+                <a href="{{ route('services') }}" target="_blank" class="btn btn-outline-info ml-2" >Detail Analysis</a>
+                {{-- <a href="" target="__blank" class="btn btn-outline-info ml-2" data-bs-target="#modallog"
+                    data-bs-toggle="modal">Detail Analysis</a> --}}
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body"

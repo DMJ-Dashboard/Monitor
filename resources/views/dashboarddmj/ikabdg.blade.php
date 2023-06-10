@@ -162,7 +162,7 @@ border-style: solid; color:aliceblue !important;">
                     <li><a class="dropdown-item" href="{{ route('DMJS') }}">DMJ ALL</a></li>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="#">Report</a>
             </li>
         </ul>
         {{-- <form class="form-inline my-2 my-lg-0">

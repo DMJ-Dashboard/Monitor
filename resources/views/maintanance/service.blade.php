@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Mainanance</title>
+    <title>Maintanance</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 
@@ -46,7 +46,7 @@
                     </p>
                     <p
                         style="font-size: 0.6rem !important; padding: 0; margin: 0;  text-align:left; font-family: 'Archivo Black', sans-serif;">
-                        ~ DMJ Source Code 2023 ~</p>
+                        ~ DMJ Source Code 2022 ~</p>
                 </div>
                 <div class="col-sm-6 col-lg-8 col-md-8">
                     <div class="image-eror mt-3">

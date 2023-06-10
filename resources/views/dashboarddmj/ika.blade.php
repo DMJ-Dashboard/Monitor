@@ -163,7 +163,7 @@ border-style: solid; color:aliceblue !important;">
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="#">Report</a>
             </li>
         </ul>
         {{-- <form class="form-inline my-2 my-lg-0">
