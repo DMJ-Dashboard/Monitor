@@ -82,7 +82,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('Report')}}">Report</a>
+                <a class="nav-link" target="_blank" href="{{ route('Report') }}">Report</a>
             </li>
         </ul>
 
@@ -765,7 +765,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                     {{ date('Y-m-d') }}</h1> <i alt="Info_warna_anylog" data-bs-target="#modalinfowarnaanylog"
                     data-bs-toggle="modal" class="fa-solid fa-circle-info fa-beat-fade fa-lg"
                     style="cursor: pointer !important;"></i>
-                <a href="{{ route('services') }}" target="_blank" class="btn btn-outline-info ml-2" >Detail Analysis</a>
+                <a href="{{ route('services') }}" target="_blank" class="btn btn-outline-info ml-2">Detail
+                    Analysis</a>
                 {{-- <a href="" target="__blank" class="btn btn-outline-info ml-2" data-bs-target="#modallog"
                     data-bs-toggle="modal">Detail Analysis</a> --}}
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -781,7 +782,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                     style="background-color: #3448728c; !important; border: 0.2px rgba(255, 255, 255, 0.925);">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-6 col-md-7">
+                                            <div class="col-sm-12 col-md-7">
                                                 <div class="grid-container1">
                                                     <div class="" style="font-weight: 550; cursor: pointer;">
                                                         Cabang : PALEMBANG DMJ
@@ -880,79 +881,81 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 </div>
 
                                             </div>
-                                            <div class="col-sm-6 col-md-5">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="col-sm-6 col-md-12 text-center">
-                                                            @if ($data->used_sec < '65')
-                                                                <input data-skin="tron" data-thickness="0.2"
-                                                                    data-readonly="true" type="text"
-                                                                    class="knob"
-                                                                    value="{{ number_format($data->used_sec) }}%"
-                                                                    data-width="120" data-height="120"
-                                                                    data-fgColor="#ff4a4a" data-min="0"
-                                                                    data-max="100">
-                                                                <div class="knob-label"
-                                                                    style="padding-top: 1rem !important;">
-                                                                    <p>
-                                                                        <b> {{ $data->salesmans }} </b>
-                                                                    </p>
-                                                                </div>
-                                                            @elseif ($data->used_sec <= '79')
-                                                                <input data-skin="tron" data-thickness="0.2"
-                                                                    data-readonly="true" type="text"
-                                                                    class="knob"
-                                                                    value="{{ number_format($data->used_sec) }}%"
-                                                                    data-width="120" data-height="120"
-                                                                    data-fgColor="#fff873" data-min="0"
-                                                                    data-max="100">
-                                                                <div class="knob-label"
-                                                                    style="padding-top: 1rem !important;">
-                                                                    <p>
-                                                                        <b> {{ $data->salesmans }} </b>
-                                                                    </p>
-                                                                </div>
-                                                            @elseif ($data->used_sec <= '89')
-                                                                <input data-skin="tron" data-thickness="0.2"
-                                                                    data-readonly="true" type="text"
-                                                                    class="knob"
-                                                                    value="{{ number_format($data->used_sec) }}%"
-                                                                    data-width="120" data-height="120"
-                                                                    data-fgColor="#a6f04d" data-min="0"
-                                                                    data-max="100">
-                                                                <div class="knob-label"
-                                                                    style="padding-top: 1rem !important;">
-                                                                    <p>
-                                                                        <b> {{ $data->salesmans }} </b>
-                                                                    </p>
-                                                                </div>
-                                                            @elseif ($data->used_sec <= '99')
-                                                                <input data-skin="tron" data-thickness="0.2"
-                                                                    data-readonly="true" type="text"
-                                                                    class="knob"
-                                                                    value="{{ number_format($data->used_sec) }}%"
-                                                                    data-width="120" data-height="120"
-                                                                    data-fgColor="#80d1d0" data-min="0"
-                                                                    data-max="100">
-                                                                <div class="knob-label"
-                                                                    style="padding-top: 1rem !important;">
-                                                                    <p>
-                                                                        <b> {{ $data->salesmans }} </b>
-                                                                    </p>
-                                                                </div>
-                                                            @elseif ($data->used_sec >= '100')
-                                                                <input data-skin="tron" data-thickness="0.2"
-                                                                    data-readonly="true" type="text"
-                                                                    class="knob" value="100" data-width="120"
-                                                                    data-height="120" data-fgColor="#80d1d0"
-                                                                    data-min="0" data-max="100">
-                                                                <div class="knob-label"
-                                                                    style="padding-top: 1rem !important;">
-                                                                    <p>
-                                                                        <b> {{ $data->salesmans }} </b>
-                                                                    </p>
-                                                                </div>
-                                                                {{-- @else
+                                            <div class="col-sm-12 col-md-5">
+                                                <center>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="col-sm-6 col-md-12 text-center">
+                                                                @if ($data->used_sec < '65')
+                                                                    <input data-skin="tron" data-thickness="0.2"
+                                                                        data-readonly="true" type="text"
+                                                                        class="knob"
+                                                                        value="{{ number_format($data->used_sec) }}%"
+                                                                        data-width="120" data-height="120"
+                                                                        data-fgColor="#ff4a4a" data-min="0"
+                                                                        data-max="100">
+                                                                    <div class="knob-label"
+                                                                        style="padding-top: 1rem !important;">
+                                                                        <p>
+                                                                            <b> {{ $data->salesmans }} </b>
+                                                                        </p>
+                                                                    </div>
+                                                                @elseif ($data->used_sec <= '79')
+                                                                    <input data-skin="tron" data-thickness="0.2"
+                                                                        data-readonly="true" type="text"
+                                                                        class="knob"
+                                                                        value="{{ number_format($data->used_sec) }}%"
+                                                                        data-width="120" data-height="120"
+                                                                        data-fgColor="#fff873" data-min="0"
+                                                                        data-max="100">
+                                                                    <div class="knob-label"
+                                                                        style="padding-top: 1rem !important;">
+                                                                        <p>
+                                                                            <b> {{ $data->salesmans }} </b>
+                                                                        </p>
+                                                                    </div>
+                                                                @elseif ($data->used_sec <= '89')
+                                                                    <input data-skin="tron" data-thickness="0.2"
+                                                                        data-readonly="true" type="text"
+                                                                        class="knob"
+                                                                        value="{{ number_format($data->used_sec) }}%"
+                                                                        data-width="120" data-height="120"
+                                                                        data-fgColor="#a6f04d" data-min="0"
+                                                                        data-max="100">
+                                                                    <div class="knob-label"
+                                                                        style="padding-top: 1rem !important;">
+                                                                        <p>
+                                                                            <b> {{ $data->salesmans }} </b>
+                                                                        </p>
+                                                                    </div>
+                                                                @elseif ($data->used_sec <= '99')
+                                                                    <input data-skin="tron" data-thickness="0.2"
+                                                                        data-readonly="true" type="text"
+                                                                        class="knob"
+                                                                        value="{{ number_format($data->used_sec) }}%"
+                                                                        data-width="120" data-height="120"
+                                                                        data-fgColor="#80d1d0" data-min="0"
+                                                                        data-max="100">
+                                                                    <div class="knob-label"
+                                                                        style="padding-top: 1rem !important;">
+                                                                        <p>
+                                                                            <b> {{ $data->salesmans }} </b>
+                                                                        </p>
+                                                                    </div>
+                                                                @elseif ($data->used_sec >= '100')
+                                                                    <input data-skin="tron" data-thickness="0.2"
+                                                                        data-readonly="true" type="text"
+                                                                        class="knob" value="100"
+                                                                        data-width="120" data-height="120"
+                                                                        data-fgColor="#80d1d0" data-min="0"
+                                                                        data-max="100">
+                                                                    <div class="knob-label"
+                                                                        style="padding-top: 1rem !important;">
+                                                                        <p>
+                                                                            <b> {{ $data->salesmans }} </b>
+                                                                        </p>
+                                                                    </div>
+                                                                    {{-- @else
                                                                 <input data-skin="tron" data-thickness="0.2"
                                                                     data-readonly="true" type="text"
                                                                     class="knob" type="text" value="100"
@@ -964,10 +967,12 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                     *{{ $data->salesmans }}
                                                                 </div>
                                                             @endif --}}
-                                                            @endif
+                                                                @endif
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </center>
+
                                             </div>
                                         </div>
 
@@ -1153,8 +1158,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 <div class="form-group">
                                     <label for="jnilai">Target Penjualan</label>
                                     <input type="number" name="jnilai" id="jnilai" class="form-control"
-                                        placeholder="Masukkan Target Penjualan" value="{{ old('jnilai') }}"
-                                        required>
+                                        placeholder="Masukkan Target Penjualan" value="{{ old('jnilai') }}" required>
                                 </div>
                             </div>
                             <button type='submit' class="btn btn-success">Simpan</button>

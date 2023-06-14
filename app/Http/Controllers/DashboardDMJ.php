@@ -287,56 +287,6 @@ class DashboardDMJ extends Controller
 
         $tanggalHariIni = Carbon::today();
 
-        // $subqueryec = Soheader::select('kdslm')
-        //     ->where(function ($query) use ($tanggalHariIni) {
-        //         $query->whereRaw('DAY(tgl) = 7')
-        //             ->where('tgl', '=', $tanggalHariIni->copy()->addDays(2));
-        //     })
-        //     ->orWhere(function ($query) use ($tanggalHariIni) {
-        //         $query->whereRaw('DAY(tgl) != 7')
-        //             ->where('tgl', '=', $tanggalHariIni->copy()->addDay(1));
-        //     })
-        //     ->groupBy('kdslm')
-        //     ->orderBy('kdslm')
-        //     ->count('*');
-
-
-        // $subqueryec = Soheader::select('kdslm', DB::raw('COUNT(*) as jumlah_ec_sombhead'))
-        //     ->where(function ($query) use ($tanggalHariIni) {
-        //         if ($tanggalHariIni->isSaturday()) {
-        //             $query->where('tgl', '=', $tanggalHariIni->copy()->addDays(2));
-        //         } else {
-        //             $query->where('tgl', '=', $tanggalHariIni->copy()->addDay());
-        //         }
-        //     })
-        //     ->groupBy('kdslm')
-        //     ->orderBy('kdslm');
-        // dd($subqueryec);
-
-
-        //MAINTANANCE
-        // $data['tagihancustlogsales'] = TagihanMobileHeader::join('tagihanmobiledetail', 'tagihanmobileheader.nobukti', '=', 'tagihanmobiledetail.nobukti')
-        //     ->join('salesman', 'tagihanmobileheader.kdslm', '=', 'salesman.kdslm')
-        //     ->join('customer', 'tagihanmobiledetail.custno', '=', 'customer.custno')
-        //     ->where('tagihanmobileheader.tgl', date('Y-m-d'))
-        //     ->whereNotNull('customer.NoMember')
-        //     // ->where('customer.NoMember','!=','')
-        //     // ->where('customer.NPWP','!=','')
-        //     ->where('salesman.Stat','=','1')
-        //     ->select(
-        //         DB::raw('tagihanmobiledetail.custno'),
-        //         DB::raw('customer.custname'),
-        //         DB::raw('salesman.Nmslm'),
-        //         DB::raw('tagihanmobileheader.nolph'),
-        //         DB::raw('tagihanmobiledetail.tgl'),
-        //         DB::raw('SUM(tagihanmobiledetail.nilaibayar) as nilaibayar'),
-        //         DB::raw('SUM(tagihanmobiledetail.netto) as netto'),
-        //         DB::raw('SUM(tagihanmobiledetail.netto) - SUM(tagihanmobiledetail.nilaibayar) as sisa_bayar'),
-        //     )
-        //     ->groupBy('tagihanmobiledetail.custno')
-        //     ->orderByDesc(DB::raw('SUM(tagihanmobiledetail.netto) - SUM(tagihanmobiledetail.nilaibayar)'))
-        //     ->get();
-        // dd($tagihandetaillog);
 
         $subquerytagihanheadmob = TagihanMobileHeader::select(
             'tagihanmobileheader.kdslm',
@@ -425,22 +375,6 @@ class DashboardDMJ extends Controller
                 DB::raw('IFNULL(somobsukses.sukses, 0) AS sukses'),
             )
             ->pluck('sukses');
-        // ->where('salesorder', '>=', 0)
-        // ->where('status', '=', 'Sukses')
-        // ->select(DB::raw('kdslm, COUNT(status) AS sukses'))
-        // ->get();
-
-
-        // $sukses = Somobileheader::where('tgl', date('Y-m-d'))
-        //     ->where('kdslm', '!=', "")
-        //     ->groupBy(DB::raw("kdslm"))
-        //     ->select(DB::raw('kdslm, COUNT(nobukti) AS sukses'))
-        //     ->pluck('sukses');
-
-        // SELECT kdslm, SUM(NETTO) AS sukses, COUNT(netto)
-        // FROM somobileheader
-        // WHERE tgl=CURDATE() AND netto != "0"
-        // GROUP BY kdslm;
 
         $data['suksescard'] = Customerlog::where('tgl', date('Y-m-d'))
             ->where('kdslm', '!=', "")
