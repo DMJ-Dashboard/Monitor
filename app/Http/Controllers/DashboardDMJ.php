@@ -18,6 +18,8 @@ use App\Models\Stokbulan;
 use App\Models\StokbulanIKA;
 use App\Models\StokKartu;
 use App\Models\Supplier;
+use App\Models\TagihanDetail;
+use App\Models\TagihanHeader;
 use App\Models\TagihanMobileHeader;
 use App\Models\TargetSalesman;
 use Illuminate\Support\Facades\DB;
@@ -291,11 +293,8 @@ class DashboardDMJ extends Controller
         $subquerytagihanheadmob = TagihanMobileHeader::select(
             'tagihanmobileheader.kdslm',
             'tagihanmobiledetail.nobukti as nobuktidet',
-            DB::raw('tagihanmobileheader.jfaktur AS counttagihandm'),
-            DB::raw('tagihanmobileheader.totalfaktur AS sumtagihanhm'),
             DB::raw('tagihanmobileheader.totalbayar AS bayartagihan'),
-            DB::raw('tagihanmobileheader.totalfaktur - tagihanmobileheader.totalbayar AS SisaTagihan'),
-
+            // DB::raw('tagihanmobileheader.totalfaktur - tagihanmobileheader.totalbayar AS SisaTagihan'),
             DB::raw('COUNT(CASE WHEN tagihanmobiledetail.nilaibayar > 0.00 THEN 1 ELSE NULL END) AS countbayartagihan'),
 
         )
@@ -305,13 +304,39 @@ class DashboardDMJ extends Controller
             // ->get()
         ;
 
+        $subquerytagihanhead = TagihanHeader::select(
+            'tagihanheader.kdslm',
+            'tagihandetail.nobukti as nobuktidetail',
+            DB::raw('tagihanheader.Total AS totallph'),
+            DB::raw('COUNT(CASE WHEN tagihandetail.nobukti = tagihandetail.nobukti THEN 1 ELSE NULL END) AS countbayartagihan'),
 
+        )
+            ->join('tagihandetail', 'tagihandetail.nobukti', '=', 'tagihanheader.nobukti')
+            ->where('tagihanheader.tgl', date('Y-m-d'))
+            ->groupBy('tagihanheader.kdslm')
+            // ->get()
+        ;
+
+        $subquerytagihanhead = TagihanDetail::select(
+            'tagihanheader.kdslm',
+            'tagihandetail.NoBukti',
+            DB::raw('sum(tagihandetail.Nilai) AS totallph'),
+            DB::raw('COUNT(tagihandetail.NoFaktur) AS countlph'),
+        )
+            ->join('tagihanheader', 'tagihandetail.NoBukti', '=', 'tagihanheader.nobukti')
+            ->where('tagihanheader.TglTagih', date('Y-m-d'))
+            ->groupBy('tagihanheader.kdslm')
+            // ->get()
+            ;
         $data['custlogs2'] = Customerlog::join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
             ->leftJoinSub($subquerypjpdetail, 'pjp', function ($join) {
                 $join->on('salesman.kdslm', '=', 'pjp.kdslm');
             })
             ->leftJoinSub($subquerytagihanheadmob, 'taghm', function ($join) {
                 $join->on('salesman.kdslm', '=', 'taghm.kdslm');
+            })
+            ->leftJoinSub($subquerytagihanhead, 'taghm2', function ($join) {
+                $join->on('salesman.kdslm', '=', 'taghm2.kdslm');
             })
             ->leftJoinSub($subqueryec, 'ec', function ($join) {
                 $join->on('salesman.kdslm', '=', 'ec.kdslm');
@@ -328,6 +353,8 @@ class DashboardDMJ extends Controller
                 DB::raw('COUNT(customer_log.cekin) AS callinputcard'),
                 DB::raw('COUNT(CASE WHEN customer_log.statusorder = "sukses" OR customer_log.status = "sukses" THEN 1 END) AS suksescard'),
                 DB::raw('SEC_TO_TIME(SUM(TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(customer_log.cekin))) AS used_time'),
+                DB::raw('SUBTIME("06:00:00",SEC_TO_TIME(SUM(TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(customer_log.cekin)))) AS remaining_time'),
+                // DB::raw('SUBTIME(SEC_TO_TIME(SUM(TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(customer_log.cekin)))) - 21600 AS remaining_time'),
                 DB::raw('SUM(CASE WHEN customer_log.tgl = CURDATE() THEN TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(customer_log.cekin) ELSE 0 END)/23400*100 AS used_sec'),
                 DB::raw('SUM(customer_log.salesorder) AS penjualan'),
                 DB::raw('IFNULL(pjp.count_pjp, 0) AS count_pjp'),
@@ -337,11 +364,12 @@ class DashboardDMJ extends Controller
                 DB::raw("pjp.M4"),
                 DB::raw("pjp.M5"),
                 DB::raw('IFNULL(ec.jumlah_ec_sombhead, 0) AS jumlah_ec_sombhead'),
-                DB::raw('IFNULL(taghm.SisaTagihan, 0) AS SisaTagihan'),
-                DB::raw('IFNULL(taghm.sumtagihanhm, 0) AS sumtagihanhm'),
+                DB::raw('IFNULL(taghm2.totallph, 0) AS totallph'),
+                DB::raw('IFNULL(taghm2.countlph, 0) AS countlph'),
+                DB::raw('taghm2.totallph-taghm.bayartagihan as SisaTotalTagihan'),
+                DB::raw('taghm2.countlph-taghm.countbayartagihan as Sisacount'),
                 DB::raw('IFNULL(taghm.countbayartagihan, 0) AS countbayartagihan'),
                 DB::raw('IFNULL(taghm.bayartagihan, 0) AS bayartagihan'),
-                DB::raw('IFNULL(taghm.counttagihandm, 0) AS counttagihandm'),
                 DB::raw('( COUNT(customer_log.cekin)) / IFNULL(pjp.count_pjp, 0) * 100 AS pjp_percentage'),
                 DB::raw("FLOOR((DAYOFMONTH(CURDATE())-1 + WEEKDAY(CONCAT(YEAR(CURDATE()),'-',MONTH(CURDATE()),'-01')))/7) + 1 AS weeks_of_monthd")
 
@@ -853,8 +881,6 @@ class DashboardDMJ extends Controller
             ->whereRaw('DATEDIFF(TglJTempo,CURRENT_DATE()) >= ?', '0')
             ->count();
 
-
-
         $data['penjaualndb22'] = Fakturjual::whereMonth("TglKirim", $echodate23)
             ->whereYear("TglKirim", [$request->yearfilter])
             ->where("stat", '6')
@@ -1168,7 +1194,7 @@ class DashboardDMJ extends Controller
         $arraystokm = $stokM[0]['stokm'];
         $totalkartustok = $arraystokm - $arraystokk;
         // dd($request);
-        return view('dashboarddmj.dmj', ['detikused' => $detikused, 'totalkartustok' => $totalkartustok, 'detikused' => $detikused, 'bulan' => $bulan, 'callinput' => $callinput, 'salesoutsalesman' => $salesoutsalesman, 'sumsalesman' => $sumsalesman, 'nilaireturs' => $nilaireturs, 'nilai' => $nilai, 'pieprincipal' => $pieprincipal, 'pieprincipalkd' => $pieprincipalkd, 'sukses' => $sukses, 'gagal' => $gagal, 'salesmans' => $salesmans], $data);
+        return view('dashboarddmj.dmj', ['detikused' => $detikused, 'totalkartustok' => $totalkartustok, 'bulan' => $bulan, 'callinput' => $callinput, 'salesoutsalesman' => $salesoutsalesman, 'sumsalesman' => $sumsalesman, 'nilaireturs' => $nilaireturs, 'nilai' => $nilai, 'pieprincipal' => $pieprincipal, 'pieprincipalkd' => $pieprincipalkd, 'sukses' => $sukses, 'gagal' => $gagal, 'salesmans' => $salesmans], $data);
     }
 }
 

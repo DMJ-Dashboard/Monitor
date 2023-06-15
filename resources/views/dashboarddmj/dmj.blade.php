@@ -814,7 +814,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                     <div class="" style="font-weight: 550; cursor: pointer;">
                                                         <i class="fas fa-clock mr-3 ml-1"
                                                             style="color: #3cd2a5 !important;"></i>Used/Remaining :
-                                                        {{ $data->used_time }} /
+                                                        {{ $data->used_time }} / {{ $data->remaining_time }}
                                                     </div>
                                                 </div>
                                                 <div class="grid-container1">
@@ -827,9 +827,9 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 <div class="grid-container1">
                                                     <div class="" style="font-weight: 550; cursor: pointer;">
                                                         <i class="fa-solid fa-credit-card mr-3 ml-1"
-                                                            style="color: #3cd2a5 !important;"></i>LPH
-                                                        ({{ $data->counttagihandm }})
-                                                        Rp {{ number_format($data->sumtagihanhm, 0, '.' . '.') }}
+                                                            style="color: #3cd2a5 !important;"></i>LPH :
+                                                        ({{ $data->countlph }})
+                                                        Rp {{ number_format($data->totallph, 0, '.' . '.') }}
 
                                                     </div>
                                                 </div>
@@ -838,8 +838,9 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                         <i class="fa-solid fa-cash-register fa-beat mr-3 ml-1"
                                                             style="color: #3cd2a5 !important;"></i>Tagih :
                                                         ({{ $data->countbayartagihan }})
-                                                        Rp {{ number_format($data->bayartagihan, 0, '.' . '.') }}
-                                                        ( {{ number_format($data->SisaTagihan, 0, '.' . '.') }} )
+                                                        Rp {{ number_format($data->bayartagihan, 0, '.' . '.') }} -
+                                                        ( {{ number_format($data->Sisacount, 0, '.' . '.') }} )
+                                                        ( {{ number_format($data->SisaTotalTagihan, 0, '.' . '.') }} )
                                                     </div>
                                                 </div>
                                                 <div class="grid-container1">

@@ -12,3 +12,4 @@ class TagihanMobileDetail extends Model
     protected $table = "tagihanmobiledetail";
 
 }
+

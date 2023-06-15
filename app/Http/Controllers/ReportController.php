@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customerlog;
+use App\Models\Tagihandetail;
+use App\Models\TagihanHeader;
 use App\Models\TagihanMobileHeader;
+use App\Models\TagihanMobileDetail;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -48,8 +51,31 @@ class ReportController extends Controller
             ->groupBy('tagihanmobiledetail.custno')
             ->orderByDesc(DB::raw('SUM(tagihanmobiledetail.netto) - SUM(tagihanmobiledetail.nilaibayar)'))
             ->get();
+        $data = TagihanMobileHeader::all();
+        $data = TagihanMobileDetail::all();
+        // $datah= TagihanHeader::select(
+        //     'tagihanheader.kdslm',
+        //     'tagihandetail.nobukti',
+        //     DB::raw('tagihanheader.Total AS totallph'),
+        //     // DB::raw('SUM(CASE WHEN tagihandetail.nobukti = tagihandetail.nobukti THEN tagihanheader.Total ELSE NULL END) AS totallph'),
+        //     DB::raw('COUNT(CASE WHEN tagihandetail.nobukti = tagihandetail.nobukti THEN 1 ELSE NULL END) AS countlph'),
+        // )
+        //     ->join('tagihandetail', 'tagihandetail.nobukti', '=', 'tagihanheader.nobukti')
+        //     ->where('tagihanheader.TglTagih', date('Y-m-d'))
+        //     ->groupBy('tagihanheader.kdslm')
+        //     ->get();
 
-            return view('dashboarddmj.report', $data);
+        // $dataD= Tagihandetail::select(
+        //     'tagihanheader.kdslm',
+        //     'tagihandetail.nobukti',
+        //     DB::raw('sum(tagihandetail.Nilai) AS totallph'),
+        //     DB::raw('COUNT(tagihandetail.NoFaktur) AS countlph'),
+        // )
+        //     ->join('tagihanheader', 'tagihandetail.nobukti', '=', 'tagihanheader.nobukti')
+        //     ->where('tagihanheader.TglTagih', date('Y-m-d'))
+        //     ->groupBy('tagihanheader.kdslm')
+        //     ->get();
+        // dd($dataD);
+        return view('dashboarddmj.report');
     }
-
 }
