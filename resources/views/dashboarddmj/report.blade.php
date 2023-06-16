@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
     integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <script src="https://kit.fontawesome.com/4c68d22cde.js" crossorigin="anonymous"></script>
@@ -6,7 +5,6 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
     integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-<link rel="stylesheet" href="{{ asset('/dmj/style.css') }}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 
@@ -111,7 +109,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 </center>
                 <div class="modal-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover text-dark" id="tblAkun">
+                        <table class="table table-striped table-hover text-dark" id="tblchekin">
                             <thead style="text-align: center !important;">
                                 <tr class="text-dark">
                                     <th text-align="center">No</th>
@@ -124,13 +122,14 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                     <th align="center">Sales Order</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-dark">
+                            <tbody class="text-dark" id="data-body">
                                 <?php $no = 1;
                                 ?>
-                                @foreach ($custlogs1 as $data)
-                                    <tr>
-                                        <td align="center" width="1%">{{ $no++ }}</td>
-                                        <td width="2%">{{ $data->Nmslm }}</td>
+
+                                {{-- @foreach ($custlogs1 as $data)
+                                <tr>
+                                    <td colspan="8" align="center" width="1%">LOADING DATA . . .</td>
+                                    <td width="2%">{{ $data->Nmslm }}</td>
                                         <td width="5%">( {{ $data->custno }} ) -
                                             {{ $data->custname }}
                                         </td>
@@ -153,8 +152,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                         <td width="7%">Rp
                                             {{ number_format($data->salesorder, 0, '.' . '.') }}
                                         </td>
-                                    </tr>
-                                @endforeach
+                                </tr>
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>
@@ -165,7 +164,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                     <b> TAGIHAN SALES DAILY</b>
 
                 </center>
-                <div class="modal-body">
+                {{-- <div class="modal-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-hover text-dark" id="tblAkun">
                             <thead style="text-align: center !important;">
@@ -213,8 +212,100 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
+</script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        var table = $('#tblchekin').DataTable({
+            ajax: {
+                url: "{{ route('data-ReportAPI') }}",
+                type: "GET",
+                dataType: "json",
+                dataSrc: "", // Menentukan sumber data dari response JSON
+            },
+            columns: [
+                { data: null, render: function(data, type, row, meta) {
+                    // Kolom nomor
+                    return meta.row + 1;
+                }},
+                { data: "Nmslm" },
+                { data: "custname" },
+                { data: "cekin" },
+                { data: "cekout" },
+                {
+                    data: "used_time",
+                    render: function(data, type, row) {
+                        if (row.used_time <= '00:05:00') {
+                            return '<td width="2%" class="text-danger"><b>' + row.used_time + '</b></td>';
+                        } else {
+                            return '<td width="2%">' + row.used_time + '</td>';
+                        }
+                    }
+                },
+                { data: "status" },
+                { data: "salesorder" }
+                // Tambahkan kolom lain sesuai dengan kebutuhan
+            ]
+        });
+    });
+</script>
+
+
+{{--
+<script>
+    $(document).ready(function() {
+        var table = $('#tblchekin').DataTable({
+            // Konfigurasi DataTables jika diperlukan
+        });
+
+        $.ajax({
+            url: "{{ route('data-ReportAPI') }}",
+            type: "GET",
+            dataType: "json",
+            success: function(data) {
+                var tableBody = table.clear().rows.add(data).draw().$('tbody');
+
+                let no = 1;
+
+                // Iterasi melalui data dan menambahkannya ke tabel
+                $.each(data, function(index, item) {
+                    var row = $('<tr></tr>');
+                    row.append('<td>' + no++ + '</td>');
+                    row.append('<td>' + item.Nmslm + '</td>');
+                    row.append('<td>' + item.custname + '</td>');
+                    row.append('<td>' + item.cekin + '</td>');
+                    row.append('<td>' + item.cekout + '</td>');
+                    row.append('<td>' + item.used_time + '</td>');
+                    row.append('<td>' + item.status + '</td>');
+                    row.append('<td>' + item.salesorder + '</td>');
+                    // Tambahkan kolom lain sesuai dengan kebutuhan
+                    tableBody.append(row);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+</script> --}}
