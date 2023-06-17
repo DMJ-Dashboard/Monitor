@@ -7,6 +7,8 @@
     integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -164,9 +166,9 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                     <b> TAGIHAN SALES DAILY</b>
 
                 </center>
-                {{-- <div class="modal-body">
+                <div class="modal-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover text-dark" id="tblAkun">
+                        <table class="table table-striped table-hover text-dark" id="tbltagihancustlog">
                             <thead style="text-align: center !important;">
                                 <tr class="text-dark">
                                     <th text-align="center">No</th>
@@ -177,11 +179,11 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                     <th align="center">Nilai Tagihan</th>
                                     <th align="center">Nilai Bayar</th>
                                     <th align="center">Sisa Bayar</th>
-                                    <th align="center">Order</th>
+                                    {{-- <th align="center">Order</th> --}}
                                 </tr>
                             </thead>
                             <tbody class="text-dark">
-                                <?php $no = 1;
+                                {{-- <?php $no = 1;
 
                                 ?>
                                 @foreach ($tagihancustlogsales as $data)
@@ -208,11 +210,11 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                         @endif
                                         <td width="5%"></td>
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>
@@ -242,7 +244,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 url: "{{ route('data-ReportAPI') }}",
                 type: "GET",
                 dataType: "json",
-                dataSrc: "", // Menentukan sumber data dari response JSON
+                dataSrc: "custlog1", // Menentukan sumber data dari response JSON
             },
             columns: [
                 { data: null, render: function(data, type, row, meta) {
@@ -257,55 +259,24 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                     data: "used_time",
                     render: function(data, type, row) {
                         if (row.used_time <= '00:05:00') {
-                            return '<td width="2%" class="text-danger"><b>' + row.used_time + '</b></td>';
+                            return '<td width="2%"><b class="text-danger">' + row.used_time + '</b></td>';
                         } else {
                             return '<td width="2%">' + row.used_time + '</td>';
                         }
                     }
                 },
                 { data: "status" },
-                { data: "salesorder" }
+                {
+                    data: "salesorder",
+                    render: $.fn.dataTable.render.number(',', '.', 0, ''),
+
+                }
                 // Tambahkan kolom lain sesuai dengan kebutuhan
             ]
         });
+
     });
 </script>
 
 
-{{--
-<script>
-    $(document).ready(function() {
-        var table = $('#tblchekin').DataTable({
-            // Konfigurasi DataTables jika diperlukan
-        });
 
-        $.ajax({
-            url: "{{ route('data-ReportAPI') }}",
-            type: "GET",
-            dataType: "json",
-            success: function(data) {
-                var tableBody = table.clear().rows.add(data).draw().$('tbody');
-
-                let no = 1;
-
-                // Iterasi melalui data dan menambahkannya ke tabel
-                $.each(data, function(index, item) {
-                    var row = $('<tr></tr>');
-                    row.append('<td>' + no++ + '</td>');
-                    row.append('<td>' + item.Nmslm + '</td>');
-                    row.append('<td>' + item.custname + '</td>');
-                    row.append('<td>' + item.cekin + '</td>');
-                    row.append('<td>' + item.cekout + '</td>');
-                    row.append('<td>' + item.used_time + '</td>');
-                    row.append('<td>' + item.status + '</td>');
-                    row.append('<td>' + item.salesorder + '</td>');
-                    // Tambahkan kolom lain sesuai dengan kebutuhan
-                    tableBody.append(row);
-                });
-            },
-            error: function(xhr, status, error) {
-                console.log(xhr.responseText);
-            }
-        });
-    });
-</script> --}}
