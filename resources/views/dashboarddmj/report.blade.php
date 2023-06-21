@@ -3,14 +3,14 @@
 <script src="https://kit.fontawesome.com/4c68d22cde.js" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-
-<!-- CSS only -->
+{{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> --}}
+{{-- <link rel="stylesheet" href="{{ asset('AdminLTE') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css"> --}}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="{{ asset('AdminLTE') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+{{-- <link rel="stylesheet" href="{{ asset('AdminLTE') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css"> --}}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
@@ -42,7 +42,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="refresh" content="1500; url=/dashboard_DMJ">
+    <meta http-equiv="refresh" content="1500; url=/report">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ asset('/dmj/dist/css/style.css') }}">
@@ -162,10 +162,6 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 </div>
             </div>
             <div class="chart tab-pane" id="tagihan-log">
-                <center>
-                    <b> TAGIHAN SALES DAILY</b>
-
-                </center>
                 <div class="modal-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-hover text-dark" id="tbltagihancustlog">
@@ -173,13 +169,13 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 <tr class="text-dark">
                                     <th text-align="center">No</th>
                                     <th align="center">Customer</th>
-                                    <th align="center">Salesman</th>
+                                    {{-- <th align="center">Salesman</th>
                                     <th align="center">LPH</th>
                                     <th align="center">Tanggal LPH</th>
                                     <th align="center">Nilai Tagihan</th>
                                     <th align="center">Nilai Bayar</th>
                                     <th align="center">Sisa Bayar</th>
-                                    {{-- <th align="center">Order</th> --}}
+                                    <th align="center">Order</th> --}}
                                 </tr>
                             </thead>
                             <tbody class="text-dark">
@@ -217,25 +213,83 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 </div>
             </div>
         </div>
+
     </div>
+    {{-- <div class="table-responsive">
+        <table class="table table-striped table-hover text-dark" id="tbltagihancustlog">
+            <thead style="text-align: center !important;">
+                <tr class="text-dark">
+                    <th text-align="center">Kode</th>
+                    <th align="center">Customer</th>
+                </tr>
+            </thead>
+            <tbody class="text-dark">
+                <td>Cs22</td>
+                <td>Joko</td>
+            </tbody>
+        </table>
+    </div> --}}
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
 </script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
 <!-- JavaScript Bundle with Popper -->
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-<script src="https://code.highcharts.com/modules/drilldown.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
-</script>
+
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<script src="{{ asset('AdminLTE') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+{{-- <script src="{{ asset('AdminLTE') }}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script> --}}
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
+
+
+
+<script>
+    $(document).ready(function() {
+        var printCounter = 0;
+        var h3 = '<h3 align="center">';
+        var h33 = '</h3>';
+        var table = $('#tbltagihancustlog').DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            "width": "100%",
+            buttons: [
+                'copy',
+                {
+                    extend: 'excel',
+                    messageTop: 'Laporan Tagihan Customer LOG Pada' + ' {{ date('M-Y') }}' + '',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'print',
+                    title: h3 + 'Laporan Tagihan Customer LOG' + h33,
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                'colvis'
+            ],
+        });
+        table.buttons().container().appendTo('#tbltagihancustlog_wrapper .col-md-6:eq(0)');
+    });
+</script>
 
 <script>
     $(document).ready(function() {
@@ -246,37 +300,80 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 dataType: "json",
                 dataSrc: "custlog1", // Menentukan sumber data dari response JSON
             },
-            columns: [
-                { data: null, render: function(data, type, row, meta) {
-                    // Kolom nomor
-                    return meta.row + 1;
-                }},
-                { data: "Nmslm" },
-                { data: "custname" },
-                { data: "cekin" },
-                { data: "cekout" },
+            columns: [{
+                    data: null,
+                    render: function(data, type, row, meta) {
+                        // Kolom nomor
+                        return meta.row + 1;
+                    }
+                },
+                {
+                    data: "Nmslm"
+                },
+                {
+                    data: "custname"
+                },
+                {
+                    data: "cekin"
+                },
+                {
+                    data: "cekout"
+                },
                 {
                     data: "used_time",
                     render: function(data, type, row) {
                         if (row.used_time <= '00:05:00') {
-                            return '<td width="2%"><b class="text-danger">' + row.used_time + '</b></td>';
+                            return '<td width="2%"><b class="text-danger">' + row.used_time +
+                                '</b></td>';
                         } else {
                             return '<td width="2%">' + row.used_time + '</td>';
                         }
                     }
                 },
-                { data: "status" },
+                {
+                    data: "status"
+                },
+                // { data: "salesorder" },
                 {
                     data: "salesorder",
                     render: $.fn.dataTable.render.number(',', '.', 0, ''),
 
                 }
-                // Tambahkan kolom lain sesuai dengan kebutuhan
-            ]
-        });
+            ],
 
+        });
+        tables.buttons().container().appendTo('#tblchekin_wrapper .col-md-6:eq(0)');
     });
 </script>
-
-
-
+{{--
+<script>
+    $(document).ready(function() {
+        var printCounter = 0;
+        var h3 = '<h3 align="center">';
+        var h33 = '</h3>';
+        var tables = $('#tblchekin').DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            "width": "100%",
+            buttons: [
+                'copy',
+                {
+                    extend: 'excel',
+                    messageTop: 'Laporan Tagihan Customer LOG Pada' + ' {{ date('M-Y') }}' + '',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'print',
+                    title: h3 + 'Laporan Tagihan Customer LOG' + h33,
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                'colvis'
+            ],
+        });
+        tables.buttons().container().appendTo('#tblchekin_wrapper .col-md-6:eq(0)');
+    });
+</script> --}}
