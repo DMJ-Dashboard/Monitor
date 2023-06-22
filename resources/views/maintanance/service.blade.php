@@ -41,7 +41,7 @@
                     </p>
                     <p
                         style="font-size: 1rem !important; padding-top: 0 !important; text-align:left; color:#293d7c; font-family: 'Archivo Black', sans-serif;">
-                        <b>We are improving our website, <br> We will be back soon to fix any errors and data bugs <br>
+                        <b>We are improving our website, <br> We will be back soon to fix any errors <br>
                             Wait the new progress. </b>
                     </p>
                     <p
