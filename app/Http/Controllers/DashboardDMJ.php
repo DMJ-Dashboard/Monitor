@@ -474,10 +474,13 @@ class DashboardDMJ extends Controller
             )
             ->pluck('salesmans');
 
-        $data['deliverydata'] = Fakturjual::where("TglKirim", date('Y-m-d'))
+        $data['deliverydata'] = Fakturjual::
+        // Join('draft1', 'fakturjualheader.nodraft', '=', 'draft1.nodraft')
+        where("TglKirim", date('Y-m-d'))
             ->GroupBy(DB::raw("Nodraft"))
             ->select(
                 DB::raw("Nodraft"),
+                DB::raw("Keterangan"),
                 DB::raw("Kdslm,Tgl,Tglkirim, DATEDIFF(Tglkirim,Tgl) AS Waktu_kirim"),
                 DB::raw('(
                     CASE
@@ -643,18 +646,21 @@ class DashboardDMJ extends Controller
         $data['sumreturbeli'] = ReturPembelian::whereMonth("tgl", date('m'))
             ->whereYear("tgl", date('Y'))
             ->sum('Netto');
+
         // $data['monthnamcontroller'] = Fakturjual::select(DB::raw("MONTH(TglKirim) as bulannomor, MONTHNAME(TglKirim) as namabulan"))
         //     ->GroupBy(DB::raw("MONTH(TglKirim), MONTHNAME(TglKirim)"))
         //     ->OrderBy(DB::raw("MONTH(TglKirim)"))
         //     ->whereYear("TglKirim", '2021')
         //     ->whereNotIn('TglKirim', ['null'])
         //     ->get();
+
         $data['countsales'] = Fakturjual::whereMonth("TglKirim", date('m'))
             ->whereYear("TglKirim", date('Y'))
             // ->where("stat", '6')
             ->groupBy(DB::raw("Kdslm"))
             ->select(DB::raw('Kdslm , COUNT(DISTINCT CustNo) as csales'))
             ->get();
+            
         $data['sumsales'] = Fakturjual::whereMonth("TglKirim", date('m'))
             ->whereYear("TglKirim", date('Y'))
             // ->where("stat", '6')

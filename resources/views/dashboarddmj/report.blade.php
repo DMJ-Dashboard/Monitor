@@ -164,7 +164,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
             <div class="chart tab-pane" id="tagihan-log">
                 <div class="modal-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover text-dark" id="tbltagihancustlog">
+                        <table class=tbltagihancustlog table table-striped table-hover text-dark" id="tbltagihancustlog">
                             <thead style="text-align: center !important;">
                                 <tr class="text-dark">
                                     <th text-align="center">No</th>

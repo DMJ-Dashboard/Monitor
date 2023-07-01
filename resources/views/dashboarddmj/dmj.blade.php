@@ -238,7 +238,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <h6>
-                                            Sales OA Monthly (Sales - Target) <i alt="Info_warna"
+                                            MONTHLY OA PERFORMANCE SALESMAN (Sales - Target) <i alt="Info_warna"
                                                 data-bs-target="#modalinfowarna" data-bs-toggle="modal"
                                                 class="fa-solid fa-circle-info fa-beat-fade fa-lg"
                                                 style="cursor: pointer !important;"></i>
@@ -280,7 +280,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         {{ $datas->salesmans->NmSlm }} -
                                                                         {{ $datas->jcust }}
                                                                     </div>
-                                                                @elseif($datac->csales < '120')
+                                                                @elseif($datac->csales < '125')
                                                                     <input data-readonly="true" type="text"
                                                                         class="knob" value="{{ $datac->csales }}"
                                                                         data-width="90" data-height="90"
@@ -291,7 +291,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         {{ $datas->salesmans->NmSlm }} -
                                                                         {{ $datas->jcust }}
                                                                     </div>
-                                                                @elseif($datac->csales >= '120')
+                                                                @elseif($datac->csales >= '125')
                                                                     <input data-readonly="true" type="text"
                                                                         class="knob" value="{{ $datac->csales }}"
                                                                         data-width="90" data-height="90"
@@ -546,7 +546,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">RINCIAN SALDO STOK</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">RINCIAN DELIVERY ORDER</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -575,6 +575,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 <th>Draft</th>
                                 <th>Jadwal</th>
                                 <th>Tglkirim</th>
+                                <th>Keterangan</th>
                                 <th>Waktu Kirim</th>
                                 <th>Status</th>
                             </tr>
@@ -585,6 +586,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                     <td>{{ $data->Nodraft }}</td>
                                     <td>{{ $data->Tgl }}</td>
                                     <td>{{ $data->Tglkirim }}</td>
+                                    <td>{{ $data->Keterangan }}</td>
                                     <td>
                                         @if ($data->Waktu_kirim > 3)
                                             <p class="" style="color: #ff0101 !important;">
@@ -761,7 +763,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
         <div class="modal-content">
             <div class="modal-header"
                 style="background-color: #3e789c !important; border: 0.2px rgba(255, 255, 255, 0.993);">
-                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">ANALYSIS CARD LOG SALESMAN
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">DAILY ACTIVITY ANALYSIS LOG
                     {{ date('Y-m-d') }}</h1> <i alt="Info_warna_anylog" data-bs-target="#modalinfowarnaanylog"
                     data-bs-toggle="modal" class="fa-solid fa-circle-info fa-beat-fade fa-lg"
                     style="cursor: pointer !important;"></i>
@@ -837,10 +839,10 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                     <div class="" style="font-weight: 550; cursor: pointer;">
                                                         <i class="fa-solid fa-cash-register fa-beat mr-3 ml-1"
                                                             style="color: #3cd2a5 !important;"></i>Tagih :
-                                                        ({{ $data->countbayartagihan }})
+                                                        {{ $data->countbayartagihan }} /
                                                         Rp {{ number_format($data->bayartagihan, 0, '.' . '.') }} -
-                                                        ( {{ number_format($data->Sisacount, 0, '.' . '.') }} )
-                                                        ( {{ number_format($data->SisaTotalTagihan, 0, '.' . '.') }} )
+                                                        ( {{ number_format($data->Sisacount, 0, '.' . '.') }} /
+                                                        Rp {{ number_format($data->SisaTotalTagihan, 0, '.' . '.') }} )
                                                     </div>
                                                 </div>
                                                 <div class="grid-container1">
@@ -1038,7 +1040,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 <tr>
                                     <td>1-99</td>
                                     <td>100 - 119</td>
-                                    <td>120+</td>
+                                    <td>125+</td>
                                     <td>Target Hit</td>
                                 </tr>
                             </tbody>
@@ -1563,11 +1565,11 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
 
     Highcharts.chart('containercall', {
         title: {
-            text: ' DAILY CALL PERFORMANCE SALESMAN',
+            text: ' DAILY CALL OA PERFORMANCE SALESMAN',
             align: 'center'
         },
         subtitle: {
-            text: 'DMJ Source Code - 2022',
+            text: 'DMJ SourceCode - 2022',
             align: 'center'
         },
         yAxis: {
