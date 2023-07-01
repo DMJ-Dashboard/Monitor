@@ -128,10 +128,10 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 <?php $no = 1;
                                 ?>
 
-                                {{-- @foreach ($custlogs1 as $data)
-                                <tr>
-                                    <td colspan="8" align="center" width="1%">LOADING DATA . . .</td>
-                                    <td width="2%">{{ $data->Nmslm }}</td>
+                                @foreach ($custlogs1 as $data)
+                                    <tr>
+                                        <td width="2%">{{$no++}}</td>
+                                        <td width="2%">{{ $data->Nmslm }}</td>
                                         <td width="5%">( {{ $data->custno }} ) -
                                             {{ $data->custname }}
                                         </td>
@@ -154,8 +154,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                         <td width="7%">Rp
                                             {{ number_format($data->salesorder, 0, '.' . '.') }}
                                         </td>
-                                </tr>
-                                @endforeach --}}
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -164,7 +164,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
             <div class="chart tab-pane" id="tagihan-log">
                 <div class="modal-body">
                     <div class="table-responsive">
-                        <table class=tbltagihancustlog table table-striped table-hover text-dark" id="tbltagihancustlog">
+                        <table class="tbltagihancustlog table table-striped table-hover text-dark"
+                            id="tbltagihancustlog">
                             <thead style="text-align: center !important;">
                                 <tr class="text-dark">
                                     <th text-align="center">No</th>
@@ -264,6 +265,38 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
         var printCounter = 0;
         var h3 = '<h3 align="center">';
         var h33 = '</h3>';
+        var table = $('#tblchekin').DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            "width": "100%",
+            buttons: [
+                'copy',
+                {
+                    extend: 'excel',
+                    messageTop: 'Laporan Tagihan Customer LOG Pada' + ' {{ date('D-M-Y') }}' + '',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'print',
+                    title: h3 + 'Laporan Tagihan Customer LOG' + h33,
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                'colvis'
+            ],
+        });
+        table.buttons().container().appendTo('#tblchekin_wrapper .col-md-6:eq(0)');
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        var printCounter = 0;
+        var h3 = '<h3 align="center">';
+        var h33 = '</h3>';
         var table = $('#tbltagihancustlog').DataTable({
             "responsive": true,
             "autoWidth": false,
@@ -290,90 +323,3 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
         table.buttons().container().appendTo('#tbltagihancustlog_wrapper .col-md-6:eq(0)');
     });
 </script>
-
-<script>
-    $(document).ready(function() {
-        var table = $('#tblchekin').DataTable({
-            ajax: {
-                url: "{{ route('data-ReportAPI') }}",
-                type: "GET",
-                dataType: "json",
-                dataSrc: "custlog1", // Menentukan sumber data dari response JSON
-            },
-            columns: [{
-                    data: null,
-                    render: function(data, type, row, meta) {
-                        // Kolom nomor
-                        return meta.row + 1;
-                    }
-                },
-                {
-                    data: "Nmslm"
-                },
-                {
-                    data: "custname"
-                },
-                {
-                    data: "cekin"
-                },
-                {
-                    data: "cekout"
-                },
-                {
-                    data: "used_time",
-                    render: function(data, type, row) {
-                        if (row.used_time <= '00:05:00') {
-                            return '<td width="2%"><b class="text-danger">' + row.used_time +
-                                '</b></td>';
-                        } else {
-                            return '<td width="2%">' + row.used_time + '</td>';
-                        }
-                    }
-                },
-                {
-                    data: "status"
-                },
-                // { data: "salesorder" },
-                {
-                    data: "salesorder",
-                    render: $.fn.dataTable.render.number(',', '.', 0, ''),
-
-                }
-            ],
-
-        });
-        tables.buttons().container().appendTo('#tblchekin_wrapper .col-md-6:eq(0)');
-    });
-</script>
-{{--
-<script>
-    $(document).ready(function() {
-        var printCounter = 0;
-        var h3 = '<h3 align="center">';
-        var h33 = '</h3>';
-        var tables = $('#tblchekin').DataTable({
-            "responsive": true,
-            "autoWidth": false,
-            "width": "100%",
-            buttons: [
-                'copy',
-                {
-                    extend: 'excel',
-                    messageTop: 'Laporan Tagihan Customer LOG Pada' + ' {{ date('M-Y') }}' + '',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-                {
-                    extend: 'print',
-                    title: h3 + 'Laporan Tagihan Customer LOG' + h33,
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-                'colvis'
-            ],
-        });
-        tables.buttons().container().appendTo('#tblchekin_wrapper .col-md-6:eq(0)');
-    });
-</script> --}}

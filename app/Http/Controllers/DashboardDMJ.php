@@ -660,7 +660,7 @@ class DashboardDMJ extends Controller
             ->groupBy(DB::raw("Kdslm"))
             ->select(DB::raw('Kdslm , COUNT(DISTINCT CustNo) as csales'))
             ->get();
-            
+
         $data['sumsales'] = Fakturjual::whereMonth("TglKirim", date('m'))
             ->whereYear("TglKirim", date('Y'))
             // ->where("stat", '6')

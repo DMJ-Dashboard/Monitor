@@ -16,3 +16,99 @@
         //     },
         //     // Tambahkan kolom lain sesuai dengan kebutuhan
         // ]
+
+
+
+
+
+
+
+
+
+
+{{-- <script>
+    $(document).ready(function() {
+        var table = $('#tblchekin').DataTable({
+            ajax: {
+                url: "{{ route('data-ReportAPI') }}",
+                type: "GET",
+                dataType: "json",
+                dataSrc: "custlog1", // Menentukan sumber data dari response JSON
+            },
+            columns: [{
+                    data: null,
+                    render: function(data, type, row, meta) {
+                        // Kolom nomor
+                        return meta.row + 1;
+                    }
+                },
+                {
+                    data: "Nmslm"
+                },
+                {
+                    data: "custname"
+                },
+                {
+                    data: "cekin"
+                },
+                {
+                    data: "cekout"
+                },
+                {
+                    data: "used_time",
+                    render: function(data, type, row) {
+                        if (row.used_time <= '00:05:00') {
+                            return '<td width="2%"><b class="text-danger">' + row.used_time +
+                                '</b></td>';
+                        } else {
+                            return '<td width="2%">' + row.used_time + '</td>';
+                        }
+                    }
+                },
+                {
+                    data: "status"
+                },
+                // { data: "salesorder" },
+                {
+                    data: "salesorder",
+                    render: $.fn.dataTable.render.number(',', '.', 0, ''),
+
+                }
+            ],
+
+        });
+        tables.buttons().container().appendTo('#tblchekin_wrapper .col-md-6:eq(0)');
+    });
+</script> --}}
+{{--
+<script>
+    $(document).ready(function() {
+        var printCounter = 0;
+        var h3 = '<h3 align="center">';
+        var h33 = '</h3>';
+        var tables = $('#tblchekin').DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            "width": "100%",
+            buttons: [
+                'copy',
+                {
+                    extend: 'excel',
+                    messageTop: 'Laporan Tagihan Customer LOG Pada' + ' {{ date('M-Y') }}' + '',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'print',
+                    title: h3 + 'Laporan Tagihan Customer LOG' + h33,
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                'colvis'
+            ],
+        });
+        tables.buttons().container().appendTo('#tblchekin_wrapper .col-md-6:eq(0)');
+    });
+</script> --}}

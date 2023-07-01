@@ -52,17 +52,18 @@ class ReportController extends Controller
     public function report()
     {
         // MAINTANANCE
-        // $data['custlogs1'] = Customerlog::join('customer', 'customer_log.custno', '=', 'customer.CustNo')
-        //     ->join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
-        //     ->where('customer_log.tgl', date('Y-m-d'))
-        //     ->where('customer_log.cekin', '!=', NULL)
-        //     ->where('customer_log.kdslm', '!=', "")
-        //     ->select(
-        //         DB::raw('customer_log.*'),
-        //         DB::raw('salesman.Nmslm'),
-        //         DB::raw('customer.custname, TIMEDIFF(cekout, cekin) AS used_time')
-        //     )
-        //     ->get();
+        $data['custlogs1'] = Customerlog::join('customer', 'customer_log.custno', '=', 'customer.CustNo')
+            ->join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
+            ->where('customer_log.tgl', date('Y-m-d'))
+            ->where('customer_log.cekin', '!=', NULL)
+            ->where('customer_log.kdslm', '!=', "")
+            ->orderBy('customer_log.kdslm')
+            ->select(
+                DB::raw('customer_log.*'),
+                DB::raw('salesman.Nmslm'),
+                DB::raw('customer.custname, TIMEDIFF(cekout, cekin) AS used_time')
+            )
+            ->get();
 
         //MAINTANANCE
         // $data['tagihancustlogsales'] = TagihanMobileHeader::join('tagihanmobiledetail', 'tagihanmobileheader.nobukti', '=', 'tagihanmobiledetail.nobukti')
@@ -111,6 +112,6 @@ class ReportController extends Controller
         //     ->groupBy('tagihanheader.kdslm')
         //     ->get();
         // dd($dataD);
-        return view('dashboarddmj.report');
+        return view('dashboarddmj.report', $data);
     }
 }
