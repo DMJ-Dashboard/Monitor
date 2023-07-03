@@ -81,11 +81,17 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                     <li><a class="dropdown-item" href="{{ route('DMJS') }}">DMJ ALL</a></li>
                 </ul>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" target="_blank" href="{{ route('Report') }}">Report</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Report
+                </a>
+                <ul class="dropdown-menu"
+                    style="background-color: #233945; border: 1px #00ffbb; color: white; border-style: solid;">
+                    <li><a class="dropdown-item" target="_blank" href="{{ route('Report') }}">Report CustLog</a></li>
+                </ul>
             </li>
         </ul>
-
     </div>
 </nav>
 <div class="wrapper">

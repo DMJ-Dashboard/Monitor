@@ -130,7 +130,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
 
                                 @foreach ($custlogs1 as $data)
                                     <tr>
-                                        <td width="2%">{{$no++}}</td>
+                                        <td width="2%">{{ $no++ }}</td>
                                         <td width="2%">{{ $data->Nmslm }}</td>
                                         <td width="5%">( {{ $data->custno }} ) -
                                             {{ $data->custname }}
@@ -145,13 +145,13 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             <td width="2%">{{ $data->used_time }}</td>
                                         @endif
                                         @if ($data->status == 'Gagal')
-                                            <td width="10%">{{ $data->status }} (
+                                            <td width="5%">{{ $data->status }} (
                                                 {{ $data->alasangagal }}
                                                 )</td>
                                         @elseif ($data->status == 'Sukses')
-                                            <td width="10%">{{ $data->status }}</td>
+                                            <td width="5%">{{ $data->status }}</td>
                                         @endif
-                                        <td width="7%">Rp
+                                        <td width="5%">Rp
                                             {{ number_format($data->salesorder, 0, '.' . '.') }}
                                         </td>
                                     </tr>
@@ -169,45 +169,22 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             <thead style="text-align: center !important;">
                                 <tr class="text-dark">
                                     <th text-align="center">No</th>
+                                    <th align="center">Salesman</th>
                                     <th align="center">Customer</th>
-                                    {{-- <th align="center">Salesman</th>
-                                    <th align="center">LPH</th>
-                                    <th align="center">Tanggal LPH</th>
-                                    <th align="center">Nilai Tagihan</th>
-                                    <th align="center">Nilai Bayar</th>
-                                    <th align="center">Sisa Bayar</th>
-                                    <th align="center">Order</th> --}}
+
                                 </tr>
                             </thead>
                             <tbody class="text-dark">
-                                {{-- <?php $no = 1;
+                                <?php $no = 1;
 
                                 ?>
-                                @foreach ($tagihancustlogsales as $data)
+                                @foreach ($pjpreport as $data)
                                     <tr>
                                         <td align="center" width="1%">{{ $no++ }}</td>
-                                        <td width="1%">{{ $data->custno }}</td>
-                                        <td width="3%">{{ $data->Nmslm }}</td>
-                                        <td width="2%">{{ $data->nolph }}</td>
-                                        <td width="7%">{{ $data->tgl }}</td>
-                                        <td width="7%">Rp
-                                            {{ number_format($data->netto, 0, '.' . '.') }}</td>
-                                        <td width="7%">Rp
-                                            {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
-                                        @if ($data->sisa_bayar <= '0')
-                                            <td width="7%">
-
-                                                <i class="fa-solid fa-circle-check fa-xl fa-fade"
-                                                    style="color: #34c595;"></i>
-                                            </td>
-                                        @else
-                                            <td width="7%">Rp
-                                                {{ number_format($data->sisa_bayar, 0, '.' . '.') }}
-                                            </td>
-                                        @endif
-                                        <td width="5%"></td>
+                                        <td align="center" width="1%">{{ $data->NmSlm }}</td>
+                                        <td align="center" width="1%">{{ $data->CustName }}</td>
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -289,37 +266,5 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
             ],
         });
         table.buttons().container().appendTo('#tblchekin_wrapper .col-md-6:eq(0)');
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        var printCounter = 0;
-        var h3 = '<h3 align="center">';
-        var h33 = '</h3>';
-        var table = $('#tbltagihancustlog').DataTable({
-            "responsive": true,
-            "autoWidth": false,
-            "width": "100%",
-            buttons: [
-                'copy',
-                {
-                    extend: 'excel',
-                    messageTop: 'Laporan Tagihan Customer LOG Pada' + ' {{ date('M-Y') }}' + '',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-                {
-                    extend: 'print',
-                    title: h3 + 'Laporan Tagihan Customer LOG' + h33,
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-                'colvis'
-            ],
-        });
-        table.buttons().container().appendTo('#tbltagihancustlog_wrapper .col-md-6:eq(0)');
     });
 </script>
