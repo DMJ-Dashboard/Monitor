@@ -164,8 +164,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
             <div class="chart tab-pane" id="tagihan-log">
                 <div class="modal-body">
                     <div class="table-responsive">
-                        <table class="tbltagihancustlog table table-striped table-hover text-dark"
-                            id="tbltagihancustlog">
+                        <table class="table table-striped table-hover text-dark" id="tbltagihancustlog">
                             <thead style="text-align: center !important;">
                                 <tr class="text-dark">
                                     <th text-align="center">No</th>
@@ -175,15 +174,29 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 </tr>
                             </thead>
                             <tbody class="text-dark">
-                                <?php $no = 1;
+                                <?php
+                                $no = 1;
 
                                 ?>
                                 @foreach ($pjpreport as $data)
-                                    <tr>
-                                        <td align="center" width="1%">{{ $no++ }}</td>
-                                        <td align="center" width="1%">{{ $data->NmSlm }}</td>
-                                        <td align="center" width="1%">{{ $data->CustName }}</td>
-                                    </tr>
+                                    @if ($data->weeks_of_monthd == '1')
+                                        @if ($data->M1 == '1')
+                                            <tr>
+                                                <td align="center" width="1%">{{ $no++ }}</td>
+                                                <td align="center" width="1%">{{ $data->NmSlm }}</td>
+                                                <td align="center" width="1%">{{ $data->CustName }}</td>
+                                            </tr>
+                                        @endif
+                                    @endif
+                                    @if ($data->weeks_of_monthd == '2')
+                                        @if ($data->M2 == '1')
+                                            <tr>
+                                                <td align="center" width="1%">{{ $no++ }}</td>
+                                                <td align="center" width="1%">{{ $data->NmSlm }}</td>
+                                                <td align="center" width="1%">{{ $data->CustName }}</td>
+                                            </tr>
+                                        @endif
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>
@@ -266,5 +279,38 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
             ],
         });
         table.buttons().container().appendTo('#tblchekin_wrapper .col-md-6:eq(0)');
+    });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        var printCounter = 0;
+        var h3 = '<h3 align="center">';
+        var h33 = '</h3>';
+        var table = $('#tbltagihancustlog').DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            "width": "100%",
+            buttons: [
+                'copy',
+                {
+                    extend: 'excel',
+                    messageTop: 'Laporan PJP Sales LOG Pada' + ' {{ date('D-M-Y') }}' + '',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'print',
+                    title: h3 + 'Laporan PJP Sales LOG' + h33,
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                'colvis'
+            ],
+        });
+        table.buttons().container().appendTo('#tbltagihancustlog_wrapper .col-md-6:eq(0)');
     });
 </script>

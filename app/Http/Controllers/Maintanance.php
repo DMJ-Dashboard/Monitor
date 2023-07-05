@@ -8,6 +8,6 @@ class Maintanance extends Controller
 {
     public function maintanance(Request $request)
     {
-        return view('maintanance.service');
+        return view('maintanance.servicese');
     }
 }

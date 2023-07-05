@@ -171,20 +171,20 @@ class ReportController extends Controller
             'pjppersonildetail.kdslm',
             DB::raw("salesman.NmSlm"),
             DB::raw("customer.CustName"),
-            DB::raw("pjppersonildetail.M1 AS Mg1"),
+            DB::raw("pjppersonildetail.M1"),
             DB::raw("pjppersonildetail.M2"),
             DB::raw("pjppersonildetail.M3"),
             DB::raw("pjppersonildetail.M4"),
             DB::raw("pjppersonildetail.M5"),
-            DB::raw("COUNT(*) AS Allpjpreport"),
+            // DB::raw("COUNT(*) AS Allpjpreport"),
             DB::raw("FLOOR((DAYOFMONTH(CURDATE())-1 + WEEKDAY(CONCAT(YEAR(CURDATE()),'-',MONTH(CURDATE()),'-01')))/7) + 1 AS weeks_of_monthd")
-        )->join('salesman', 'pjppersonildetail.kdslm', '=', 'salesman.kdslm')->join('customer', 'pjppersonildetail.custno', '=', 'customer.custno')
+        )->join('salesman', 'pjppersonildetail.kdslm', '=', 'salesman.kdslm')
+        ->join('customer', 'pjppersonildetail.custno', '=', 'customer.custno')
             ->where('pjppersonildetail.hari', $hariindo)
             ->where('salesman.stat', '=', '1')
-            ->where('salesman.kdslm', '=', '20')
-            ->where('pjppersonildetail.M1', '=', '1')
+            ->orderBy('salesman.NmSlm')
             ->get();
-
+// dd($pjpreport);
         return view('dashboarddmj.report', $data);
     }
 }
