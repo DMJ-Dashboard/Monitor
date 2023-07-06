@@ -170,6 +170,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                     <th text-align="center">No</th>
                                     <th align="center">Salesman</th>
                                     <th align="center">Customer</th>
+                                    <th align="center">Piutang</th>
+                                    <th align="center">Total Piutang</th>
 
                                 </tr>
                             </thead>
@@ -185,6 +187,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 <td align="center" width="1%">{{ $no++ }}</td>
                                                 <td align="center" width="1%">{{ $data->NmSlm }}</td>
                                                 <td align="center" width="1%">{{ $data->CustName }}</td>
+                                                <td align="center" width="1%">{{ $data->datafakturs }}</td>
+                                                <td>Rp {{ number_format($data->total, 0, '.' . '.') }}</td>
                                             </tr>
                                         @endif
                                     @endif
@@ -194,6 +198,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 <td align="center" width="1%">{{ $no++ }}</td>
                                                 <td align="center" width="1%">{{ $data->NmSlm }}</td>
                                                 <td align="center" width="1%">{{ $data->CustName }}</td>
+                                                <td align="center" width="1%">{{ $data->datafakturs }}</td>
+                                                <td align="center" width="1%">Rp {{ number_format($data->total, 0, '.' . '.') }}</td>
                                             </tr>
                                         @endif
                                     @endif

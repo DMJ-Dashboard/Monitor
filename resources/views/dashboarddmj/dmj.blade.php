@@ -773,7 +773,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                     {{ date('Y-m-d') }}</h1> <i alt="Info_warna_anylog" data-bs-target="#modalinfowarnaanylog"
                     data-bs-toggle="modal" class="fa-solid fa-circle-info fa-beat-fade fa-lg"
                     style="cursor: pointer !important;"></i>
-                <a href="{{ route('services') }}" target="_blank" class="btn btn-outline-info ml-2">Detail
+                <a href="{{ route('Report') }}" target="_blank" class="btn btn-outline-info ml-2">Detail
                     Analysis</a>
                 {{-- <a href="" target="__blank" class="btn btn-outline-info ml-2" data-bs-target="#modallog"
                     data-bs-toggle="modal">Detail Analysis</a> --}}

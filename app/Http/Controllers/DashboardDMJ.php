@@ -372,7 +372,6 @@ class DashboardDMJ extends Controller
                 DB::raw('IFNULL(taghm.bayartagihan, 0) AS bayartagihan'),
                 DB::raw('( COUNT(customer_log.cekin)) / IFNULL(pjp.count_pjp, 0) * 100 AS pjp_percentage'),
                 DB::raw("FLOOR((DAYOFMONTH(CURDATE())-1 + WEEKDAY(CONCAT(YEAR(CURDATE()),'-',MONTH(CURDATE()),'-01')))/7) + 1 AS weeks_of_monthd")
-
             )
             ->get();
 
