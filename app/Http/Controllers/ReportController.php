@@ -188,20 +188,22 @@ class ReportController extends Controller
         )->Join('tagihanheader', 'tagihandetail.nobukti', '=', 'tagihanheader.nobukti')
             ->where('tagihanheader.tgltagih', date('Y-m-d'))
             ->groupBy('tagihandetail.custno');
-            // ->orderBy('tagihandetail.custno')
-            // ->get();
+        // ->orderBy('tagihandetail.custno')
+        // ->get();
 
-
-        $subquerytagd = Customerlog::select(
-            'tagihanheader.kdslm',
-            'tagihandetail.custno as custnotagd',
-            DB::raw("GROUP_CONCAT(CONCAT(' ( ',tagihandetail.nofaktur, ' / Rp.', tagihandetail.nilai ,' )')) as datafakturs"),
-            DB::raw('SUM(tagihandetail.nilai) as total')
-        )->Join('tagihanheader', 'tagihandetail.nobukti', '=', 'tagihanheader.nobukti')
-            ->where('tagihanheader.tgltagih', date('Y-m-d'))
-            ->groupBy('tagihandetail.custno');
-            // ->orderBy('tagihandetail.custno')
-            // ->get();
+        $subquerycustlog = Customerlog::select(
+            'customer_log.custno as custnolog',
+            'customer_log.kdslm',
+            'customer_log.cekin',
+            'customer_log.cekout',
+            'customer_log.salesorder',
+            'customer_log.bayar',
+            DB::raw('TIMEDIFF(cekout, cekin) AS used_time'),
+            DB::raw('SUM(customer_log.salesorder) as totalsalesorder')
+        )->where('customer_log.tgl', date('Y-m-d'))
+        ->groupBy('customer_log.custno');
+        // ->orderBy('tagihandetail.custno')
+        // ->get();
 
         // dd($subquerytagd);
 
@@ -209,13 +211,21 @@ class ReportController extends Controller
             ->join('customer', 'pjppersonildetail.custno', '=', 'customer.custno')
             ->leftJoinSub($subquerytagd, 'tagd', function ($join) {
                 $join->on('salesman.kdslm', '=', 'tagd.kdslm')
-                ->on('pjppersonildetail.custno', '=', 'tagd.custnotagd');;
+                    ->on('pjppersonildetail.custno', '=', 'tagd.custnotagd');
+            })
+            ->leftJoinSub($subquerycustlog, 'custlgr', function ($join) {
+                $join->on('salesman.kdslm', '=', 'custlgr.kdslm')
+                ->on('pjppersonildetail.custno', '=', 'custlgr.custnolog');
             })
             ->where('pjppersonildetail.hari', $hariindo)
             ->where('salesman.stat', '=', '1')
             ->orderBy('salesman.NmSlm')
             ->select(
                 'pjppersonildetail.kdslm',
+                DB::raw("custlgr.used_time"),
+                DB::raw("custlgr.cekin"),
+                DB::raw("custlgr.cekout"),
+                DB::raw("custlgr.salesorder"),
                 DB::raw("tagd.datafakturs"),
                 DB::raw('IFNULL(tagd.total, 0) AS total'),
                 DB::raw("salesman.NmSlm"),
