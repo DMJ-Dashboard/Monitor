@@ -1569,9 +1569,14 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
     const sukses = {!! json_encode($sukses) !!}
     const callperfom = {!! json_encode($callinput) !!}
 
+    var currentDate = new Date();
+    var yeard = currentDate.getFullYear();
+    var monthd = currentDate.getMonth() + 1; // Ditambahkan 1 karena indeks bulan dimulai dari 0
+    var dayd = currentDate.getDate();
+
     Highcharts.chart('containercall', {
         title: {
-            text: ' DAILY CALL OA PERFORMANCE SALESMAN',
+            text: ' DAILY CALL OA SALESMAN ' + yeard + '-0' + monthd + '-0' + dayd,
             align: 'center'
         },
         subtitle: {
