@@ -12,6 +12,21 @@ class DashboardIKAJ extends Model
     protected $table = "fakturjualheader";
 }
 
+
+
+class Salesman extends Model
+{
+    use HasFactory;
+    protected $connection = 'mysql5';
+    protected $table = "salesman";
+    protected $fillable = ['id','KdSlm','NmSlm'];
+
+    public function target()
+    {
+        return $this->hasMany(Target::class);
+    }
+
+}
 class ReturjualIKA extends Model
 {
     use HasFactory;

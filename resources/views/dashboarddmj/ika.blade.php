@@ -325,6 +325,76 @@ border-style: solid; color:aliceblue !important;">
                                     </div>
                                 </div>
                                 <hr class="mt-4">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h6>
+                                            MONTHLY OA SALESMAN (Sales - Target) <i alt="Info_warna"
+                                                data-bs-target="#modalinfowarna" data-bs-toggle="modal"
+                                                class="fa-solid fa-circle-info fa-beat-fade fa-lg"
+                                                style="cursor: pointer !important;"></i>
+                                        </h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <a href="#">
+                                            <button data-bs-target="#modaltarget" data-bs-toggle="modal"
+                                                class="btn btn-outline-info float-right m-2 top-1">Make Target</button>
+                                        </a>
+                                    </div>
+                                    <div class="card-body">
+                                        <center>
+                                            <div class="row">
+                                                @foreach ($countsales as $datac)
+                                                    <div id="kolom__jcust" style="padding: 0 !important;"
+                                                        class="col-lg-2 col-sm-2 col-md-3 text-center mt-3">
+                                                        @if ($datac->csales >= $datac->jcust || $datac->csales == $datac->jcust)
+                                                            <input data-readonly="true" type="text" class="knob"
+                                                                value="{{ $datac->csales }}" data-width="90"
+                                                                data-height="90" data-fgColor="#80d1d0"
+                                                                data-min="0" data-max="300">
+                                                            <div class="knob-label"
+                                                                style="padding-top: 1rem !important;">
+                                                                {{ $datac->jcust }}
+                                                            </div>
+                                                        @elseif($datac->csales >= '01')
+                                                            <input data-readonly="true" type="text" class="knob"
+                                                                value="{{ $datac->csales }}" data-width="90"
+                                                                data-height="90" data-fgColor="#ff3333"
+                                                                data-min="0" data-max="300">
+                                                            <div class="knob-label"
+                                                                style="padding-top: 1rem !important;">
+                                                                {{ $datac->NmSlm }} -
+
+                                                                {{ $datac->jcust }}
+                                                            </div>
+                                                        @elseif($datac->csales >= '100')
+                                                            <input data-readonly="true" type="text" class="knob"
+                                                                value="{{ $datac->csales }}" data-width="90"
+                                                                data-height="90"
+                                                                data-fgColor="#fff873" data-min="0" data-max="300">
+                                                            <div class="knob-label"
+                                                                style="padding-top: 1rem !important;">
+                                                                {{ $datac->NmSlm }} -
+
+                                                                {{ $datac->jcust }}
+                                                            </div>
+                                                        @elseif($datac->csales >= '125')
+                                                            <input data-readonly="true" type="text" class="knob"
+                                                                value="{{ $datac->csales }}" data-width="90"
+                                                                data-height="90" data-fgColor="#a6f04d"
+                                                                data-min="0" data-max="300">
+                                                            <div class="knob-label"
+                                                                style="padding-top: 1rem !important;">
+                                                                {{ $datac->NmSlm }} -
+
+                                                                {{ $datac->jcust }}
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </center>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -340,44 +410,26 @@ border-style: solid; color:aliceblue !important;">
                                 <div class="card-tools">
                                     <ul class="nav nav-pills ml-auto">
                                         <li class="nav-item">
-                                            <a class="nav-link active" href="#sales-sum" data-toggle="tab">
-                                                <b>Monthly Salesman</b></a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link " href="#sales-call" data-toggle="tab"> <b> Call
+                                            <a class="nav-link active" href="#sales-call" data-toggle="tab"> <b> Call
                                                     Daily </b>
                                             </a>
                                         </li>
                                         <li class="nav-item">
+                                            <a class="nav-link " href="#sales-sum" data-toggle="tab">
+                                                <b>Monthly Salesman</b></a>
+                                        </li>
+
+                                        <li class="nav-item">
                                             <a class="nav-link" href="#revenue-chart" data-toggle="tab">
                                                 <b>Monthly Sales Out</b></a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#sales-chart" data-toggle="tab"> <b> TimeLog
-                                                    Salesman</b>
-                                            </a>
-                                        </li>
+
                                     </ul>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="tab-content p-0">
-                                    <div class="chart tab-pane active" id="sales-sum"
-                                        style="position: relative;height: 556px;">
-                                        <div class="card card-secondary">
-                                            <div class="card-header">
-                                                <div class="row">
-                                                    <div class="col-sm-9">
-                                                        <h3 class="card-title">Sales Out Salesman</h3>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div id="containersumika"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="chart tab-pane" id="sales-call"
+                                    <div class="chart tab-pane active" id="sales-call"
                                         style="position: relative;height: 675px;">
                                         <div class="card card-secondary">
                                             <div class="card-header">
@@ -396,45 +448,35 @@ border-style: solid; color:aliceblue !important;">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card-body"
-                                                style="color: rgb(157, 161, 172); text-align:center">
-                                                <h3 class="mt-3">EMPTY DATA!!</h3>
+                                            <div class="card-body">
                                                 <div id="containercall" style="overflow: hidden; padding-top: 3em;">
                                                 </div>
 
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="chart tab-pane" id="revenue-chart"
-                                        style="position: relative; height: 600px;">
-                                        <div id="containercolumnika"></div>
-                                    </div>
-                                    <div class="chart tab-pane" id="sales-chart"
+                                    <div class="chart tab-pane" id="sales-sum"
                                         style="position: relative;height: 556px;">
                                         <div class="card card-secondary">
                                             <div class="card-header">
                                                 <div class="row">
                                                     <div class="col-sm-9">
-                                                        <h3 class="card-title">Time Management Daily</h3>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <button data-bs-target="#modallog" data-bs-toggle="modal"
-                                                            class="btn btn-outline-info float-right m-2 top-1"
-                                                            style="
-                                                        padding-top: 3;
-                                                        padding-bottom: 3;">Analys
-                                                            Log</button>
+                                                        <h3 class="card-title">Sales Out Salesman</h3>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card-body"
-                                                style="color: rgb(157, 161, 172); text-align:center">
-                                                <h3 class="mt-3">EMPTY DATA!!</h3>
-                                                <div id="containerareaspline"></div>
+                                            <div class="card-body">
+                                                <div id="containersumika"></div>
                                             </div>
                                         </div>
                                     </div>
+
+
+                                    <div class="chart tab-pane" id="revenue-chart"
+                                        style="position: relative; height: 600px;">
+                                        <div id="containercolumnika"></div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -485,7 +527,8 @@ border-style: solid; color:aliceblue !important;">
                     </div>
                 </div>
             </div>
-            <div class="keterangan" style="
+            <div class="keterangan"
+                style="
                   width: 50%;
                   column-count: 3;
                   column-gap: 60px;">
@@ -558,6 +601,223 @@ border-style: solid; color:aliceblue !important;">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
 
+<script>
+    const sales = {!! json_encode($salesmans) !!}
+    // const gagal = {!! json_encode($gagal) !!}
+    const sukses = {!! json_encode($sukses) !!}
+    const callperfom = {!! json_encode($callinput) !!}
+
+    var currentDate = new Date();
+    var yeard = currentDate.getFullYear();
+    var monthd = currentDate.getMonth() + 1; // Ditambahkan 1 karena indeks bulan dimulai dari 0
+    var dayd = currentDate.getDate();
+
+    Highcharts.chart('containercall', {
+        title: {
+            text: ' DAILY CALL OA SALESMAN ' + yeard + '-0' + monthd + '-0' + dayd,
+            align: 'center'
+        },
+        subtitle: {
+            text: 'DMJ SourceCode - 2022',
+            align: 'center'
+        },
+        yAxis: {
+            title: {
+                text: 'Number of Count'
+            }
+        },
+
+        xAxis: {
+            categories: sales
+        },
+
+        legend: {
+            layout: 'horizontal',
+            align: 'center',
+            verticalAlign: 'bottom'
+        },
+
+        plotOptions: {
+
+        },
+
+        series: [
+            //     {
+            //     name: 'Target Call',
+            //     data: [0, 0, 0, 0, 0, 0,
+            //         0, 0, 0, 0
+            //     ]
+            // },
+            {
+                name: 'Input Call Perfom',
+                data: callperfom,
+                type: 'column'
+            },
+            {
+                name: 'Efectice Call',
+                data: sukses,
+                zones: [{
+                    value: 7,
+                    color: '#f1014a'
+                }, {
+                    value: 15,
+                    color: '#ff8f1c'
+                }, {
+                    color: '#7ccc6c'
+                }]
+            }
+        ],
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
+                }
+            }]
+        }
+    });
+</script>
+
+
+<script>
+    $(function() {
+        $('.table-hover').DataTable()
+    })
+    $(function() {
+        /* jQueryKnob */
+
+        $('.knob').knob({
+            /*change : function (value) {
+            //console.log("change : " + value);
+            },
+            release : function (value) {
+            console.log("release : " + value);
+            },
+            cancel : function () {
+            console.log("cancel : " + this.value);
+            },*/
+            draw: function() {
+
+                // "tron" case
+                if (this.$.data('skin') == 'tron') {
+
+                    var a = this.angle(this.cv) // Angle
+                        ,
+                        sa = this.startAngle // Previous start angle
+                        ,
+                        sat = this.startAngle // Start angle
+                        ,
+                        ea // Previous end angle
+                        ,
+                        eat = sat + a // End angle
+                        ,
+                        r = true
+
+                    this.g.lineWidth = this.lineWidth
+
+                    this.o.cursor &&
+                        (sat = eat - 0.3) &&
+                        (eat = eat + 0.3)
+
+                    if (this.o.displayPrevious) {
+                        ea = this.startAngle + this.angle(this.value)
+                        this.o.cursor &&
+                            (sa = ea - 0.3) &&
+                            (ea = ea + 0.3)
+                        this.g.beginPath()
+                        this.g.strokeStyle = this.previousColor
+                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false)
+                        this.g.stroke()
+                    }
+
+                    this.g.beginPath()
+                    this.g.strokeStyle = r ? this.o.fgColor : this.fgColor
+                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false)
+                    this.g.stroke()
+
+                    this.g.lineWidth = 2
+                    this.g.beginPath()
+                    this.g.strokeStyle = this.o.fgColor
+                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth *
+                        2 / 3, 0, 2 * Math.PI, false)
+                    this.g.stroke()
+
+                    return false
+                }
+            }
+        })
+    })
+    $(function() {
+        /* jQueryKnob */
+
+        $('.knob2').knob({
+            /*change : function (value) {
+            //console.log("change : " + value);
+            },
+            release : function (value) {
+            console.log("release : " + value);
+            },
+            cancel : function () {
+            console.log("cancel : " + this.value);
+            },*/
+            draw: function() {
+
+                // "tron" case
+                if (this.$.data('skin') == 'tron') {
+
+                    var a = this.angle(this.cv) // Angle
+                        ,
+                        sa = this.startAngle // Previous start angle
+                        ,
+                        sat = this.startAngle // Start angle
+                        ,
+                        ea // Previous end angle
+                        ,
+                        eat = sat + a // End angle
+                        ,
+                        r = true
+
+                    this.g.lineWidth = this.lineWidth
+
+                    // this.o.cursor &&
+                    //     (sat = eat - 0.3) &&
+                    //     (eat = eat + 0.3)
+
+                    // if (this.o.displayPrevious) {
+                    //     ea = this.startAngle + this.angle(this.value)
+                    //     this.o.cursor &&
+                    //         (sa = ea - 0.3) &&
+                    //         (ea = ea + 0.3)
+                    //     this.g.beginPath()
+                    //     this.g.strokeStyle = this.previousColor
+                    //     this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false)
+                    //     this.g.stroke()
+                    // }
+
+                    // this.g.beginPath()
+                    // this.g.strokeStyle = r ? this.o.fgColor : this.fgColor
+                    // this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false)
+                    // this.g.stroke()
+
+                    // this.g.lineWidth = 2
+                    // this.g.beginPath()
+                    // this.g.strokeStyle = this.o.fgColor
+                    // this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth *
+                    //     2 / 3, 0, 2 * Math.PI, false)
+                    // this.g.stroke()
+
+                    return false
+                }
+            }
+        })
+    })
+</script>
 <script>
     const salessumIKA = {!! json_encode($sumsalesmanika) !!}
     const salesoutIKA = {!! json_encode($salesoutsalesmanika) !!}

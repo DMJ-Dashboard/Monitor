@@ -244,7 +244,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <h6>
-                                            MONTHLY OA PERFORMANCE SALESMAN (Sales - Target) <i alt="Info_warna"
+                                            MONTHLY OA SALESMAN (Sales - Target) <i alt="Info_warna"
                                                 data-bs-target="#modalinfowarna" data-bs-toggle="modal"
                                                 class="fa-solid fa-circle-info fa-beat-fade fa-lg"
                                                 style="cursor: pointer !important;"></i>
@@ -1027,7 +1027,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                         {{-- <i class="fa-solid fa-tag fa-bounce fa-2xl" style="color: #fff873;"></i> --}}
                                     </th>
                                     <th>
-                                        <input data-readonly="true" type="text" class="knob" value="120"
+                                        <input data-readonly="true" type="text" class="knob" value="125"
                                             data-width="90" data-height="90" data-fgColor="#a6f04d" data-min="0"
                                             data-max="300">
 

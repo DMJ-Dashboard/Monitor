@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomerLogIKA;
 use App\Models\DashboardIKAJ;
+use App\Models\Fakturjual;
 use App\Models\HutangIKA;
 use App\Models\PiutangIKA;
 use App\Models\PjpPersonildetailIKAJ;
@@ -13,9 +15,8 @@ use App\Models\SOheaderIKA;
 use App\Models\StokbulanIKA;
 use App\Models\StokkartuIKA;
 use App\Models\TagihanMobileDetail;
+use App\Models\TargetSalesmanIKA;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-use PhpParser\Node\Stmt\Foreach_;
 
 class DashboardIKAController extends Controller
 {
@@ -100,14 +101,34 @@ class DashboardIKAController extends Controller
             ->groupBy('tagihanmobiledetail.custno')
             ->orderBy('tagihanmobileheader.kdslm')
             ->get();
-            foreach ($tagihandetail as $value) {
-
-            }
+        foreach ($tagihandetail as $value) {
+        }
         // dd($tagihandetail );
         return view("dashboarddmj.showpjp", ['mingguke' => $mingguke, 'showpjppersonildetail' => $showpjppersonildetail, 'tagihandetail' => $tagihandetail], $data);
     }
     public function dashboardika()
     {
+        $data['targets'] = TargetSalesmanIKA::all();
+
+        $salesmans = CustomerLogIKA::Join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
+            ->where('customer_log.tgl', date('Y-m-d'))
+            ->where('customer_log.kdslm', '!=', "")
+            ->groupBy(DB::raw("customer_log.kdslm"))
+            ->select(
+                DB::raw("salesman.NmSlm AS salesmans")
+            )
+            ->pluck('salesmans');
+
+        $data['countsales'] = DashboardIKAJ::whereMonth("TglKirim", date('m'))
+            ->join('target', 'fakturjualheader.kdslm', '=', 'target.kdslm')
+            ->join('salesman', 'salesman.kdslm', '=', 'target.kdslm')
+            ->whereYear("fakturjualheader.TglKirim", date('Y'))
+            ->where("fakturjualheader.Kdslm", "!=", "000")
+            ->groupBy(DB::raw("fakturjualheader.Kdslm"))
+            ->select(DB::raw('target.jcust, salesman.NmSlm, fakturjualheader.Kdslm , COUNT(DISTINCT fakturjualheader.CustNo) as csales'))
+            ->get();
+        // dd($countsales);
+
         $data['pjppersonilheader'] = PjpPersonilheaderIKAJ::join('salesman', 'salesman.kdslm', '=', 'pjppersonilheader.kdslm')
             ->where("salesman.stat", "1")
             // ->whereYear("pjppersonilheader.lastmodified", date('Y'))
@@ -283,6 +304,6 @@ class DashboardIKAController extends Controller
         $data['totalsaldostok'] = $arraysaldostok98 + $arraysaldostok99;
 
 
-        return view('dashboarddmj.ika', ['bulanika' => $bulanika, 'totalkartustok' => $totalkartustok, 'sumsalesmanika' => $sumsalesmanika, 'salesoutsalesmanika' => $salesoutsalesmanika, 'nilaiika' => $nilaiika], $data);
+        return view('dashboarddmj.ika', ['salesmans'=>$salesmans, 'bulanika' => $bulanika, 'totalkartustok' => $totalkartustok, 'sumsalesmanika' => $sumsalesmanika, 'salesoutsalesmanika' => $salesoutsalesmanika, 'nilaiika' => $nilaiika], $data);
     }
 }
