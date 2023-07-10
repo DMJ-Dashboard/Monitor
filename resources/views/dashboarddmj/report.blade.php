@@ -97,7 +97,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#tagihan-log" data-toggle="tab">
-                        <b>Tagihan Log</b></a>
+                        <b>Eging Log</b></a>
                 </li>
             </ul>
         </div>
@@ -185,7 +185,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 ?>
                                 @foreach ($pjpreport as $data)
                                     @if ($data->weeks_of_monthd == '1')
-                                        @if ($data->M1 == '1')
+                                        @if ($data->M1 =='1')
                                             <tr>
                                                 <td align="center" width="1%">{{ $no++ }}</td>
                                                 <td align="center" width="1%">{{ $data->NmSlm }}</td>
@@ -211,14 +211,39 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 @endif
                                             </tr>
                                         @endif
-                                    @endif
-                                    @if ($data->weeks_of_monthd == '2')
-                                        @if ($data->M2 == '1')
+                                    @elseif ($data->weeks_of_monthd == '2')
+                                        @if ($data->M2 =='1')
                                             <tr>
                                                 <td align="center" width="1%">{{ $no++ }}</td>
                                                 <td align="center" width="1%">{{ $data->NmSlm }}</td>
                                                 <td align="center" width="1%">(
                                                     {{ $data->custno }}-{{ $data->CustName }} )</td>
+                                                <td align="center" width="1%">{{ $data->datafakturs }}</td>
+
+                                                {{-- <td align="center" width="1%">
+                                                ( {{ $data->dkfp }} /
+                                                {{ number_format($data->nilaifp, 0, '.' . '.') }} )</td> --}}
+                                                <td align="center" width="1%">
+                                                    {{ number_format($data->total, 0, '.' . '.') }}</td>
+                                                <td align="center" width="1%">
+                                                    {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
+                                                <td align="center" width="1%">
+                                                    {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
+                                                @if ($data->used_time <= '00:05:00')
+                                                    <td width="2%" class="text-danger"> <b>
+                                                            {{ $data->used_time }} </b>
+                                                    </td>
+                                                @else
+                                                    <td width="2%">{{ $data->used_time }}</td>
+                                                @endif
+                                            </tr>
+                                        @endif
+                                    @elseif ($data->weeks_of_monthd == '3')
+                                        @if ($data->M3 =='1')
+                                            <tr>
+                                                <td align="center" width="1%">{{ $no++ }}</td>
+                                                <td align="center" width="1%">{{ $data->NmSlm }}</td>
+                                                <td align="center" width="1%">( {{ $data->custno }}-{{ $data->CustName }} )</td>
                                                 <td align="center" width="1%">{{ $data->datafakturs }}</td>
 
                                                 {{-- <td align="center" width="1%">

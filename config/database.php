@@ -86,8 +86,8 @@ return [
         'mysql3' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL_TIGA'),
-            'host' => env('DB_HOST_TIGA', 'dmj.rm153.com'),
-            'port' => env('DB_PORT_TIGA', '7777'),
+            'host' => env('DB_HOST_TIGA', 'enambelasapp.my.id'),
+            'port' => env('DB_PORT_TIGA', '3306'),
             'database' => env('DB_DATABASE_TIGA', 'forge'),
             'username' => env('DB_USERNAME_TIGA', 'forge'),
             'password' => env('DB_PASSWORD_TIGA', ''),
@@ -103,11 +103,11 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-        'mysql3' => [
+        'mysql3IKAM' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL_IKAM'),
-            'host' => env('DB_HOST_IKAM', 'dmj.rm153.com'),
-            'port' => env('DB_PORT_IKAM', '7777'),
+            'host' => env('DB_HOST_IKAM', 'enambelasapp.my.id'),
+            'port' => env('DB_PORT_IKAM', '3306'),
             'database' => env('DB_DATABASE_IKAM', 'forge'),
             'username' => env('DB_USERNAME_IKAM', 'forge'),
             'password' => env('DB_PASSWORD_IKAM', ''),

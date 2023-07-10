@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PjpPersonilheaderIKAJ extends Model
+class PjpPersonildetailDMJ extends Model
 {
     use HasFactory;
-    protected $connection = 'mysql3IKAM';
-    protected $table = "pjppersonilheader";
+    protected $connection = 'mysql3';
+    protected $table = "pjppersonildetail";
     protected $primaryKey = 'nobukti';
-
 }

@@ -426,7 +426,7 @@ class DashboardDMJ extends Controller
             ->where('kdslm', '!=', "")
             ->where('kdslm', '!=', "07")
             ->groupBy(DB::raw("kdslm"))
-            ->select(DB::raw('kdslm, SUM(Netto) AS salesoutsalesman'))
+            ->select(DB::raw('kdslm, CAST(SUM(Netto) as SIGNED) AS salesoutsalesman'))
             ->pluck('salesoutsalesman');
 
         // ->get();
@@ -524,7 +524,7 @@ class DashboardDMJ extends Controller
 
         $nilai = Fakturjual::where("stat", '6')
             ->GroupBy(DB::raw("MONTHNAME(TglKirim)"))
-            ->select(DB::raw('SUM(Netto) as nilai'))
+            ->select(DB::raw('CAST(SUM(Netto) as SIGNED) as nilai'))
             ->OrderBy(DB::raw("MONTH(TglKirim)"))
             ->whereYear("TglKirim", date('Y'))
             ->pluck('nilai');

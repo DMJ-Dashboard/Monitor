@@ -334,12 +334,7 @@ border-style: solid; color:aliceblue !important;">
                                                 style="cursor: pointer !important;"></i>
                                         </h6>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <a href="#">
-                                            <button data-bs-target="#modaltarget" data-bs-toggle="modal"
-                                                class="btn btn-outline-info float-right m-2 top-1">Make Target</button>
-                                        </a>
-                                    </div>
+
                                     <div class="card-body">
                                         <center>
                                             <div class="row">
@@ -369,8 +364,8 @@ border-style: solid; color:aliceblue !important;">
                                                         @elseif($datac->csales >= '100')
                                                             <input data-readonly="true" type="text" class="knob"
                                                                 value="{{ $datac->csales }}" data-width="90"
-                                                                data-height="90"
-                                                                data-fgColor="#fff873" data-min="0" data-max="300">
+                                                                data-height="90" data-fgColor="#fff873"
+                                                                data-min="0" data-max="300">
                                                             <div class="knob-label"
                                                                 style="padding-top: 1rem !important;">
                                                                 {{ $datac->NmSlm }} -
@@ -400,7 +395,7 @@ border-style: solid; color:aliceblue !important;">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 col-md-8">
+                    <div class="col-sm-12 col-md-12">
                         <div class="card" style="height: 775px; background-color: #29404d !important;">
                             <div class="card-header" style="background-color: #2e5266 !important;">
                                 <h3 class="card-title">
@@ -481,7 +476,10 @@ border-style: solid; color:aliceblue !important;">
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
                         <div class="info-box mb-3 bg-white">
                             <span class="info-box-icon text-purple"><i class="fa-solid fa-warehouse"></i></span>
                             <div class="info-box-content">
@@ -492,7 +490,8 @@ border-style: solid; color:aliceblue !important;">
                             </div>
 
                         </div>
-
+                    </div>
+                    <div class="col-md-3">
                         <div class="info-box mb-3 bg-white">
                             <span class="info-box-icon text-warning"><i class="fa-solid fa-arrows-rotate"></i></span>
                             <div class="info-box-content">
@@ -502,7 +501,8 @@ border-style: solid; color:aliceblue !important;">
                                 </span>
                             </div>
                         </div>
-
+                    </div>
+                    <div class="col-md-3">
                         <div class="info-box mb-3 bg-white">
                             <span class="info-box-icon text-info"><i class="fas fa-cloud-download-alt"></i></span>
                             <div class="info-box-content">
@@ -513,7 +513,8 @@ border-style: solid; color:aliceblue !important;">
                             </div>
 
                         </div>
-
+                    </div>
+                    <div class="col-md-3">
                         <div class="info-box mb-3 bg-white">
                             <span class="info-box-icon text-red"><i class="fa-solid fa-circle-xmark"></i></span>
                             <div class="info-box-content">
@@ -522,57 +523,24 @@ border-style: solid; color:aliceblue !important;">
                                     Rp {{ number_format($fakturbatal, 0, '.' . '.') }}
                                 </span>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
             </div>
-            <div class="keterangan"
-                style="
+    </div>
+</div>
+<div class="keterangan"
+    style="
                   width: 50%;
                   column-count: 3;
                   column-gap: 60px;">
-                <hr style="width: 100% !important; height: 25%">
-                <hr style="width: 100% !important; height: 25%">
-            </div>
+    <hr style="width: 100% !important; height: 25%">
+    <hr style="width: 100% !important; height: 25%">
+</div>
 
-        </section>
-        <div class="table-responsive">
-            <h4></h4>
-            <table class="table table-hover" id="datatable" style="color: rgb(255, 255, 255)">
-                <thead>
-                    <tr>
-                        <th>Kode PJP</th>
-                        <th>Salesman</th>
-                        <th>Last Modified</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($pjppersonilheader as $item1)
-                        {{-- @foreach ($pjppersonildetail as $item2) --}}
-                        {{-- @if ($item2->NamaSalesOfPJP == $item1->NamaSalesOfPJPh) --}}
-                        <tr>
-                            <td>{{ $item1->NoOfPJPh }}</td>
-                            <td>{{ $item1->NamaSalesOfPJPh }} ({{ $item1->Kdslm }})</td>
-                            <td>{{ $item1->lastmodified }}</td>
-                            <td>
-                                <a href="{{ route('showpjp', $item1->NoOfPJPh) }}" class="btn btn-info">
-                                    SHOW DETAIL
-                                    {{-- <i class="fa fa-edit fa-lg text-black"></i> --}}
-                                </a>
-                            </td>
-                        </tr>
-                        {{-- @endif --}}
-                        {{-- @endforeach --}}
-                    @endforeach
-
-                </tbody>
-            </table>
-
-
-        </div>
-    </div>
+</section>
+</div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"></script>
@@ -603,7 +571,6 @@ border-style: solid; color:aliceblue !important;">
 
 <script>
     const sales = {!! json_encode($salesmans) !!}
-    // const gagal = {!! json_encode($gagal) !!}
     const sukses = {!! json_encode($sukses) !!}
     const callperfom = {!! json_encode($callinput) !!}
 

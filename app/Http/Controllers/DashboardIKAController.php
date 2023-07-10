@@ -12,6 +12,7 @@ use App\Models\PjpPersonilheaderIKAJ;
 use App\Models\ReturbeliIKA;
 use App\Models\ReturjualIKA;
 use App\Models\SOheaderIKA;
+use App\Models\SomobileheaderIKA;
 use App\Models\StokbulanIKA;
 use App\Models\StokkartuIKA;
 use App\Models\TagihanMobileDetail;
@@ -108,7 +109,35 @@ class DashboardIKAController extends Controller
     }
     public function dashboardika()
     {
+
         $data['targets'] = TargetSalesmanIKA::all();
+
+        $callinput = CustomerLogIKA::where('tgl', date('Y-m-d'))
+            ->where('kdslm', '!=', "")
+            ->groupBy(DB::raw("kdslm"))
+            ->select(DB::raw('kdslm, COUNT(cekin) AS callinput'))
+            ->pluck('callinput');
+
+        $subqueryec = SomobileheaderIKA::select(
+            'kdslm',
+            DB::raw('COUNT( CASE WHEN stat != 0 THEN 1 END ) as jumlah_ec_sombhead'),
+            DB::raw('COUNT(DISTINCT custno) as sukses')
+        )
+            ->where('tgl', date('Y-m-d'))
+            ->groupBy('kdslm')
+            ->orderBy('kdslm');
+
+        $sukses = CustomerLogIKA::join('somobileheader', 'somobileheader.kdslm', '=', 'customer_log.kdslm')
+        ->leftJoinSub($subqueryec, 'somobsukses', function ($join) {
+            $join->on('customer_log.kdslm', '=', 'somobsukses.kdslm');
+        })
+        ->where('customer_log.tgl', date('Y-m-d'))
+        ->where('customer_log.kdslm', '!=', "")
+        ->groupBy(DB::raw("customer_log.kdslm"))
+        ->select(
+            DB::raw('IFNULL(somobsukses.sukses, 0) AS sukses'),
+        )
+        ->pluck('sukses');
 
         $salesmans = CustomerLogIKA::Join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
             ->where('customer_log.tgl', date('Y-m-d'))
@@ -236,7 +265,7 @@ class DashboardIKAController extends Controller
 
         $nilaiika = DashboardIKAJ::where("stat", '6')
             ->GroupBy(DB::raw("MONTHNAME(TglKirim)"))
-            ->select(DB::raw('SUM(Netto) as nilaiika'))
+            ->select(DB::raw('CAST(SUM(Netto) as SIGNED) as nilaiika'))
             ->OrderBy(DB::raw("MONTH(TglKirim)"))
             ->whereYear("TglKirim", date('Y'))
             ->pluck('nilaiika');
@@ -304,6 +333,6 @@ class DashboardIKAController extends Controller
         $data['totalsaldostok'] = $arraysaldostok98 + $arraysaldostok99;
 
 
-        return view('dashboarddmj.ika', ['salesmans'=>$salesmans, 'bulanika' => $bulanika, 'totalkartustok' => $totalkartustok, 'sumsalesmanika' => $sumsalesmanika, 'salesoutsalesmanika' => $salesoutsalesmanika, 'nilaiika' => $nilaiika], $data);
+        return view('dashboarddmj.ika', ['sukses'=>$sukses, 'callinput'=>$callinput, 'salesmans'=>$salesmans, 'bulanika' => $bulanika, 'totalkartustok' => $totalkartustok, 'sumsalesmanika' => $sumsalesmanika, 'salesoutsalesmanika' => $salesoutsalesmanika, 'nilaiika' => $nilaiika], $data);
     }
 }

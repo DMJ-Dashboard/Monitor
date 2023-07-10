@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CustomerLogIKA extends Model
 {
     use HasFactory;
-    protected $connection = 'mysql3';
+    protected $connection = 'mysql3IKAM';
     protected $table = "customer_log";
 
     public function salesmans()
