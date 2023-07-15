@@ -9,10 +9,12 @@
 {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> --}}
 {{-- <link rel="stylesheet" href="{{ asset('AdminLTE') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css"> --}}
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link rel="stylesheet"
+    href="{{ asset('AdminLTE') }}plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<link rel="stylesheet" href="{{ asset('AdminLTE') }}/plugins/daterangepicker/daterangepicker.css">
 <link rel="stylesheet" href="{{ asset('AdminLTE') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-{{-- <link rel="stylesheet" href="{{ asset('AdminLTE') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css"> --}}
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
 <style>
     @media only screen and (min-device-width: 420px) {
@@ -88,6 +90,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
     </div>
 </nav>
 <div class="card">
+
     <div class="card-header" style="background-color: #243b47">
         <div class="card-tools">
             <ul class="nav nav-pills ml-auto text-black">
@@ -109,6 +112,22 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 <center>
                     <b>SALESMAN CHECKIN DAILY</b>
                 </center>
+                <div class="row justify-content-center align-items-center g-2">
+                    <div class="col-2" style="width: 12% !important;">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control float-right" id="reportrange"
+                                    placeholder="FILTER DATE_RANGE">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="modal-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-hover text-dark" id="tblchekin">
@@ -162,6 +181,24 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 </div>
             </div>
             <div class="chart tab-pane" id="tagihan-log">
+                <center>
+                    <b>SALESMAN EGING LOG</b>
+                </center>
+                <div class="row justify-content-center align-items-center g-2">
+                    <div class="col-2" style="width: 12% !important;">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control float-right" id="reportrange2"
+                                    placeholder="FILTER DATE_RANGE">
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="modal-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-hover text-dark" id="tbltagihancustlog">
@@ -185,7 +222,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                 ?>
                                 @foreach ($pjpreport as $data)
                                     @if ($data->weeks_of_monthd == '1')
-                                        @if ($data->M1 =='1')
+                                        @if ($data->M1 == '1')
                                             <tr>
                                                 <td align="center" width="1%">{{ $no++ }}</td>
                                                 <td align="center" width="1%">{{ $data->NmSlm }}</td>
@@ -212,7 +249,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             </tr>
                                         @endif
                                     @elseif ($data->weeks_of_monthd == '2')
-                                        @if ($data->M2 =='1')
+                                        @if ($data->M2 == '1')
                                             <tr>
                                                 <td align="center" width="1%">{{ $no++ }}</td>
                                                 <td align="center" width="1%">{{ $data->NmSlm }}</td>
@@ -239,11 +276,12 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             </tr>
                                         @endif
                                     @elseif ($data->weeks_of_monthd == '3')
-                                        @if ($data->M3 =='1')
+                                        @if ($data->M3 == '1')
                                             <tr>
                                                 <td align="center" width="1%">{{ $no++ }}</td>
                                                 <td align="center" width="1%">{{ $data->NmSlm }}</td>
-                                                <td align="center" width="1%">( {{ $data->custno }}-{{ $data->CustName }} )</td>
+                                                <td align="center" width="1%">(
+                                                    {{ $data->custno }}-{{ $data->CustName }} )</td>
                                                 <td align="center" width="1%">{{ $data->datafakturs }}</td>
 
                                                 {{-- <td align="center" width="1%">
@@ -289,7 +327,9 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
         </table>
     </div> --}}
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
 </script>
@@ -305,7 +345,6 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
 
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-<script src="{{ asset('AdminLTE') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
 {{-- <script src="{{ asset('AdminLTE') }}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script> --}}
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
@@ -317,6 +356,62 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
 
 
+<script src="{{ asset('AdminLTE') }}/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="{{ asset('AdminLTE') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+
+<script>
+    $(function() {
+        var start = moment().subtract(29, 'days');
+        var end = moment();
+
+        function cb(start, end) {
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+
+        $('#reportrange').daterangepicker({
+            startDate: start,
+            endDate: end,
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
+                    'month').endOf('month')]
+            }
+        }, cb);
+
+        cb(start, end);
+    });
+</script>
+
+<script>
+    $(function() {
+        var start2 = moment().subtract(29, 'days');
+        var end2 = moment();
+
+        function cb(start2, end2) {
+            $('#reportrange2 span').html(start2.format('MMMM D, YYYY') + ' - ' + end2.format('MMMM D, YYYY'));
+        }
+
+        $('#reportrange2').daterangepicker({
+            startDate: start2,
+            endDate: end2,
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
+                    'month').endOf('month')]
+            }
+        }, cb2);
+
+        cb2(start2, end2);
+    });
+</script>
 
 <script>
     $(document).ready(function() {

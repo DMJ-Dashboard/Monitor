@@ -345,7 +345,7 @@ border-style: solid; color:aliceblue !important;">
                                                             <input data-readonly="true" type="text" class="knob"
                                                                 value="{{ $datac->csales }}" data-width="90"
                                                                 data-height="90" data-fgColor="#80d1d0"
-                                                                data-min="0" data-max="300">
+                                                                data-min="0" data-max="150">
                                                             <div class="knob-label"
                                                                 style="padding-top: 1rem !important;">
                                                                 {{ $datac->jcust }}
@@ -354,18 +354,18 @@ border-style: solid; color:aliceblue !important;">
                                                             <input data-readonly="true" type="text" class="knob"
                                                                 value="{{ $datac->csales }}" data-width="90"
                                                                 data-height="90" data-fgColor="#ff3333"
-                                                                data-min="0" data-max="300">
+                                                                data-min="0" data-max="150">
                                                             <div class="knob-label"
                                                                 style="padding-top: 1rem !important;">
                                                                 {{ $datac->NmSlm }} -
 
                                                                 {{ $datac->jcust }}
                                                             </div>
-                                                        @elseif($datac->csales >= '100')
+                                                        @elseif($datac->csales >= '50')
                                                             <input data-readonly="true" type="text" class="knob"
                                                                 value="{{ $datac->csales }}" data-width="90"
                                                                 data-height="90" data-fgColor="#fff873"
-                                                                data-min="0" data-max="300">
+                                                                data-min="0" data-max="150">
                                                             <div class="knob-label"
                                                                 style="padding-top: 1rem !important;">
                                                                 {{ $datac->NmSlm }} -
@@ -376,7 +376,7 @@ border-style: solid; color:aliceblue !important;">
                                                             <input data-readonly="true" type="text" class="knob"
                                                                 value="{{ $datac->csales }}" data-width="90"
                                                                 data-height="90" data-fgColor="#a6f04d"
-                                                                data-min="0" data-max="300">
+                                                                data-min="0" data-max="150">
                                                             <div class="knob-label"
                                                                 style="padding-top: 1rem !important;">
                                                                 {{ $datac->NmSlm }} -
@@ -530,17 +530,368 @@ border-style: solid; color:aliceblue !important;">
             </div>
     </div>
 </div>
-<div class="keterangan"
-    style="
-                  width: 50%;
-                  column-count: 3;
-                  column-gap: 60px;">
-    <hr style="width: 100% !important; height: 25%">
-    <hr style="width: 100% !important; height: 25%">
+</section>
+<div class="modal fade" id="rincicardsaleslog" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+    tabindex="-1">
+    <div class="modal-dialog modal-fullscreen modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header"
+                style="background-color: #3e789c !important; border: 0.2px rgba(255, 255, 255, 0.993);">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">DAILY ACTIVITY LOG IKA
+                    {{ date('Y-m-d') }}</h1> <i alt="Info_warna_anylog" data-bs-target="#modalinfowarnaanylog"
+                    data-bs-toggle="modal" class="fa-solid fa-circle-info fa-beat-fade fa-lg"
+                    style="cursor: pointer !important;"></i>
+                <a href="{{ route('Report') }}" target="_blank" class="btn btn-outline-info ml-2">Detail
+                    Analysis</a>
+                {{-- <a href="" target="__blank" class="btn btn-outline-info ml-2" data-bs-target="#modallog"
+                    data-bs-toggle="modal">Detail Analysis</a> --}}
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"
+                style="background-color: #1d4157 !important; border: 0.2px rgba(255, 255, 255, 0.979);"">
+                <div class="table-responsive" style="font-size: 0.8rem">
+                    <div class="row" style="margin: 0 !important;">
+                        {{-- @foreach ($suksescard as $data2) --}}
+                        @foreach ($custlogs2 as $data)
+                            <div class="col-sm-6 col-md-4">
+                                <div class="card"
+                                    style="background-color: #3448728c; !important; border: 0.2px rgba(255, 255, 255, 0.925);">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-7">
+                                                <div class="grid-container1">
+                                                    <div class="" style="font-weight: 550; cursor: pointer;">
+                                                        Cabang : PALEMBANG DMJ
+                                                    </div>
+                                                    <div class="" style="font-weight: 550; cursor: pointer;">
+                                                        <i class="fas fa-user mr-4 ml-1"
+                                                            style="color: #3cd2a5 !important;"></i>Call/EC :
+                                                        {{ $data->callinputcard }} / {{ $data->jumlah_ec_sombhead }}
+                                                    </div>
+                                                </div>
+                                                <div class="grid-container1">
+                                                    @if ($data->firstcekin >= '11:00:00')
+                                                        <div class=""
+                                                            style="font-weight: 550; cursor: pointer;">
+                                                            <i class="fa-solid fa-hourglass-half mr-4 ml-1"
+                                                                style="color: #ff0101 !important;"></i>First/Last :
+                                                            <i></i> {{ $data->firstcekin }} - {{ $data->lastcekin }}
+                                                        </div>
+                                                    @else
+                                                        <div class=""
+                                                            style="font-weight: 550; cursor: pointer;">
+                                                            <i class="fa-solid fa-hourglass-half mr-4 ml-1"
+                                                                style="color: #3cd2a5 !important;"></i>First/Last :
+                                                            {{ $data->firstcekin }} - {{ $data->lastcekin }}
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div class="grid-container1">
+                                                    <div class="" style="font-weight: 550; cursor: pointer;">
+                                                        <i class="fas fa-clock mr-3 ml-1"
+                                                            style="color: #3cd2a5 !important;"></i>Used/Remaining :
+                                                        {{ $data->used_time }} / {{ $data->remaining_time }}
+                                                    </div>
+                                                </div>
+                                                <div class="grid-container1">
+                                                    <div class="" style="font-weight: 550; cursor: pointer;">
+                                                        <i class="fa-solid fa-dollar-sign mr-4 ml-1"
+                                                            style="color: #3cd2a5 !important;"></i>SO : Rp
+                                                        {{ number_format($data->penjualan, 0, '.' . '.') }}
+                                                    </div>
+                                                </div>
+                                                <div class="grid-container1">
+                                                    <div class="" style="font-weight: 550; cursor: pointer;">
+                                                        <i class="fa-solid fa-credit-card mr-3 ml-1"
+                                                            style="color: #3cd2a5 !important;"></i>LPH :
+                                                        ({{ $data->countlph }})
+                                                        Rp {{ number_format($data->totallph, 0, '.' . '.') }}
+
+                                                    </div>
+                                                </div>
+                                                <div class="grid-container1">
+                                                    <div class="" style="font-weight: 550; cursor: pointer;">
+                                                        <i class="fa-solid fa-cash-register fa-beat mr-3 ml-1"
+                                                            style="color: #3cd2a5 !important;"></i>Tagih :
+                                                        {{ $data->countbayartagihan }} /
+                                                        Rp {{ number_format($data->bayartagihan, 0, '.' . '.') }} -
+                                                        ( {{ number_format($data->Sisacount, 0, '.' . '.') }} /
+                                                        Rp {{ number_format($data->SisaTotalTagihan, 0, '.' . '.') }} )
+                                                    </div>
+                                                </div>
+                                                <div class="grid-container1">
+                                                    <div class="" style="font-weight: 550; cursor: pointer;">
+                                                        <i class="fa-solid fa-shop mr-3 ml-1"
+                                                            style="color: #3cd2a5 !important;"></i>PJP/Visit :
+                                                        @if ($data->weeks_of_monthd == '1')
+                                                            @if ($data->M1 == '1')
+                                                                {{ $data->count_pjp }} / {{ $data->callinputcard }}
+                                                                ({{ number_format($data->pjp_percentage, 0, '.' . '.') }}%)
+                                                            @endif
+                                                        @endif
+                                                        @if ($data->weeks_of_monthd == '2')
+                                                            @if ($data->M2 == '1')
+                                                                {{ $data->count_pjp }} / {{ $data->callinputcard }}
+                                                                ({{ number_format($data->pjp_percentage, 0, '.' . '.') }}%)
+                                                            @endif
+                                                        @endif
+                                                        @if ($data->weeks_of_monthd == '3')
+                                                            @if ($data->M3 == '1')
+                                                                {{ $data->count_pjp }} / {{ $data->callinputcard }}
+                                                                ({{ number_format($data->pjp_percentage, 0, '.' . '.') }}%)
+                                                            @endif
+                                                        @endif
+                                                        @if ($data->weeks_of_monthd == '4')
+                                                            @if ($data->M4 == '1')
+                                                                {{ $data->count_pjp }} / {{ $data->callinputcard }}
+                                                                ({{ number_format($data->pjp_percentage, 0, '.' . '.') }}%)
+                                                            @endif
+                                                        @endif
+                                                        @if ($data->weeks_of_monthd == '5')
+                                                            @if ($data->M5 == '1')
+                                                                {{ $data->count_pjp }} / {{ $data->callinputcard }}
+                                                                ({{ number_format($data->pjp_percentage, 0, '.' . '.') }}%)
+                                                            @endif
+                                                        @endif
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-12 col-md-5">
+                                                <center>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="col-sm-6 col-md-12 text-center">
+                                                                @if ($data->used_sec < '65')
+                                                                    <input data-skin="tron" data-thickness="0.2"
+                                                                        data-readonly="true" type="text"
+                                                                        class="knob"
+                                                                        value="{{ number_format($data->used_sec) }}%"
+                                                                        data-width="120" data-height="120"
+                                                                        data-fgColor="#ff4a4a" data-min="0"
+                                                                        data-max="100">
+                                                                    <div class="knob-label"
+                                                                        style="padding-top: 1rem !important;">
+                                                                        <p>
+                                                                            <b> {{ $data->salesmans }} </b>
+                                                                        </p>
+                                                                    </div>
+                                                                @elseif ($data->used_sec <= '79')
+                                                                    <input data-skin="tron" data-thickness="0.2"
+                                                                        data-readonly="true" type="text"
+                                                                        class="knob"
+                                                                        value="{{ number_format($data->used_sec) }}%"
+                                                                        data-width="120" data-height="120"
+                                                                        data-fgColor="#fff873" data-min="0"
+                                                                        data-max="100">
+                                                                    <div class="knob-label"
+                                                                        style="padding-top: 1rem !important;">
+                                                                        <p>
+                                                                            <b> {{ $data->salesmans }} </b>
+                                                                        </p>
+                                                                    </div>
+                                                                @elseif ($data->used_sec <= '89')
+                                                                    <input data-skin="tron" data-thickness="0.2"
+                                                                        data-readonly="true" type="text"
+                                                                        class="knob"
+                                                                        value="{{ number_format($data->used_sec) }}%"
+                                                                        data-width="120" data-height="120"
+                                                                        data-fgColor="#a6f04d" data-min="0"
+                                                                        data-max="100">
+                                                                    <div class="knob-label"
+                                                                        style="padding-top: 1rem !important;">
+                                                                        <p>
+                                                                            <b> {{ $data->salesmans }} </b>
+                                                                        </p>
+                                                                    </div>
+                                                                @elseif ($data->used_sec <= '99')
+                                                                    <input data-skin="tron" data-thickness="0.2"
+                                                                        data-readonly="true" type="text"
+                                                                        class="knob"
+                                                                        value="{{ number_format($data->used_sec) }}%"
+                                                                        data-width="120" data-height="120"
+                                                                        data-fgColor="#80d1d0" data-min="0"
+                                                                        data-max="100">
+                                                                    <div class="knob-label"
+                                                                        style="padding-top: 1rem !important;">
+                                                                        <p>
+                                                                            <b> {{ $data->salesmans }} </b>
+                                                                        </p>
+                                                                    </div>
+                                                                @elseif ($data->used_sec >= '100')
+                                                                    <input data-skin="tron" data-thickness="0.2"
+                                                                        data-readonly="true" type="text"
+                                                                        class="knob" value="100"
+                                                                        data-width="120" data-height="120"
+                                                                        data-fgColor="#80d1d0" data-min="0"
+                                                                        data-max="100">
+                                                                    <div class="knob-label"
+                                                                        style="padding-top: 1rem !important;">
+                                                                        <p>
+                                                                            <b> {{ $data->salesmans }} </b>
+                                                                        </p>
+                                                                    </div>
+                                                                    {{-- @else
+                                                                <input data-skin="tron" data-thickness="0.2"
+                                                                    data-readonly="true" type="text"
+                                                                    class="knob" type="text" value="100"
+                                                                    data-width="120" data-height="120"
+                                                                    data-fgColor="#80d1d0" data-min="0"
+                                                                    data-max="100">
+                                                                <div class="knob-label"
+                                                                    style="padding-top: 1rem !important;">
+                                                                    *{{ $data->salesmans }}
+                                                                </div>
+                                                            @endif --}}
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </center>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                        {{-- @endforeach --}}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-</section>
+<div class="modal fade" id="modalinfowarna" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+    tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">INFO TARGET WARNA EC</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="container">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input data-readonly="true" type="text" class="knob" value="50"
+                                            data-width="90" data-height="90" data-fgColor="#ff3333" data-min="0"
+                                            data-max="150">
+
+                                        {{-- <i class="fa-solid fa-tag fa-bounce fa-2xl" style="color: #ff3333;"></i> --}}
+                                    </th>
+                                    <th>
+                                        <input data-readonly="true" type="text" class="knob" value="100"
+                                            data-width="90" data-height="90" data-fgColor="#fff873" data-min="0"
+                                            data-max="150">
+
+                                        {{-- <i class="fa-solid fa-tag fa-bounce fa-2xl" style="color: #fff873;"></i> --}}
+                                    </th>
+                                    <th>
+                                        <input data-readonly="true" type="text" class="knob" value="126"
+                                            data-width="90" data-height="90" data-fgColor="#a6f04d" data-min="0"
+                                            data-max="150">
+
+                                        {{-- <i class="fa-solid fa-tag fa-bounce fa-2xl" style="color: #a6f04d;"></i> --}}
+                                    </th>
+                                    <th>
+                                        <input data-readonly="true" type="text" class="knob" value="150"
+                                            data-width="90" data-height="90" data-fgColor="#80d1d0" data-min="0"
+                                            data-max="150">
+
+                                        {{-- <i class="fa-solid fa-tag fa-bounce fa-2xl" style="color: #80d1d0;"></i> --}}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1-50</td>
+                                    <td>50 - 100</td>
+                                    <td>125+</td>
+                                    <td>Target Hit</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input id="color__target" data-readonly="false" type="text"
+                                            class="knob" value="1" data-width="90" data-height="90"
+                                            data-fgColor="#ff3333" data-min="0" data-max="150">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Input Available</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="modal fade" id="modalinfowarnaanylog" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+    tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 mr-2" id="exampleModalToggleLabel2">INFO TARGET WARNA CUST LOG</h1>
+                <i class="fa-solid fa-close fa-lg " data-bs-target="#rincicardsaleslog" data-bs-toggle="modal"></i>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="container">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input data-readonly="true" type="text" class="knob" value="64"
+                                            data-width="90" data-height="90" data-fgColor="#ff3333" data-min="0"
+                                            data-max="100">
+                                    </th>
+                                    <th>
+                                        <input data-readonly="true" type="text" class="knob" value="79"
+                                            data-width="90" data-height="90" data-fgColor="#fff873" data-min="0"
+                                            data-max="100">
+                                    </th>
+                                    <th>
+                                        <input data-readonly="true" type="text" class="knob" value="89"
+                                            data-width="90" data-height="90" data-fgColor="#a6f04d" data-min="0"
+                                            data-max="100">
+                                    </th>
+                                    <th>
+                                        <input data-readonly="true" type="text" class="knob" value="90"
+                                            data-width="90" data-height="90" data-fgColor="#80d1d0" data-min="0"
+                                            data-max="100">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1-64</td>
+                                    <td>65 - 79</td>
+                                    <td>80 - 89</td>
+                                    <td>90+</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"></script>
@@ -581,7 +932,7 @@ border-style: solid; color:aliceblue !important;">
 
     Highcharts.chart('containercall', {
         title: {
-            text: ' DAILY CALL OA SALESMAN ' + yeard + '-0' + monthd + '-0' + dayd,
+            text: ' DAILY CALL OA SALESMAN IKA ' + yeard + '-' + monthd + '-' + dayd,
             align: 'center'
         },
         subtitle: {

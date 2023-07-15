@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CustomerLogIKA;
 use App\Models\DashboardIKAJ;
+use App\Models\CustomerLogIKA;
 use App\Models\Fakturjual;
 use App\Models\HutangIKA;
 use App\Models\PiutangIKA;
@@ -15,7 +15,11 @@ use App\Models\SOheaderIKA;
 use App\Models\SomobileheaderIKA;
 use App\Models\StokbulanIKA;
 use App\Models\StokkartuIKA;
+use App\Models\TagihanDetailIKAM;
+use App\Models\TagihanHeaderIKAM;
 use App\Models\TagihanMobileDetail;
+use App\Models\TagihanMobileHeader;
+use App\Models\TagihanMobileHeaderIKAM;
 use App\Models\TargetSalesmanIKA;
 use Illuminate\Support\Facades\DB;
 
@@ -110,6 +114,24 @@ class DashboardIKAController extends Controller
     public function dashboardika()
     {
 
+        $hari = date('l');
+        /*$new = date('l, F d, Y', strtotime($Today));*/
+        if ($hari == "Sunday") {
+            $hariindo = "Minggu";
+        } elseif ($hari == "Monday") {
+            $hariindo = "SENIN";
+        } elseif ($hari == "Tuesday") {
+            $hariindo = "SELASA";
+        } elseif ($hari == "Wednesday") {
+            $hariindo = "RABU";
+        } elseif ($hari == "Thursday") {
+            $hariindo = "KAMIS";
+        } elseif ($hari == "Friday") {
+            $hariindo = "JUMAT";
+        } elseif ($hari == "Saturday") {
+            $hariindo = "SABTU";
+        }
+        
         $data['targets'] = TargetSalesmanIKA::all();
 
         $callinput = CustomerLogIKA::where('tgl', date('Y-m-d'))
@@ -332,6 +354,114 @@ class DashboardIKAController extends Controller
 
         $data['totalsaldostok'] = $arraysaldostok98 + $arraysaldostok99;
 
+
+        $subquerypjpdetail = PjpPersonildetailIKAJ::select(
+            'pjppersonildetail.kdslm',
+            DB::raw('COUNT(pjppersonildetail.custno) AS count_pjp'),
+            DB::raw("pjppersonildetail.M1"),
+            DB::raw("pjppersonildetail.M2"),
+            DB::raw("pjppersonildetail.M3"),
+            DB::raw("pjppersonildetail.M4"),
+            DB::raw("pjppersonildetail.M5"),
+        )->join('salesman', 'pjppersonildetail.kdslm', '=', 'salesman.kdslm')
+            ->where('pjppersonildetail.hari', $hariindo)
+            ->where('salesman.stat', '=', '1')
+            ->groupBy('pjppersonildetail.kdslm')
+            ->orderBy('pjppersonildetail.kdslm');
+
+        $subqueryec = SomobileheaderIKA::select(
+            'kdslm',
+            DB::raw('COUNT( CASE WHEN stat != 0 THEN 1 END ) as jumlah_ec_sombhead'),
+            DB::raw('COUNT(DISTINCT custno) as sukses')
+        )
+            ->where('tgl', date('Y-m-d'))
+            ->groupBy('kdslm')
+            ->orderBy('kdslm');
+
+        $subquerytagihanheadmob = TagihanMobileHeaderIKAM::select(
+            'tagihanmobileheader.kdslm',
+            'tagihanmobiledetail.nobukti as nobuktidet',
+            DB::raw('tagihanmobileheader.totalbayar AS bayartagihan'),
+            // DB::raw('tagihanmobileheader.totalfaktur - tagihanmobileheader.totalbayar AS SisaTagihan'),
+            DB::raw('COUNT(CASE WHEN tagihanmobiledetail.nilaibayar > 0.00 THEN 1 ELSE NULL END) AS countbayartagihan'),
+
+        )
+            ->join('tagihanmobiledetail', 'tagihanmobiledetail.nobukti', '=', 'tagihanmobileheader.nobukti')
+            ->where('tagihanmobileheader.tgl', date('Y-m-d'))
+            ->groupBy('tagihanmobileheader.kdslm')
+            // ->get()
+        ;
+
+        $subquerytagihanhead = TagihanHeaderIKAM::select(
+            'tagihanheader.kdslm',
+            'tagihandetail.nobukti as nobuktidetail',
+            DB::raw('tagihanheader.Total AS totallph'),
+            DB::raw('COUNT(CASE WHEN tagihandetail.nobukti = tagihandetail.nobukti THEN 1 ELSE NULL END) AS countbayartagihan'),
+
+        )
+            ->join('tagihandetail', 'tagihandetail.nobukti', '=', 'tagihanheader.nobukti')
+            ->where('tagihanheader.tgl', date('Y-m-d'))
+            ->groupBy('tagihanheader.kdslm')
+            // ->get()
+        ;
+
+        $subquerytagihanhead = TagihanDetailIKAM::select(
+            'tagihanheader.kdslm',
+            'tagihandetail.NoBukti',
+            DB::raw('sum(tagihandetail.Nilai) AS totallph'),
+            DB::raw('COUNT(tagihandetail.NoFaktur) AS countlph'),
+        )
+            ->join('tagihanheader', 'tagihandetail.NoBukti', '=', 'tagihanheader.nobukti')
+            ->where('tagihanheader.TglTagih', date('Y-m-d'))
+            ->groupBy('tagihanheader.kdslm')
+            // ->get()
+            ;
+        $data['custlogs2'] = CustomerLogIKA::join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
+            ->leftJoinSub($subquerypjpdetail, 'pjp', function ($join) {
+                $join->on('salesman.kdslm', '=', 'pjp.kdslm');
+            })
+            ->leftJoinSub($subquerytagihanheadmob, 'taghm', function ($join) {
+                $join->on('salesman.kdslm', '=', 'taghm.kdslm');
+            })
+            ->leftJoinSub($subquerytagihanhead, 'taghm2', function ($join) {
+                $join->on('salesman.kdslm', '=', 'taghm2.kdslm');
+            })
+            ->leftJoinSub($subqueryec, 'ec', function ($join) {
+                $join->on('salesman.kdslm', '=', 'ec.kdslm');
+            })
+            ->where('customer_log.tgl', date('Y-m-d'))
+            ->whereNotNull('customer_log.cekin')
+            ->where('customer_log.kdslm', '!=', '')
+            ->groupBy('salesman.NmSlm')
+            ->orderBy('salesman.kdslm')
+            ->select(
+                'salesman.NmSlm as salesmans',
+                DB::raw('MIN(customer_log.cekin) AS firstcekin'),
+                DB::raw('MAX(customer_log.cekin) AS lastcekin'),
+                DB::raw('COUNT(customer_log.cekin) AS callinputcard'),
+                DB::raw('COUNT(CASE WHEN customer_log.statusorder = "sukses" OR customer_log.status = "sukses" THEN 1 END) AS suksescard'),
+                DB::raw('SEC_TO_TIME(SUM(TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(customer_log.cekin))) AS used_time'),
+                DB::raw('SUBTIME("06:00:00",SEC_TO_TIME(SUM(TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(customer_log.cekin)))) AS remaining_time'),
+                // DB::raw('SUBTIME(SEC_TO_TIME(SUM(TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(customer_log.cekin)))) - 21600 AS remaining_time'),
+                DB::raw('SUM(CASE WHEN customer_log.tgl = CURDATE() THEN TIME_TO_SEC(customer_log.cekout) - TIME_TO_SEC(customer_log.cekin) ELSE 0 END)/23400*100 AS used_sec'),
+                DB::raw('SUM(customer_log.salesorder) AS penjualan'),
+                DB::raw('IFNULL(pjp.count_pjp, 0) AS count_pjp'),
+                DB::raw("pjp.M1"),
+                DB::raw("pjp.M2"),
+                DB::raw("pjp.M3"),
+                DB::raw("pjp.M4"),
+                DB::raw("pjp.M5"),
+                DB::raw('IFNULL(ec.jumlah_ec_sombhead, 0) AS jumlah_ec_sombhead'),
+                DB::raw('IFNULL(taghm2.totallph, 0) AS totallph'),
+                DB::raw('IFNULL(taghm2.countlph, 0) AS countlph'),
+                DB::raw('taghm2.totallph-taghm.bayartagihan as SisaTotalTagihan'),
+                DB::raw('taghm2.countlph-taghm.countbayartagihan as Sisacount'),
+                DB::raw('IFNULL(taghm.countbayartagihan, 0) AS countbayartagihan'),
+                DB::raw('IFNULL(taghm.bayartagihan, 0) AS bayartagihan'),
+                DB::raw('( COUNT(customer_log.cekin)) / IFNULL(pjp.count_pjp, 0) * 100 AS pjp_percentage'),
+                DB::raw("FLOOR((DAYOFMONTH(CURDATE())-1 + WEEKDAY(CONCAT(YEAR(CURDATE()),'-',MONTH(CURDATE()),'-01')))/7) + 1 AS weeks_of_monthd")
+            )
+            ->get();
 
         return view('dashboarddmj.ika', ['sukses'=>$sukses, 'callinput'=>$callinput, 'salesmans'=>$salesmans, 'bulanika' => $bulanika, 'totalkartustok' => $totalkartustok, 'sumsalesmanika' => $sumsalesmanika, 'salesoutsalesmanika' => $salesoutsalesmanika, 'nilaiika' => $nilaiika], $data);
     }

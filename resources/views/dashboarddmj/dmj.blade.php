@@ -355,7 +355,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             <div class="card-header">
                                                 <div class="row">
                                                     <div class="col-sm-9">
-                                                        <h3 class="card-title">Effective Call</h3>
+                                                        <h3 class="card-title">Daily Effective Call OA</h3>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <button data-bs-target="#rincicardsaleslog"
@@ -363,7 +363,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                             class="btn btn-outline-info float-right m-2 top-1"
                                                             style="
                                                         padding-top: 3;
-                                                        padding-bottom: 3;">Detail</button>
+                                                        padding-bottom: 3;">DETAIL</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -769,7 +769,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
         <div class="modal-content">
             <div class="modal-header"
                 style="background-color: #3e789c !important; border: 0.2px rgba(255, 255, 255, 0.993);">
-                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">DAILY ACTIVITY ANALYSIS LOG
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">DAILY ACTIVITY LOG DMJ
                     {{ date('Y-m-d') }}</h1> <i alt="Info_warna_anylog" data-bs-target="#modalinfowarnaanylog"
                     data-bs-toggle="modal" class="fa-solid fa-circle-info fa-beat-fade fa-lg"
                     style="cursor: pointer !important;"></i>
@@ -1576,7 +1576,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
 
     Highcharts.chart('containercall', {
         title: {
-            text: ' DAILY CALL OA SALESMAN ' + yeard + '-0' + monthd + '-0' + dayd,
+            text: ' DAILY CALL OA SALESMAN ' + yeard + '-' + monthd + '-' + dayd,
             align: 'center'
         },
         subtitle: {
@@ -1611,12 +1611,12 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
             //     ]
             // },
             {
-                name: 'Input Call Perfom',
+                name: 'Input Call OA',
                 data: callperfom,
                 type: 'column'
             },
             {
-                name: 'Efectice Call',
+                name: 'Efectice Call OA',
                 data: sukses,
                 zones: [{
                     value: 7,
@@ -1676,7 +1676,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 }
             },
             title: {
-                text: 'Sales Out Salesman',
+                text: 'Sales Out',
                 style: {
                     color: Highcharts.getOptions().colors[3]
                 }

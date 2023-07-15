@@ -12,7 +12,24 @@ class DashboardIKAJ extends Model
     protected $table = "fakturjualheader";
 }
 
-
+class TagihanDetailIKAM extends Model
+{
+    use HasFactory;
+    protected $connection = 'mysql3IKAM';
+    protected $table = "tagihandetail";
+}
+class TagihanHeaderIKAM extends Model
+{
+    use HasFactory;
+    protected $connection = 'mysql3IKAM';
+    protected $table = "tagihanheader";
+}
+class TagihanMobileHeaderIKAM extends Model
+{
+    use HasFactory;
+    protected $connection = 'mysql3IKAM';
+    protected $table = "tagihanmobileheader";
+}
 
 class Salesman extends Model
 {
