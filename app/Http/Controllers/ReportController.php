@@ -308,7 +308,7 @@ class ReportController extends Controller
             })
             ->where('pjppersonildetail.hari', $hariindo)
             ->where('salesman.stat', '=', '1')
-            ->orderBy('salesman.NmSlm')
+            ->orderBy('custlgr.cekin','DESC')
             ->select(
                 'pjppersonildetail.kdslm',
                 // DB::raw("tagd.dkfp"),

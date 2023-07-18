@@ -94,12 +94,12 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
     <div class="card-header" style="background-color: #243b47">
         <div class="card-tools">
             <ul class="nav nav-pills ml-auto text-black">
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link active" href="#cust-log" data-toggle="tab"> <b> Cust Log </b>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="#tagihan-log" data-toggle="tab">
+                    <a class="nav-link active" href="#tagihan-log" data-toggle="tab">
                         <b>Eging Log</b></a>
                 </li>
             </ul>
@@ -108,7 +108,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
     <div class="card-body">
         {{-- MAINTANCE --}}
         <div class="tab-content p-0">
-            <div class="chart tab-pane active" id="cust-log">
+            {{-- <div class="chart tab-pane active" id="cust-log">
                 <center>
                     <b>SALESMAN CHECKIN DAILY</b>
                 </center>
@@ -179,8 +179,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                         </table>
                     </div>
                 </div>
-            </div>
-            <div class="chart tab-pane" id="tagihan-log">
+            </div> --}}
+            <div class="chart tab-pane active" id="tagihan-log">
                 <center>
                     <b>SALESMAN EGING LOG</b>
                 </center>
@@ -207,12 +207,13 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                     <th text-align="center">No</th>
                                     <th align="center">Salesman</th>
                                     <th align="center">Customer</th>
+                                    <th align="center">Check-IN</th>
+                                    <th align="center">Check-OUT</th>
+                                    <th align="center">Used Time</th>
                                     <th align="center">Piutang</th>
                                     <th align="center">Total Piutang</th>
                                     <th align="center">Total Bayar</th>
                                     <th align="center">SalesOrder</th>
-                                    <th align="center">Time Order</th>
-
                                 </tr>
                             </thead>
                             <tbody class="text-dark">
@@ -228,17 +229,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 <td align="center" width="1%">{{ $data->NmSlm }}</td>
                                                 <td align="center" width="1%">(
                                                     {{ $data->custno }}-{{ $data->CustName }} )</td>
-                                                <td align="center" width="1%">{{ $data->datafakturs }}</td>
-
-                                                {{-- <td align="center" width="1%">
-                                                    ( {{ $data->dkfp }} /
-                                                    {{ number_format($data->nilaifp, 0, '.' . '.') }} )</td> --}}
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->total, 0, '.' . '.') }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
+                                                <td align="center" width="1%">{{ $data->cekin }}</td>
+                                                <td align="center" width="1%">{{ $data->cekout }}</td>
                                                 @if ($data->used_time <= '00:05:00')
                                                     <td width="2%" class="text-danger"> <b>
                                                             {{ $data->used_time }} </b>
@@ -246,6 +238,14 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 @else
                                                     <td width="2%">{{ $data->used_time }}</td>
                                                 @endif
+                                                <td align="center" width="1%">{{ $data->datafakturs }}</td>
+                                                <td align="center" width="1%">
+                                                    {{ number_format($data->total, 0, '.' . '.') }}</td>
+                                                <td align="center" width="1%">
+                                                    {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
+                                                <td align="center" width="1%">
+                                                    {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
+
                                             </tr>
                                         @endif
                                     @elseif ($data->weeks_of_monthd == '2')
@@ -255,17 +255,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 <td align="center" width="1%">{{ $data->NmSlm }}</td>
                                                 <td align="center" width="1%">(
                                                     {{ $data->custno }}-{{ $data->CustName }} )</td>
-                                                <td align="center" width="1%">{{ $data->datafakturs }}</td>
-
-                                                {{-- <td align="center" width="1%">
-                                                ( {{ $data->dkfp }} /
-                                                {{ number_format($data->nilaifp, 0, '.' . '.') }} )</td> --}}
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->total, 0, '.' . '.') }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
+                                                <td align="center" width="1%">{{ $data->cekin }}</td>
+                                                <td align="center" width="1%">{{ $data->cekout }}</td>
                                                 @if ($data->used_time <= '00:05:00')
                                                     <td width="2%" class="text-danger"> <b>
                                                             {{ $data->used_time }} </b>
@@ -273,6 +264,14 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 @else
                                                     <td width="2%">{{ $data->used_time }}</td>
                                                 @endif
+                                                <td align="center" width="1%">{{ $data->datafakturs }}</td>
+                                                <td align="center" width="1%">
+                                                    {{ number_format($data->total, 0, '.' . '.') }}</td>
+                                                <td align="center" width="1%">
+                                                    {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
+                                                <td align="center" width="1%">
+                                                    {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
+
                                             </tr>
                                         @endif
                                     @elseif ($data->weeks_of_monthd == '3')
@@ -282,17 +281,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 <td align="center" width="1%">{{ $data->NmSlm }}</td>
                                                 <td align="center" width="1%">(
                                                     {{ $data->custno }}-{{ $data->CustName }} )</td>
-                                                <td align="center" width="1%">{{ $data->datafakturs }}</td>
-
-                                                {{-- <td align="center" width="1%">
-                                                ( {{ $data->dkfp }} /
-                                                {{ number_format($data->nilaifp, 0, '.' . '.') }} )</td> --}}
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->total, 0, '.' . '.') }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
+                                                <td align="center" width="1%">{{ $data->cekin }}</td>
+                                                <td align="center" width="1%">{{ $data->cekout }}</td>
                                                 @if ($data->used_time <= '00:05:00')
                                                     <td width="2%" class="text-danger"> <b>
                                                             {{ $data->used_time }} </b>
@@ -300,6 +290,46 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 @else
                                                     <td width="2%">{{ $data->used_time }}</td>
                                                 @endif
+                                                <td align="center" width="1%">{{ $data->datafakturs }}</td>
+                                                <td align="center" width="1%">
+                                                    {{ number_format($data->total, 0, '.' . '.') }}</td>
+                                                <td align="center" width="1%">
+                                                    {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
+                                                <td align="center" width="1%">
+                                                    {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
+
+                                            </tr>
+                                        @endif
+                                    @elseif ($data->weeks_of_monthd == '4')
+                                        @if ($data->M4 == '1')
+                                            <tr>
+                                                <td align="center" width="1%">{{ $no++ }}</td>
+                                                <td align="center" width="1%">{{ $data->NmSlm }}</td>
+                                                @if ($data->used_time> '00:00:00' && $data->nilaibayar==0 && $data->total >0)
+                                                    <td width="2%" class="text-danger"> <b>
+                                                            {{ $data->CustName }} </b>
+                                                    </td>
+                                                @else
+                                                    <td width="2%">{{ $data->CustName }}</td>
+                                                @endif
+                                                {{-- <td align="center" width="1%">(
+                                                    {{ $data->custno }}-{{ $data->CustName }} )</td> --}}
+                                                <td align="center" width="1%">{{ $data->cekin }}</td>
+                                                <td align="center" width="1%">{{ $data->cekout }}</td>
+                                                @if ($data->used_time <= '00:05:00')
+                                                    <td width="2%" class="text-danger"> <b>
+                                                            {{ $data->used_time }} </b>
+                                                    </td>
+                                                @else
+                                                    <td width="2%">{{ $data->used_time }}</td>
+                                                @endif
+                                                <td align="center" width="5%">{{ $data->datafakturs }}</td>
+                                                <td align="center" width="1%">
+                                                    {{ number_format($data->total, 0, '.' . '.') }}</td>
+                                                <td align="center" width="1%">
+                                                    {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
+                                                <td align="center" width="1%">
+                                                    {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
                                             </tr>
                                         @endif
                                     @endif
@@ -310,7 +340,6 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 </div>
             </div>
         </div>
-
     </div>
     {{-- <div class="table-responsive">
         <table class="table table-striped table-hover text-dark" id="tbltagihancustlog">
@@ -391,8 +420,11 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
         var start2 = moment().subtract(29, 'days');
         var end2 = moment();
 
-        function cb(start2, end2) {
+        function cb2(start2, end2) {
             $('#reportrange2 span').html(start2.format('MMMM D, YYYY') + ' - ' + end2.format('MMMM D, YYYY'));
+
+            console.log("A new date selection2 was made: " + start2.format('YYYY-MM-DD') + ' to ' + end2.format(
+                'YYYY-MM-DD'));
         }
 
         $('#reportrange2').daterangepicker({
@@ -410,6 +442,8 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
         }, cb2);
 
         cb2(start2, end2);
+
+
     });
 </script>
 
