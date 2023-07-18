@@ -422,10 +422,9 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-2"></div>
+                <div class="row justify-content-center align-items-center">
                     {{-- <div class="col-sm-4 col-md-3 col-lg-3"> --}}
-                    <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
+                    <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white mx-2">
                         <span class="info-box-icon text-success">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#modaldelivery">
                                 <i class="fa-solid fa-truck fa-beat-fade" style="--fa-secondary-color: #4b6eaa;"></i>
@@ -439,7 +438,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             </span>
                         </div>
                     </div>
-                    <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
+                    <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white mx-2">
                         <span class="info-box-icon text-success">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#modalsaldostok">
                                 <i class="fa-solid fa-warehouse"></i>
@@ -454,17 +453,17 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                         </div>
 
                     </div>
-                    <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
+                    <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white mx-2">
                         <span class="info-box-icon text-warning"><i
                                 class="fa-solid fa-spin fa-arrows-rotate"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Monthly Retur Pembelian</span>
+                            <span class="info-box-text">Monthly Retur Beli</span>
                             <span class="info-box-number">
                                 Rp {{ number_format($sumreturbeli, 0, '.' . '.') }}
                             </span>
                         </div>
                     </div>
-                    <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
+                    <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white mx-2">
                         <span class="info-box-icon text-info"><i
                                 class="fas fa-cloud-download-alt fa-bounce"></i></span>
                         <div class="info-box-content">
@@ -475,7 +474,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                         </div>
 
                     </div>
-                    <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white">
+                    <div class="col-sm-4 col-md-2 col-lg-2 info-box mb-3 bg-white mx-2">
                         <span class="info-box-icon text-red"><i class="fa-solid fa-circle-xmark fa-flip"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Monthly Faktur Batal</span>
@@ -485,9 +484,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                         </div>
 
                     </div>
-                    <div class="col-1"></div>
 
-                    {{-- </div> --}}
                 </div>
             </div>
         </section>

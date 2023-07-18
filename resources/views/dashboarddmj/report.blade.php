@@ -11,8 +11,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
 
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<link rel="stylesheet"
-    href="{{ asset('AdminLTE') }}plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+
 <link rel="stylesheet" href="{{ asset('AdminLTE') }}/plugins/daterangepicker/daterangepicker.css">
 <link rel="stylesheet" href="{{ asset('AdminLTE') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
@@ -442,8 +441,6 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
         }, cb2);
 
         cb2(start2, end2);
-
-
     });
 </script>
 
