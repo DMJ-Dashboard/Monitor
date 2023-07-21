@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerKartu;
 use App\Http\Controllers\DashboardDMJ;
 use App\Http\Controllers\DashboardDMJBTASController;
 use App\Http\Controllers\DashboardIKABDGController;
@@ -29,6 +30,9 @@ Route::controller(DashboardDMJBTASController::class)->group(function () {
 });
 Route::controller(ReportController::class)->group(function () {
     Route::get('/report', 'report')->name('Report');
+});
+Route::controller(CustomerKartu::class)->group(function () {
+    Route::get('/CustKartu', 'CustKartu')->name('CustKartu');
 });
 Route::controller(ReportController::class)->group(function () {
     Route::get('/reportAPI', 'reportAPI')->name('data-ReportAPI');

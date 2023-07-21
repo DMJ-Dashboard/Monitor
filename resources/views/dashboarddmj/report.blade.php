@@ -5,15 +5,12 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-{{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> --}}
-{{-- <link rel="stylesheet" href="{{ asset('AdminLTE') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css"> --}}
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" />
 
-<link rel="stylesheet" href="{{ asset('AdminLTE') }}/plugins/daterangepicker/daterangepicker.css">
-<link rel="stylesheet" href="{{ asset('AdminLTE') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+
 
 <style>
     @media only screen and (min-device-width: 420px) {
@@ -43,7 +40,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="refresh" content="1500; url=/report">
+    <meta http-equiv="refresh" content="1500; url=/CustKartu">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ asset('/dmj/dist/css/style.css') }}">
@@ -51,8 +48,7 @@
 
 </head>
 <nav class="navbar navbar-expand-lg navbar-light bg-light px-5"
-    style="background-color: #324c5c !important; border: 0.2px rgba(255, 255, 255, 0.425);
-border-style: solid; color:aliceblue !important; padding-bottom: 0;">
+    style="background-color: #324c5c !important; border: 0.2px rgba(255, 255, 255, 0.425); border-style: solid; color:aliceblue !important; padding-bottom: 0;">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
         aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -88,26 +84,25 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
 
     </div>
 </nav>
-<div class="card">
+<div class="content px-3 pt-3">
 
-    <div class="card-header" style="background-color: #243b47">
+    <div class="card">
+
+        {{-- <div class="card-header" style="background-color: #243b47">
         <div class="card-tools">
             <ul class="nav nav-pills ml-auto text-black">
-                {{-- <li class="nav-item">
-                    <a class="nav-link active" href="#cust-log" data-toggle="tab"> <b> Cust Log </b>
-                    </a>
-                </li> --}}
+
                 <li class="nav-item">
                     <a class="nav-link active" href="#tagihan-log" data-toggle="tab">
                         <b>Eging Log</b></a>
                 </li>
             </ul>
         </div>
-    </div>
-    <div class="card-body">
-        {{-- MAINTANCE --}}
-        <div class="tab-content p-0">
-            {{-- <div class="chart tab-pane active" id="cust-log">
+    </div> --}}
+        <div class="card-body">
+            {{-- MAINTANCE --}}
+            <div class="tab-content p-0">
+                {{-- <div class="chart tab-pane active" id="cust-log">
                 <center>
                     <b>SALESMAN CHECKIN DAILY</b>
                 </center>
@@ -179,168 +174,168 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                     </div>
                 </div>
             </div> --}}
-            <div class="chart tab-pane active" id="tagihan-log">
-                <center>
-                    <b>SALESMAN EGING LOG</b>
-                </center>
-                <div class="row justify-content-center align-items-center g-2">
-                    <div class="col-2" style="width: 12% !important;">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="far fa-calendar-alt"></i>
-                                    </span>
+                <div class="chart tab-pane active" id="tagihan-log">
+                    <center>
+                        <b>SALESMAN EGING LOG</b>
+                    </center>
+                    <div class="row justify-content-center align-items-center g-2">
+                        <div class="col-2" style="width: 12% !important;">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control float-right" id="reportrange2"
+                                        placeholder="FILTER DATE_RANGE">
                                 </div>
-                                <input type="text" class="form-control float-right" id="reportrange2"
-                                    placeholder="FILTER DATE_RANGE">
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover text-dark" id="tbltagihancustlog">
-                            <thead style="text-align: center !important;">
-                                <tr class="text-dark">
-                                    <th text-align="center">No</th>
-                                    <th align="center">Salesman</th>
-                                    <th align="center">Customer</th>
-                                    <th align="center">Check-IN</th>
-                                    <th align="center">Check-OUT</th>
-                                    <th align="center">Used Time</th>
-                                    <th align="center">Piutang</th>
-                                    <th align="center">Total Piutang</th>
-                                    <th align="center">Total Bayar</th>
-                                    <th align="center">SalesOrder</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-dark">
-                                <?php
-                                $no = 1;
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover text-dark" id="tbltagihancustlog">
+                                <thead style="text-align: center !important;">
+                                    <tr class="text-dark">
+                                        <th text-align="center">No</th>
+                                        <th align="center">Salesmans</th>
+                                        <th align="center">Customer</th>
+                                        <th align="center">Check-IN</th>
+                                        <th align="center">Check-OUT</th>
+                                        <th align="center">Used Time</th>
+                                        <th align="center">Piutang</th>
+                                        <th align="center">Total Piutang</th>
+                                        <th align="center">Total Bayar</th>
+                                        <th align="center">SalesOrder</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-dark">
+                                    <?php
+                                    $no = 1;
 
-                                ?>
-                                @foreach ($pjpreport as $data)
-                                    @if ($data->weeks_of_monthd == '1')
-                                        @if ($data->M1 == '1')
-                                            <tr>
-                                                <td align="center" width="1%">{{ $no++ }}</td>
-                                                <td align="center" width="1%">{{ $data->NmSlm }}</td>
-                                                <td align="center" width="1%">(
-                                                    {{ $data->custno }}-{{ $data->CustName }} )</td>
-                                                <td align="center" width="1%">{{ $data->cekin }}</td>
-                                                <td align="center" width="1%">{{ $data->cekout }}</td>
-                                                @if ($data->used_time <= '00:05:00')
-                                                    <td width="2%" class="text-danger"> <b>
-                                                            {{ $data->used_time }} </b>
-                                                    </td>
-                                                @else
-                                                    <td width="2%">{{ $data->used_time }}</td>
-                                                @endif
-                                                <td align="center" width="1%">{{ $data->datafakturs }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->total, 0, '.' . '.') }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
+                                    ?>
+                                    @foreach ($pjpreport as $data)
+                                        @if ($data->weeks_of_monthd == '1')
+                                            @if ($data->M1 == '1')
+                                                <tr>
+                                                    <td align="center" width="1%">{{ $no++ }}</td>
+                                                    <td align="center" width="1%">{{ $data->NmSlm }}</td>
+                                                    <td align="center" width="1%">(
+                                                        {{ $data->custno }}-{{ $data->CustName }} )</td>
+                                                    <td align="center" width="1%">{{ $data->cekin }}</td>
+                                                    <td align="center" width="1%">{{ $data->cekout }}</td>
+                                                    @if ($data->used_time <= '00:05:00')
+                                                        <td width="2%" class="text-danger"> <b>
+                                                                {{ $data->used_time }} </b>
+                                                        </td>
+                                                    @else
+                                                        <td width="2%">{{ $data->used_time }}</td>
+                                                    @endif
+                                                    <td align="center" width="1%">{{ $data->datafakturs }}</td>
+                                                    <td align="center" width="1%">
+                                                        {{ number_format($data->total, 0, '.' . '.') }}</td>
+                                                    <td align="center" width="1%">
+                                                        {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
+                                                    <td align="center" width="1%">
+                                                        {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
 
-                                            </tr>
-                                        @endif
-                                    @elseif ($data->weeks_of_monthd == '2')
-                                        @if ($data->M2 == '1')
-                                            <tr>
-                                                <td align="center" width="1%">{{ $no++ }}</td>
-                                                <td align="center" width="1%">{{ $data->NmSlm }}</td>
-                                                <td align="center" width="1%">(
-                                                    {{ $data->custno }}-{{ $data->CustName }} )</td>
-                                                <td align="center" width="1%">{{ $data->cekin }}</td>
-                                                <td align="center" width="1%">{{ $data->cekout }}</td>
-                                                @if ($data->used_time <= '00:05:00')
-                                                    <td width="2%" class="text-danger"> <b>
-                                                            {{ $data->used_time }} </b>
-                                                    </td>
-                                                @else
-                                                    <td width="2%">{{ $data->used_time }}</td>
-                                                @endif
-                                                <td align="center" width="1%">{{ $data->datafakturs }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->total, 0, '.' . '.') }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
+                                                </tr>
+                                            @endif
+                                        @elseif ($data->weeks_of_monthd == '2')
+                                            @if ($data->M2 == '1')
+                                                <tr>
+                                                    <td align="center" width="1%">{{ $no++ }}</td>
+                                                    <td align="center" width="1%">{{ $data->NmSlm }}</td>
+                                                    <td align="center" width="1%">(
+                                                        {{ $data->custno }}-{{ $data->CustName }} )</td>
+                                                    <td align="center" width="1%">{{ $data->cekin }}</td>
+                                                    <td align="center" width="1%">{{ $data->cekout }}</td>
+                                                    @if ($data->used_time <= '00:05:00')
+                                                        <td width="2%" class="text-danger"> <b>
+                                                                {{ $data->used_time }} </b>
+                                                        </td>
+                                                    @else
+                                                        <td width="2%">{{ $data->used_time }}</td>
+                                                    @endif
+                                                    <td align="center" width="1%">{{ $data->datafakturs }}</td>
+                                                    <td align="center" width="1%">
+                                                        {{ number_format($data->total, 0, '.' . '.') }}</td>
+                                                    <td align="center" width="1%">
+                                                        {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
+                                                    <td align="center" width="1%">
+                                                        {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
 
-                                            </tr>
-                                        @endif
-                                    @elseif ($data->weeks_of_monthd == '3')
-                                        @if ($data->M3 == '1')
-                                            <tr>
-                                                <td align="center" width="1%">{{ $no++ }}</td>
-                                                <td align="center" width="1%">{{ $data->NmSlm }}</td>
-                                                <td align="center" width="1%">(
-                                                    {{ $data->custno }}-{{ $data->CustName }} )</td>
-                                                <td align="center" width="1%">{{ $data->cekin }}</td>
-                                                <td align="center" width="1%">{{ $data->cekout }}</td>
-                                                @if ($data->used_time <= '00:05:00')
-                                                    <td width="2%" class="text-danger"> <b>
-                                                            {{ $data->used_time }} </b>
-                                                    </td>
-                                                @else
-                                                    <td width="2%">{{ $data->used_time }}</td>
-                                                @endif
-                                                <td align="center" width="1%">{{ $data->datafakturs }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->total, 0, '.' . '.') }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
+                                                </tr>
+                                            @endif
+                                        @elseif ($data->weeks_of_monthd == '3')
+                                            @if ($data->M3 == '1')
+                                                <tr>
+                                                    <td align="center" width="1%">{{ $no++ }}</td>
+                                                    <td align="center" width="1%">{{ $data->NmSlm }}</td>
+                                                    <td align="center" width="1%">(
+                                                        {{ $data->custno }}-{{ $data->CustName }} )</td>
+                                                    <td align="center" width="1%">{{ $data->cekin }}</td>
+                                                    <td align="center" width="1%">{{ $data->cekout }}</td>
+                                                    @if ($data->used_time <= '00:05:00')
+                                                        <td width="2%" class="text-danger"> <b>
+                                                                {{ $data->used_time }} </b>
+                                                        </td>
+                                                    @else
+                                                        <td width="2%">{{ $data->used_time }}</td>
+                                                    @endif
+                                                    <td align="center" width="1%">{{ $data->datafakturs }}</td>
+                                                    <td align="center" width="1%">
+                                                        {{ number_format($data->total, 0, '.' . '.') }}</td>
+                                                    <td align="center" width="1%">
+                                                        {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
+                                                    <td align="center" width="1%">
+                                                        {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
 
-                                            </tr>
-                                        @endif
-                                    @elseif ($data->weeks_of_monthd == '4')
-                                        @if ($data->M4 == '1')
-                                            <tr>
-                                                <td align="center" width="1%">{{ $no++ }}</td>
-                                                <td align="center" width="1%">{{ $data->NmSlm }}</td>
-                                                @if ($data->used_time> '00:00:00' && $data->nilaibayar==0 && $data->total >0)
-                                                    <td width="2%" class="text-danger"> <b>
-                                                            {{ $data->CustName }} </b>
-                                                    </td>
-                                                @else
-                                                    <td width="2%">{{ $data->CustName }}</td>
-                                                @endif
-                                                {{-- <td align="center" width="1%">(
+                                                </tr>
+                                            @endif
+                                        @elseif ($data->weeks_of_monthd == '4')
+                                            @if ($data->M4 == '1')
+                                                <tr>
+                                                    <td align="center" width="1%">{{ $no++ }}</td>
+                                                    <td align="center" width="1%">{{ $data->NmSlm }}</td>
+                                                    @if ($data->used_time > '00:00:00' && $data->nilaibayar == 0 && $data->total > 0)
+                                                        <td width="2%" class="text-danger"> <b>
+                                                                {{ $data->CustName }} </b>
+                                                        </td>
+                                                    @else
+                                                        <td width="2%">{{ $data->CustName }}</td>
+                                                    @endif
+                                                    {{-- <td align="center" width="1%">(
                                                     {{ $data->custno }}-{{ $data->CustName }} )</td> --}}
-                                                <td align="center" width="1%">{{ $data->cekin }}</td>
-                                                <td align="center" width="1%">{{ $data->cekout }}</td>
-                                                @if ($data->used_time <= '00:05:00')
-                                                    <td width="2%" class="text-danger"> <b>
-                                                            {{ $data->used_time }} </b>
-                                                    </td>
-                                                @else
-                                                    <td width="2%">{{ $data->used_time }}</td>
-                                                @endif
-                                                <td align="center" width="5%">{{ $data->datafakturs }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->total, 0, '.' . '.') }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
-                                                <td align="center" width="1%">
-                                                    {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
-                                            </tr>
+                                                    <td align="center" width="1%">{{ $data->cekin }}</td>
+                                                    <td align="center" width="1%">{{ $data->cekout }}</td>
+                                                    @if ($data->used_time <= '00:05:00')
+                                                        <td width="2%" class="text-danger"> <b>
+                                                                {{ $data->used_time }} </b>
+                                                        </td>
+                                                    @else
+                                                        <td width="2%">{{ $data->used_time }}</td>
+                                                    @endif
+                                                    <td align="center" width="5%">{{ $data->datafakturs }}</td>
+                                                    <td align="center" width="1%">
+                                                        {{ number_format($data->total, 0, '.' . '.') }}</td>
+                                                    <td align="center" width="1%">
+                                                        {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
+                                                    <td align="center" width="1%">
+                                                        {{ number_format($data->totalsalesorder, 0, '.' . '.') }}</td>
+                                                </tr>
+                                            @endif
                                         @endif
-                                    @endif
-                                @endforeach
-                            </tbody>
-                        </table>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    {{-- <div class="table-responsive">
+        {{-- <div class="table-responsive">
         <table class="table table-striped table-hover text-dark" id="tbltagihancustlog">
             <thead style="text-align: center !important;">
                 <tr class="text-dark">
@@ -354,27 +349,23 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
             </tbody>
         </table>
     </div> --}}
+    </div>
 </div>
+
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+    < script src = "https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js" >
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
-</script>
-<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-<!-- JavaScript Bundle with Popper -->
-
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
 
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
-{{-- <script src="{{ asset('AdminLTE') }}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script> --}}
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
@@ -383,9 +374,6 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
 
-
-<script src="{{ asset('AdminLTE') }}/plugins/daterangepicker/daterangepicker.js"></script>
-<script src="{{ asset('AdminLTE') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 
 <script>
     $(function() {

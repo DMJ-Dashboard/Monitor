@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customerlog;
 use App\Models\PjpPersonildetailIKAJ;
 use App\Models\Fakturjual;
+use App\Models\FakturjualMobile;
 use App\Models\PjpPersonildetailDMJ;
 use App\Models\Tagihandetail;
 use App\Models\TagihanHeader;
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
+
+
     public function reportAPI()
     {
 
@@ -95,8 +98,7 @@ class ReportController extends Controller
             // DB::raw('CAST(tagihandetail.nilai AS INT) as nilaifp')
         )->Join('tagihanheader', 'tagihandetail.nobukti', '=', 'tagihanheader.nobukti')
             ->where('tagihanheader.tgltagih', date('Y-m-d'))
-            ->groupBy('tagihandetail.custno')
-        ;
+            ->groupBy('tagihandetail.custno');
 
         $subquerytagdM = TagihanMobileDetail::select(
             'tagihanmobileheader.kdslm',
@@ -104,8 +106,7 @@ class ReportController extends Controller
             DB::raw('SUM(tagihanmobiledetail.nilaibayar) as nilaibayar'),
         )->Join('tagihanmobileheader', 'tagihanmobiledetail.nobukti', '=', 'tagihanmobileheader.nobukti')
             ->where('tagihanmobileheader.tgl', date('Y-m-d'))
-            ->groupBy('tagihanmobiledetail.custno')
-        ;
+            ->groupBy('tagihanmobiledetail.custno');
         // ->orderBy('tagihanmobiledetail.custno')
         // ->get();
 
@@ -119,8 +120,7 @@ class ReportController extends Controller
             DB::raw('TIMEDIFF(cekout, cekin) AS used_time'),
             DB::raw('SUM(customer_log.salesorder) as totalsalesorder')
         )->where('customer_log.tgl', date('Y-m-d'))
-            ->groupBy('customer_log.custno')
-        ;
+            ->groupBy('customer_log.custno');
         // ->orderBy('tagihandetail.custno')
 
 
@@ -167,7 +167,52 @@ class ReportController extends Controller
 
 
 
-        return response()->json($datas);
+        $subquerytagd = Tagihandetail::select(
+            'tagihanheader.kdslm',
+            'tagihanheader.tgl',
+            'tagihandetail.custno as custnotagd',
+            'tagihandetail.nofaktur as dkfp',
+            DB::raw('SUM(tagihandetail.nilai) as total'),
+            // DB::raw('CAST(tagihandetail.nilai AS INT) as nilaifp')
+        )->Join('tagihanheader', 'tagihandetail.nobukti', '=', 'tagihanheader.nobukti')
+            ->groupBy('tagihandetail.custno');
+
+        $subquerytagdM = TagihanMobileDetail::select(
+            'tagihanmobileheader.kdslm',
+            'tagihanmobileheader.tgl',
+            'tagihanmobiledetail.custno as custnotagdm',
+            DB::raw('SUM(tagihanmobiledetail.nilaibayar) as nilaibayar'),
+        )->Join('tagihanmobileheader', 'tagihanmobiledetail.nobukti', '=', 'tagihanmobileheader.nobukti')
+            ->groupBy('tagihanmobiledetail.custno');
+
+        $threeMonthsAgo = Carbon::now()->subMonths(3)->format('Y-m-01');
+
+        $custkartu['custkartu'] = FakturjualMobile::join('customer as cs', 'cs.CustNo', '=', 'fakturjualheader.CustNo')
+            ->join('salesman as sl', 'sl.kdslm', '=', 'fakturjualheader.kdslm')
+            ->leftJoinSub($subquerytagd, 'tagd', function ($join) {
+                $join->on('sl.kdslm', '=', 'tagd.kdslm')
+                    ->on('fakturjualheader.custno', '=', 'tagd.custnotagd');
+            })
+            ->leftJoinSub($subquerytagdM, 'tagdM', function ($join) {
+                $join->on('sl.kdslm', '=', 'tagdM.kdslm')
+                    ->on('fakturjualheader.custno', '=', 'tagdM.custnotagdm');
+            })
+            ->where('fakturjualheader.tglkirim', '>=', $threeMonthsAgo)
+            ->orderBy('fakturjualheader.tglkirim', 'DESC')
+            ->select(
+                'fakturjualheader.tglkirim',
+                'cs.custno',
+                'cs.CustName',
+                'fakturjualheader.Nobukti',
+                'fakturjualheader.Netto AS orderan',
+                'sl.Nmslm',
+                DB::raw('IFNULL(tagdM.nilaibayar, 0) AS nilaibayar'),
+                DB::raw('IFNULL(tagd.total, 0) AS total')
+            )
+            ->get();
+
+
+        return response()->json($custkartu);
         // return view('dashboarddmj.report', $data);
     }
     public function report()
@@ -284,8 +329,11 @@ class ReportController extends Controller
             'customer_log.salesorder',
             'customer_log.bayar',
             DB::raw('TIMEDIFF(cekout, cekin) AS used_time'),
-            DB::raw('SUM(customer_log.salesorder) as totalsalesorder')
-        )->where('customer_log.tgl', date('Y-m-d'))
+            DB::raw('SUM(customer_log.salesorder) as totalsalesorder'),
+            // DB::raw('SUM(somobileheader.netto) as nettosomobile')
+        )
+            // ->Join('somobileheader', 'customer_log.custno', '=', 'somobileheader.custno')
+            ->where('customer_log.tgl', date('Y-m-d'))
             ->groupBy('customer_log.custno');
         // ->orderBy('tagihandetail.custno')
         // ->get();
@@ -308,7 +356,7 @@ class ReportController extends Controller
             })
             ->where('pjppersonildetail.hari', $hariindo)
             ->where('salesman.stat', '=', '1')
-            ->orderBy('custlgr.cekin','DESC')
+            ->orderBy('custlgr.cekin', 'DESC')
             ->select(
                 'pjppersonildetail.kdslm',
                 // DB::raw("tagd.dkfp"),
@@ -318,7 +366,7 @@ class ReportController extends Controller
                 DB::raw("customer.custno"),
                 DB::raw("custlgr.cekin"),
                 DB::raw("custlgr.cekout"),
-                DB::raw("custlgr.salesorder"),
+                DB::raw("custlgr.totalsalesorder"),
                 DB::raw('IFNULL(tagdM.nilaibayar, 0) AS nilaibayar'),
                 DB::raw('IFNULL(tagd.total, 0) AS total'),
                 DB::raw("salesman.NmSlm"),

@@ -131,7 +131,7 @@ class DashboardIKAController extends Controller
         } elseif ($hari == "Saturday") {
             $hariindo = "SABTU";
         }
-        
+
         $data['targets'] = TargetSalesmanIKA::all();
 
         $callinput = CustomerLogIKA::where('tgl', date('Y-m-d'))
@@ -194,14 +194,14 @@ class DashboardIKAController extends Controller
 
         $data['penjaualndb22'] = DashboardIKAJ::whereMonth("TglKirim", date('m'))
             ->whereYear("TglKirim", date('Y'))
-            ->where("stat", '6')
-            ->orwhere("stat", '2')
+            ->whereNotIn("stat", '4')
+            // ->orwhere("stat", '2')
             ->count();
 
         $data['sumpenjualandb22'] = DashboardIKAJ::whereMonth("TglKirim", date('m'))
             ->whereYear("TglKirim", date('Y'))
-            ->where("stat", '6')
-            ->orwhere("stat", '2')
+            ->whereNotIn("stat", '4')
+            // ->orwhere("stat", '2')
             ->sum('Netto');
 
         //card retur jual
