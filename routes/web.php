@@ -30,6 +30,8 @@ Route::controller(DashboardDMJBTASController::class)->group(function () {
 });
 Route::controller(ReportController::class)->group(function () {
     Route::get('/report', 'report')->name('Report');
+    Route::get('/reportadmin', 'reportadmin')->name('Reportadmin');
+
 });
 Route::controller(CustomerKartu::class)->group(function () {
     Route::get('/CustKartu', 'CustKartu')->name('CustKartu');

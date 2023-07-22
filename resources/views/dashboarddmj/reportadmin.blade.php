@@ -40,7 +40,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="refresh" content="1500; url=/report">
+    <meta http-equiv="refresh" content="1500; url=/CustKartu">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ asset('/dmj/dist/css/style.css') }}">

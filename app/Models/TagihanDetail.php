@@ -11,3 +11,9 @@ class TagihanDetail extends Model
     protected $connection = 'mysql3';
     protected $table = "tagihandetail";
 }
+class TagihanDetaillokal extends Model
+{
+    use HasFactory;
+    protected $connection = 'mysql2';
+    protected $table = "tagihandetail";
+}

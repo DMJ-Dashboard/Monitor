@@ -15,7 +15,7 @@ class CustomerKartu extends Controller
     public function CustKartu()
     {
         $threeMonthsAgo = Carbon::now()->subMonths(3)->format('Y-m-01');
-        
+
         $subquerytagd = Tagihandetail::select(
             'tagihanheader.kdslm',
             'tagihanheader.tgl',
@@ -49,7 +49,7 @@ class CustomerKartu extends Controller
             ->select('fakturjualheader.tglkirim',
             'cs.custno',
             'cs.CustName',
-            'fakturjualheader.Nobukti',
+            // 'fakturjualheader.Nobukti',
             'fakturjualheader.Netto AS orderan',
             'sl.Nmslm',
             DB::raw('IFNULL(tagdM.nilaibayar, 0) AS nilaibayar'),
