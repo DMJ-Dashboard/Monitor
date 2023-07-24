@@ -326,6 +326,38 @@
                                                         {{ number_format($data->totalsalesorder, 0, '.' . '.') }}</td>
                                                 </tr>
                                             @endif
+                                        @elseif ($data->weeks_of_monthd == '5')
+                                            @if ($data->M5 == '1')
+                                                <tr>
+                                                    <td align="center" width="1%">{{ $no++ }}</td>
+                                                    <td align="center" width="1%">{{ $data->NmSlm }}</td>
+                                                    @if ($data->cekin != '00:00:00' && $data->nilaibayar == 0 && $data->total > 0)
+                                                        <td width="2%" class="text-danger"> <b>
+                                                                {{ $data->CustName }} </b>
+                                                        </td>
+                                                    @else
+                                                        <td width="2%">{{ $data->CustName }}</td>
+                                                    @endif
+                                                    {{-- <td align="center" width="1%">(
+                                                    {{ $data->custno }}-{{ $data->CustName }} )</td> --}}
+                                                    <td align="center" width="1%">{{ $data->cekin }}</td>
+                                                    <td align="center" width="1%">{{ $data->cekout }}</td>
+                                                    @if ($data->used_time <= '00:05:00')
+                                                        <td width="2%" class="text-danger"> <b>
+                                                                {{ $data->used_time }} </b>
+                                                        </td>
+                                                    @else
+                                                        <td width="2%">{{ $data->used_time }}</td>
+                                                    @endif
+                                                    <td align="center" width="5%">{{ $data->datafakturs }}</td>
+                                                    <td align="center" width="1%">
+                                                        {{ number_format($data->total, 0, '.' . '.') }}</td>
+                                                    <td align="center" width="1%">
+                                                        {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
+                                                    <td align="center" width="1%">
+                                                        {{ number_format($data->totalsalesorder, 0, '.' . '.') }}</td>
+                                                </tr>
+                                            @endif
                                         @endif
                                     @endforeach
                                 </tbody>
