@@ -14,7 +14,7 @@ class CustomerKartu extends Controller
 {
     public function CustKartu()
     {
-        $threeMonthsAgo = Carbon::now()->subMonths(3)->format('Y-m-01');
+        git 
 
         $subquerytagd = Tagihandetail::select(
             'tagihanheader.kdslm',
