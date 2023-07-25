@@ -332,11 +332,11 @@
                                                     <td align="center" width="1%">{{ $no++ }}</td>
                                                     <td align="center" width="1%">{{ $data->NmSlm }}</td>
                                                     @if ($data->cekin != '00:00:00' && $data->nilaibayar == 0 && $data->total > 0)
-                                                        <td width="2%" class="text-danger"> <b>
+                                                        <td width="2%" class="text-danger">{{ $data->custno }}- <b>
                                                                 {{ $data->CustName }} </b>
                                                         </td>
                                                     @else
-                                                        <td width="2%">{{ $data->CustName }}</td>
+                                                        <td width="2%">{{ $data->custno }} - {{ $data->CustName }}</td>
                                                     @endif
                                                     {{-- <td align="center" width="1%">(
                                                     {{ $data->custno }}-{{ $data->CustName }} )</td> --}}

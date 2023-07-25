@@ -310,12 +310,11 @@ class ReportController extends Controller
             'tagihanheader.kdslm',
             'tagihandetail.custno as custnotagd',
             'tagihandetail.nofaktur as dkfp',
-            DB::raw("GROUP_CONCAT(CONCAT(' ( ',tagihandetail.nofaktur, ' / Rp.', CAST(tagihandetail.nilai AS INT) ,' )')) as datafakturs"),
+            DB::raw("GROUP_CONCAT(CONCAT(' ( ',tagihanheader.kdslm, ' / Rp.', CAST(tagihandetail.nilai AS INT) ,' )')) as datafakturs"),
             DB::raw('SUM(tagihandetail.nilai) as total'),
-            // DB::raw('CAST(tagihandetail.nilai AS INT) as nilaifp')
         )->Join('tagihanheader', 'tagihandetail.nobukti', '=', 'tagihanheader.nobukti')
             ->where('tagihanheader.tgltagih', date('Y-m-d'))
-            ->groupBy('tagihandetail.custno');
+            ->groupBy('tagihandetail.custno', 'tagihanheader.kdslm');
 
         $subquerytagdM = TagihanMobileDetail::select(
             'tagihanmobileheader.kdslm',
@@ -324,8 +323,7 @@ class ReportController extends Controller
         )->Join('tagihanmobileheader', 'tagihanmobiledetail.nobukti', '=', 'tagihanmobileheader.nobukti')
             ->where('tagihanmobileheader.tgl', date('Y-m-d'))
             ->groupBy('tagihanmobiledetail.custno');
-        // ->orderBy('tagihanmobiledetail.custno')
-        // ->get();
+
 
         $subquerycustlog = Customerlog::select(
             'customer_log.custno as custnolog',
@@ -336,28 +334,22 @@ class ReportController extends Controller
             'customer_log.bayar',
             DB::raw('TIMEDIFF(cekout, cekin) AS used_time'),
             DB::raw('SUM(customer_log.salesorder) as totalsalesorder'),
-            // DB::raw('SUM(somobileheader.netto) as nettosomobile')
         )
-            // ->Join('somobileheader', 'customer_log.custno', '=', 'somobileheader.custno')
             ->where('customer_log.tgl', date('Y-m-d'))
             ->groupBy('customer_log.custno');
-        // ->orderBy('tagihandetail.custno')
-        // ->get();
-
-        // dd($subquerytagd);
 
         $data['pjpreport'] = PjpPersonildetailDMJ::join('salesman', 'pjppersonildetail.kdslm', '=', 'salesman.kdslm')
             ->join('customer', 'pjppersonildetail.custno', '=', 'customer.custno')
             ->leftJoinSub($subquerytagd, 'tagd', function ($join) {
-                $join->on('salesman.kdslm', '=', 'tagd.kdslm')
+                $join->on('pjppersonildetail.kdslm', '=', 'tagd.kdslm')
                     ->on('pjppersonildetail.custno', '=', 'tagd.custnotagd');
             })
             ->leftJoinSub($subquerytagdM, 'tagdM', function ($join) {
-                $join->on('salesman.kdslm', '=', 'tagdM.kdslm')
+                $join->on('pjppersonildetail.kdslm', '=', 'tagdM.kdslm')
                     ->on('pjppersonildetail.custno', '=', 'tagdM.custnotagdm');
             })
             ->leftJoinSub($subquerycustlog, 'custlgr', function ($join) {
-                $join->on('salesman.kdslm', '=', 'custlgr.kdslm')
+                $join->on('pjppersonildetail.kdslm', '=', 'custlgr.kdslm')
                     ->on('pjppersonildetail.custno', '=', 'custlgr.custnolog');
             })
             ->where('pjppersonildetail.hari', $hariindo)
