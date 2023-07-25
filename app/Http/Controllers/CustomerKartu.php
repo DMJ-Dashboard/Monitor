@@ -56,7 +56,21 @@ class CustomerKartu extends Controller
             DB::raw('IFNULL(tagd.total, 0) AS total'))
             ->get();
 
-            dd($custkartu);
+            $subquerytagd = Tagihandetail::select(
+                'tagihanheader.kdslm',
+                'tagihandetail.custno as custnotagd',
+                'tagihandetail.nofaktur as dkfp',
+                DB::raw("GROUP_CONCAT(CONCAT(' ( ',tagihandetail.nofaktur, ' / Rp.', CAST(tagihandetail.nilai AS INT) ,' )')) as datafakturs"),
+                DB::raw('SUM(tagihandetail.nilai) as total'),
+                // DB::raw('CAST(tagihandetail.nilai AS INT) as nilaifp')
+            )->Join('tagihanheader', 'tagihandetail.nobukti', '=', 'tagihanheader.nobukti')
+                ->where('tagihanheader.tgltagih', date('Y-m-d'))
+                ->where('tagihandetail.custno', "DR119")
+                ->where('tagihanheader.kdslm',"01")
+                ->groupBy('tagihandetail.custno')
+                ->get();
+
+            dd($subquerytagd);
         return view('dashboarddmj.custkartu', $data);
     }
 }
