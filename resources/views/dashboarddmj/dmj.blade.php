@@ -101,10 +101,9 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
         <section id="analytics-cards-dmj">
             <div class="dashboard px-3 pt-3">
                 <div class="row">
-                    <div class="col-md">
+                    <div class="col-sm-12 col-md-7 col-lg-7">
                         <div class="card"
-                            style="background-color: #324c5c !important; border: 0.2px rgba(255, 255, 255, 0.425);
-                    border-style: solid;">
+                            style="background-color: #324c5c !important; border: 0.2px rgba(255, 255, 255, 0.425); border-style: solid;">
                             <div class="card-header"
                                 style="background-color: #2e5266 !important; border: 0.2px rgba(255, 255, 255, 0.329);">
                                 <h3 class="card-title">INFORMASI MONTHLY </h3>
@@ -143,10 +142,9 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 ?>
                                                 <span class="info-box-text">Faktur Penjualan </span>
                                                 <hr style="padding: 0 !important; margin: 0 !important;">
-                                                <span class="info-box-number"> Total {{ $penjaualndb22 }} Faktur
+                                                <span class="info-box-number">  {{ $penjaualndb22 }} Faktur
                                                     Jual</span>
-                                                <span class="info-box-number">
-                                                    Penjualan Rp
+                                                <span class="info-box-number">  Rp
                                                     {{ number_format($sumpenjualandb22, 0, '.' . '.') }}
                                                 </span>
                                             </div>
@@ -172,11 +170,10 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 ?>
                                                 <span class="info-box-text">Retur Penjualan </span>
                                                 <hr style="padding: 0 !important; margin: 0 !important;">
-                                                <span class="info-box-number"> Tatal {{ $countreturgeneral }} Retur
+                                                <span class="info-box-number">  {{ $countreturgeneral }} Retur
                                                     Jual
                                                 </span>
-                                                <span class="info-box-number">
-                                                    Nilai Retur Rp {{ number_format($sumstretur, 0, '.' . '.') }}
+                                                <span class="info-box-number">Rp {{ number_format($sumstretur, 0, '.' . '.') }}
                                                 </span>
                                             </div>
                                         </div>
@@ -201,11 +198,10 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 ?>
                                                 <span class="info-box-text">Piutang </span>
                                                 <hr style="padding: 0 !important; margin: 0 !important;">
-                                                <span class="info-box-number"> Tatal {{ $countspiutang }} Faktur
+                                                <span class="info-box-number">  {{ $countspiutang }} Faktur
                                                     Piutang
                                                 </span>
-                                                <span class="info-box-number">
-                                                    Nilai Piutang Rp
+                                                <span class="info-box-number">Rp
                                                     {{ number_format($sumspiutang, 0, '.' . '.') }}
                                                 </span>
                                             </div>
@@ -232,10 +228,9 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                 ?>
                                                 <span class="info-box-text">Hutang </span>
                                                 <hr style="padding: 0 !important; margin: 0 !important;">
-                                                <span class="info-box-number"> Tatal {{ $countshutang }} Faktur Hutang
+                                                <span class="info-box-number">  {{ $countshutang }} Faktur Hutang
                                                 </span>
-                                                <span class="info-box-number">
-                                                    Nilai Hutang Rp
+                                                <span class="info-box-number">Rp
                                                     {{ number_format($sumshutang, 0, '.' . '.') }}
                                                 </span>
                                             </div>
@@ -322,9 +317,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 col-md-9 col-lg-12">
+                    <div class="col-sm-12 col-md-5 col-lg-5">
                         <div class="card" style="height: 775px; background-color: #29404d !important;">
                             <div class="card-header" style="background-color: #2e5266 !important;">
                                 <h3 class="card-title">

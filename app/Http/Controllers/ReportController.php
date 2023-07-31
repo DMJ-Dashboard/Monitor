@@ -310,7 +310,7 @@ class ReportController extends Controller
             'tagihanheader.kdslm',
             'tagihandetail.custno as custnotagd',
             'tagihandetail.nofaktur as dkfp',
-            DB::raw("GROUP_CONCAT(CONCAT(' ( ',tagihanheader.kdslm, ' / Rp.', CAST(tagihandetail.nilai AS INT) ,' )')) as datafakturs"),
+            DB::raw("GROUP_CONCAT(CONCAT(' ( ',tagihanheader.kdslm,'-',tagihandetail.nofaktur, ' / Rp.', CAST(tagihandetail.nilai AS INT) ,' )')) as datafakturs"),
             DB::raw('SUM(tagihandetail.nilai) as total'),
         )->Join('tagihanheader', 'tagihandetail.nobukti', '=', 'tagihanheader.nobukti')
             ->where('tagihanheader.tgltagih', date('Y-m-d'))

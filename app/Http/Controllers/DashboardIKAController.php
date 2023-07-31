@@ -111,6 +111,7 @@ class DashboardIKAController extends Controller
         // dd($tagihandetail );
         return view("dashboarddmj.showpjp", ['mingguke' => $mingguke, 'showpjppersonildetail' => $showpjppersonildetail, 'tagihandetail' => $tagihandetail], $data);
     }
+
     public function dashboardika()
     {
 
@@ -264,10 +265,10 @@ class DashboardIKAController extends Controller
             ->where("stat", '4')
             ->sum('Netto');
 
-
         $stokK = StokkartuIKA::where("mk", "k")
             ->select(DB::raw('SUM(hpp*qty) as stokk'))
             ->get();
+            
         $stokM = StokkartuIKA::where("mk", "m")
             ->select(DB::raw("SUM(hpp*qty) as stokm"))
             ->get();
