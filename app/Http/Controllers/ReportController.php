@@ -332,6 +332,7 @@ class ReportController extends Controller
             'customer_log.cekout',
             'customer_log.salesorder',
             'customer_log.bayar',
+            'customer_log.alasangagal',
             DB::raw('TIMEDIFF(cekout, cekin) AS used_time'),
             DB::raw('SUM(customer_log.salesorder) as totalsalesorder'),
         )
@@ -362,6 +363,7 @@ class ReportController extends Controller
                 DB::raw("tagd.datafakturs"),
                 DB::raw("custlgr.used_time"),
                 DB::raw("customer.custno"),
+                DB::raw("custlgr.alasangagal"),
                 DB::raw("custlgr.cekin"),
                 DB::raw("custlgr.cekout"),
                 DB::raw("custlgr.totalsalesorder"),
@@ -532,6 +534,7 @@ class ReportController extends Controller
                 DB::raw("tagd.datafakturs"),
                 DB::raw("custlgr.used_time"),
                 DB::raw("customer.custno"),
+                DB::raw("custlgr.alasangagal"),
                 DB::raw("custlgr.cekin"),
                 DB::raw("custlgr.cekout"),
                 DB::raw("custlgr.totalsalesorder"),

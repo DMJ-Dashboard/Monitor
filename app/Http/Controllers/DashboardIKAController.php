@@ -195,13 +195,13 @@ class DashboardIKAController extends Controller
 
         $data['penjaualndb22'] = DashboardIKAJ::whereMonth("TglKirim", date('m'))
             ->whereYear("TglKirim", date('Y'))
-            ->whereNotIn("stat", '4')
+            ->where("stat", "!=","4")
             // ->orwhere("stat", '2')
             ->count();
 
         $data['sumpenjualandb22'] = DashboardIKAJ::whereMonth("TglKirim", date('m'))
             ->whereYear("TglKirim", date('Y'))
-            ->whereNotIn("stat", '4')
+            ->where("stat", "!=","4")
             // ->orwhere("stat", '2')
             ->sum('Netto');
 
@@ -268,7 +268,7 @@ class DashboardIKAController extends Controller
         $stokK = StokkartuIKA::where("mk", "k")
             ->select(DB::raw('SUM(hpp*qty) as stokk'))
             ->get();
-            
+
         $stokM = StokkartuIKA::where("mk", "m")
             ->select(DB::raw("SUM(hpp*qty) as stokm"))
             ->get();

@@ -208,6 +208,7 @@
                                         <th align="center">Total Piutang</th>
                                         <th align="center">Total Bayar</th>
                                         <th align="center">SalesOrder</th>
+                                        <th align="center">Alasan Gagal Call</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-dark">
@@ -221,8 +222,15 @@
                                                 <tr>
                                                     <td align="center" width="1%">{{ $no++ }}</td>
                                                     <td align="center" width="1%">{{ $data->NmSlm }}</td>
-                                                    <td align="center" width="1%">(
-                                                        {{ $data->custno }}-{{ $data->CustName }} )</td>
+                                                    @if ($data->cekin != '00:00:00' && $data->nilaibayar == 0 && $data->total > 0)
+                                                        <td width="2%" class="text-danger">{{ $data->custno }}-
+                                                            <b>
+                                                                {{ $data->CustName }} </b>
+                                                        </td>
+                                                    @else
+                                                        <td width="2%">{{ $data->custno }} -
+                                                            {{ $data->CustName }}</td>
+                                                    @endif
                                                     <td align="center" width="1%">{{ $data->cekin }}</td>
                                                     <td align="center" width="1%">{{ $data->cekout }}</td>
                                                     @if ($data->used_time <= '00:05:00')
@@ -232,13 +240,14 @@
                                                     @else
                                                         <td width="2%">{{ $data->used_time }}</td>
                                                     @endif
-                                                    <td align="center" width="1%">{{ $data->datafakturs }}</td>
+                                                    <td align="center" width="5%">{{ $data->datafakturs }}</td>
                                                     <td align="center" width="1%">
                                                         {{ number_format($data->total, 0, '.' . '.') }}</td>
                                                     <td align="center" width="1%">
                                                         {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
                                                     <td align="center" width="1%">
-                                                        {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
+                                                        {{ number_format($data->totalsalesorder, 0, '.' . '.') }}</td>
+                                                    <td width="1%">{{ $data->alasangagal }}</td>
 
                                                 </tr>
                                             @endif
@@ -247,8 +256,15 @@
                                                 <tr>
                                                     <td align="center" width="1%">{{ $no++ }}</td>
                                                     <td align="center" width="1%">{{ $data->NmSlm }}</td>
-                                                    <td align="center" width="1%">(
-                                                        {{ $data->custno }}-{{ $data->CustName }} )</td>
+                                                    @if ($data->cekin != '00:00:00' && $data->nilaibayar == 0 && $data->total > 0)
+                                                        <td width="2%" class="text-danger">{{ $data->custno }}-
+                                                            <b>
+                                                                {{ $data->CustName }} </b>
+                                                        </td>
+                                                    @else
+                                                        <td width="2%">{{ $data->custno }} -
+                                                            {{ $data->CustName }}</td>
+                                                    @endif
                                                     <td align="center" width="1%">{{ $data->cekin }}</td>
                                                     <td align="center" width="1%">{{ $data->cekout }}</td>
                                                     @if ($data->used_time <= '00:05:00')
@@ -258,13 +274,14 @@
                                                     @else
                                                         <td width="2%">{{ $data->used_time }}</td>
                                                     @endif
-                                                    <td align="center" width="1%">{{ $data->datafakturs }}</td>
+                                                    <td align="center" width="5%">{{ $data->datafakturs }}</td>
                                                     <td align="center" width="1%">
                                                         {{ number_format($data->total, 0, '.' . '.') }}</td>
                                                     <td align="center" width="1%">
                                                         {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
                                                     <td align="center" width="1%">
-                                                        {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
+                                                        {{ number_format($data->totalsalesorder, 0, '.' . '.') }}</td>
+                                                    <td width="1%">{{ $data->alasangagal }}</td>
 
                                                 </tr>
                                             @endif
@@ -273,8 +290,15 @@
                                                 <tr>
                                                     <td align="center" width="1%">{{ $no++ }}</td>
                                                     <td align="center" width="1%">{{ $data->NmSlm }}</td>
-                                                    <td align="center" width="1%">(
-                                                        {{ $data->custno }}-{{ $data->CustName }} )</td>
+                                                    @if ($data->cekin != '00:00:00' && $data->nilaibayar == 0 && $data->total > 0)
+                                                        <td width="2%" class="text-danger">{{ $data->custno }}-
+                                                            <b>
+                                                                {{ $data->CustName }} </b>
+                                                        </td>
+                                                    @else
+                                                        <td width="2%">{{ $data->custno }} -
+                                                            {{ $data->CustName }}</td>
+                                                    @endif
                                                     <td align="center" width="1%">{{ $data->cekin }}</td>
                                                     <td align="center" width="1%">{{ $data->cekout }}</td>
                                                     @if ($data->used_time <= '00:05:00')
@@ -284,13 +308,14 @@
                                                     @else
                                                         <td width="2%">{{ $data->used_time }}</td>
                                                     @endif
-                                                    <td align="center" width="1%">{{ $data->datafakturs }}</td>
+                                                    <td align="center" width="5%">{{ $data->datafakturs }}</td>
                                                     <td align="center" width="1%">
                                                         {{ number_format($data->total, 0, '.' . '.') }}</td>
                                                     <td align="center" width="1%">
                                                         {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
                                                     <td align="center" width="1%">
-                                                        {{ number_format($data->salesorder, 0, '.' . '.') }}</td>
+                                                        {{ number_format($data->totalsalesorder, 0, '.' . '.') }}</td>
+                                                    <td width="1%">{{ $data->alasangagal }}</td>
 
                                                 </tr>
                                             @endif
@@ -300,14 +325,14 @@
                                                     <td align="center" width="1%">{{ $no++ }}</td>
                                                     <td align="center" width="1%">{{ $data->NmSlm }}</td>
                                                     @if ($data->cekin != '00:00:00' && $data->nilaibayar == 0 && $data->total > 0)
-                                                        <td width="2%" class="text-danger"> <b>
+                                                        <td width="2%" class="text-danger">{{ $data->custno }}-
+                                                            <b>
                                                                 {{ $data->CustName }} </b>
                                                         </td>
                                                     @else
-                                                        <td width="2%">{{ $data->CustName }}</td>
+                                                        <td width="2%">{{ $data->custno }} -
+                                                            {{ $data->CustName }}</td>
                                                     @endif
-                                                    {{-- <td align="center" width="1%">(
-                                                    {{ $data->custno }}-{{ $data->CustName }} )</td> --}}
                                                     <td align="center" width="1%">{{ $data->cekin }}</td>
                                                     <td align="center" width="1%">{{ $data->cekout }}</td>
                                                     @if ($data->used_time <= '00:05:00')
@@ -324,6 +349,8 @@
                                                         {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
                                                     <td align="center" width="1%">
                                                         {{ number_format($data->totalsalesorder, 0, '.' . '.') }}</td>
+                                                    <td width="1%">{{ $data->alasangagal }}</td>
+
                                                 </tr>
                                             @endif
                                         @elseif ($data->weeks_of_monthd == '5')
@@ -332,11 +359,13 @@
                                                     <td align="center" width="1%">{{ $no++ }}</td>
                                                     <td align="center" width="1%">{{ $data->NmSlm }}</td>
                                                     @if ($data->cekin != '00:00:00' && $data->nilaibayar == 0 && $data->total > 0)
-                                                        <td width="2%" class="text-danger">{{ $data->custno }}- <b>
+                                                        <td width="2%" class="text-danger">{{ $data->custno }}-
+                                                            <b>
                                                                 {{ $data->CustName }} </b>
                                                         </td>
                                                     @else
-                                                        <td width="2%">{{ $data->custno }} - {{ $data->CustName }}</td>
+                                                        <td width="2%">{{ $data->custno }} -
+                                                            {{ $data->CustName }}</td>
                                                     @endif
                                                     {{-- <td align="center" width="1%">(
                                                     {{ $data->custno }}-{{ $data->CustName }} )</td> --}}
@@ -356,6 +385,8 @@
                                                         {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
                                                     <td align="center" width="1%">
                                                         {{ number_format($data->totalsalesorder, 0, '.' . '.') }}</td>
+                                                    <td width="1%">{{ $data->alasangagal }}</td>
+
                                                 </tr>
                                             @endif
                                         @elseif ($data->weeks_of_monthd == '6')
@@ -364,11 +395,13 @@
                                                     <td align="center" width="1%">{{ $no++ }}</td>
                                                     <td align="center" width="1%">{{ $data->NmSlm }}</td>
                                                     @if ($data->cekin != '00:00:00' && $data->nilaibayar == 0 && $data->total > 0)
-                                                        <td width="2%" class="text-danger">{{ $data->custno }}- <b>
+                                                        <td width="2%" class="text-danger">{{ $data->custno }}-
+                                                            <b>
                                                                 {{ $data->CustName }} </b>
                                                         </td>
                                                     @else
-                                                        <td width="2%">{{ $data->custno }} - {{ $data->CustName }}</td>
+                                                        <td width="2%">{{ $data->custno }} -
+                                                            {{ $data->CustName }}</td>
                                                     @endif
                                                     {{-- <td align="center" width="1%">(
                                                     {{ $data->custno }}-{{ $data->CustName }} )</td> --}}
@@ -388,6 +421,8 @@
                                                         {{ number_format($data->nilaibayar, 0, '.' . '.') }}</td>
                                                     <td align="center" width="1%">
                                                         {{ number_format($data->totalsalesorder, 0, '.' . '.') }}</td>
+                                                    <td width="1%">{{ $data->alasangagal }}</td>
+
                                                 </tr>
                                             @endif
                                         @endif

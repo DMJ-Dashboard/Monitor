@@ -112,9 +112,9 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                         data-bs-toggle="modal">
                                         <i style="color: rgb(255, 255, 255) !important;" class="fa-solid fa-filter"></i>
                                     </button>
-                                    <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                    {{-- <button type="button" class="btn btn-tool" data-card-widget="maximize">
                                         <i class="fas fa-expand" style="color: rgb(255, 255, 255) !important;"></i>
-                                    </button>
+                                    </button> --}}
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                         <i style="color: rgb(255, 255, 255) !important;" class="fas fa-minus"></i>
                                     </button>
@@ -318,7 +318,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-5 col-lg-5">
-                        <div class="card" style="height: 775px; background-color: #29404d !important;">
+                        <div class="card" style="background-color: #29404d !important;">
                             <div class="card-header" style="background-color: #2e5266 !important;">
                                 <h3 class="card-title">
                                     <i class="fas fa-chart-pie mr-1"></i>
@@ -345,25 +345,22 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                             <div class="card-body">
                                 <div class="tab-content p-0">
                                     <div class="chart tab-pane active" id="sales-call"
-                                        style="position: relative;height: 675px;">
+                                        style="position: relative;">
                                         <div class="card card-secondary">
                                             <div class="card-header">
                                                 <div class="row">
                                                     <div class="col-sm-9">
-                                                        <h3 class="card-title">Daily Effective Call OA</h3>
+                                                        {{-- <h3 class="card-title">Daily Effective Call OA</h3> --}}
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <button data-bs-target="#rincicardsaleslog"
                                                             data-bs-toggle="modal"
-                                                            class="btn btn-outline-info float-right m-2 top-1"
-                                                            style="
-                                                        padding-top: 3;
-                                                        padding-bottom: 3;">DETAIL</button>
+                                                            class="btn btn-outline-info float-right m-2 top-1">DETAIL</button>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="card-body">
-                                                <div id="containercall" style="overflow: hidden; padding-top: 3em;">
+                                                <div id="containercall" style="overflow: hidden;">
                                                 </div>
 
                                             </div>
@@ -373,11 +370,11 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                         style="position: relative;height: 556px;">
                                         <div class="card card-secondary">
                                             <div class="card-header">
-                                                <div class="row">
+                                                {{-- <div class="row">
                                                     <div class="col-sm-9">
                                                         <h3 class="card-title">Sales Out Salesman</h3>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                             <div class="card-body">
                                                 <div id="containersum"></div>
