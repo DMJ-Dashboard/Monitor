@@ -31,6 +31,8 @@ Route::controller(DashboardDMJBTASController::class)->group(function () {
 Route::controller(ReportController::class)->group(function () {
     Route::get('/report', 'report')->name('Report');
     Route::get('/reportadmin', 'reportadmin')->name('Reportadmin');
+    Route::get('/reportfilters', 'reportfilter')->name('reportfilters');
+    Route::post('/reportfilter', 'reportfilter')->name('reportfilter');
 
 });
 Route::controller(CustomerKartu::class)->group(function () {

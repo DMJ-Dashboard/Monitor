@@ -191,6 +191,10 @@
                                         placeholder="FILTER DATE_RANGE">
                                 </div>
                             </div>
+                            {{-- <input type="text" class="form-control float-right" id="startdatereport"
+                                placeholder="FILTER DATE_RANGE">
+                            <input type="text" class="form-control float-right" id="enddatereport"
+                                placeholder="FILTER DATE_RANGE"> --}}
                         </div>
                     </div>
                     <div class="modal-body">
