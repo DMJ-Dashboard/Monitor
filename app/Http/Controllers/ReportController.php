@@ -324,6 +324,12 @@ class ReportController extends Controller
             ->where('tagihanmobileheader.tgl', date('Y-m-d'))
             ->groupBy('tagihanmobiledetail.custno');
 
+        $tgllog = Customerlog::select(
+            'customer_log.tgl',
+        )
+            ->where('customer_log.tgl', date('Y-m-d'))
+            ->groupBy('customer_log.tgl')->get();
+
 
         $subquerycustlog = Customerlog::select(
             'customer_log.custno as custnolog',
@@ -332,6 +338,7 @@ class ReportController extends Controller
             'customer_log.cekout',
             'customer_log.salesorder',
             'customer_log.bayar',
+            'customer_log.tgl',
             'customer_log.alasangagal',
             DB::raw('TIMEDIFF(cekout, cekin) AS used_time'),
             DB::raw('SUM(customer_log.salesorder) as totalsalesorder'),
@@ -364,6 +371,7 @@ class ReportController extends Controller
                 DB::raw("custlgr.used_time"),
                 DB::raw("customer.custno"),
                 DB::raw("custlgr.alasangagal"),
+                DB::raw("custlgr.tgl"),
                 DB::raw("custlgr.cekin"),
                 DB::raw("custlgr.cekout"),
                 DB::raw("custlgr.totalsalesorder"),
@@ -381,11 +389,19 @@ class ReportController extends Controller
             )
             ->get();
         // dd($pjpreport);
-        return view('dashboarddmj.report', $data);
+        return view('dashboarddmj.report', ['tgllog' => $tgllog], $data);
     }
 
     public function reportadmin()
     {
+
+
+        $tgllog = Customerlog::select(
+            'customer_log.tgl',
+        )
+            ->where('customer_log.tgl', date('Y-m-d'))
+            ->groupBy('customer_log.tgl')->get();
+
         // MAINTANANCE
         $data['custlogs1'] = Customerlog::join('customer', 'customer_log.custno', '=', 'customer.CustNo')
             ->join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
@@ -496,7 +512,24 @@ class ReportController extends Controller
             )
             ->get();
         // dd($pjpreport);
-        return view('dashboarddmj.reportadmin', $data);
+
+        $callinput = Customerlog::where('tgl', date('Y-m-d'))
+            ->where('kdslm', '!=', "")
+            ->groupBy(DB::raw("kdslm"))
+            ->select(DB::raw('kdslm, COUNT(cekin) AS callinput'))
+            ->pluck('callinput');
+
+        $salesmans = Customerlog::Join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
+            ->where('customer_log.tgl', date('Y-m-d'))
+            ->where('customer_log.kdslm', '!=', "")
+            ->groupBy(DB::raw("customer_log.kdslm"))
+            ->select(
+                DB::raw("salesman.NmSlm AS salesmans")
+            )
+            ->pluck('salesmans');
+
+
+        return view('dashboarddmj.reportadmin', ['tgllog' => $tgllog, 'callinput' => $callinput, 'salesmans' => $salesmans], $data);
     }
 
 
@@ -504,6 +537,13 @@ class ReportController extends Controller
     public function reportfilter(Request $request)
     {
         // MAINTANANCE
+
+        $tgllog = Customerlog::select(
+            'customer_log.tgl',
+        )
+            ->where('customer_log.tgl', $request->startfilterreport)
+            ->groupBy('customer_log.tgl')->get();
+
         $data['custlogs1'] = Customerlog::join('customer', 'customer_log.custno', '=', 'customer.CustNo')
             ->join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
             // ->whereBetween('customer_log.tgl', [$request->startfilterreport, $request->endfilterreport])
@@ -559,6 +599,12 @@ class ReportController extends Controller
             // ->where('tagihanmobileheader.tgl', date('Y-m-d'))
             ->groupBy('tagihanmobiledetail.custno');
 
+
+        $data['tgllog'] = Customerlog::select(
+            'customer_log.tgl',
+        )
+            ->where('customer_log.tgl', $request->startfilterreport)
+            ->groupBy('customer_log.tgl')->get();
 
         $subquerycustlog = Customerlog::select(
             'customer_log.custno as custnolog',
@@ -620,6 +666,6 @@ class ReportController extends Controller
             )
             ->get();
         // dd($pjpreport);
-        return view('dashboarddmj.reportadmin', $data);
+        return view('dashboarddmj.reportadmin', ['tgllog' => $tgllog], $data);
     }
 }

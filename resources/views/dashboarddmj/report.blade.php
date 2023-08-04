@@ -40,7 +40,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="refresh" content="1500; url=/report">
+    <meta http-equiv="refresh" content="1500; url=/reportadmin">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ asset('/dmj/dist/css/style.css') }}">
@@ -176,25 +176,30 @@
             </div> --}}
                 <div class="chart tab-pane active" id="tagihan-log">
                     <center>
-                        <b>SALESMAN EGING LOG</b>
+                        <b>SALESMAN EGING LOG {{$tgllog[0]['tgl']}}</b>
                     </center>
                     <div class="row justify-content-center align-items-center g-2">
-                        <div class="col-2" style="width: 12% !important;">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="far fa-calendar-alt"></i>
-                                        </span>
+                        <div class="col-4" style="width: 10% !important;">
+                            <form action="{{ route('reportfilter') }}" method="POST" class="mb-3">
+                                @csrf
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="far fa-calendar-alt"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control float-right" id="reportrange2"
+                                            placeholder="FILTER DATE_RANGE">
+                                        <input type="date" class="form-control" id="startdatereport"
+                                            placeholder="FILTER DATE_RANGE" name="startfilterreport" style="display: none;">
+                                        <input type="date" class="form-control" id="enddatereport"
+                                            placeholder="FILTER DATE_RANGE" name="endfilterreport" style="display: none;">
+                                        <button class="btn btn-info"><i class="fas fa-search fa-sm"></i></button>
                                     </div>
-                                    <input type="text" class="form-control float-right" id="reportrange2"
-                                        placeholder="FILTER DATE_RANGE">
                                 </div>
-                            </div>
-                            {{-- <input type="text" class="form-control float-right" id="startdatereport"
-                                placeholder="FILTER DATE_RANGE">
-                            <input type="text" class="form-control float-right" id="enddatereport"
-                                placeholder="FILTER DATE_RANGE"> --}}
+                            </form>
+
                         </div>
                     </div>
                     <div class="modal-body">
@@ -205,6 +210,7 @@
                                         <th text-align="center">No</th>
                                         <th align="center">Salesmans</th>
                                         <th align="center">Customer</th>
+                                        {{-- <th align="center">Tgl_LOG</th> --}}
                                         <th align="center">Check-IN</th>
                                         <th align="center">Check-OUT</th>
                                         <th align="center">Used Time</th>
@@ -235,6 +241,7 @@
                                                         <td width="2%">{{ $data->custno }} -
                                                             {{ $data->CustName }}</td>
                                                     @endif
+                                                    {{-- <td align="center" width="1%">{{ $data->tgl }}</td> --}}
                                                     <td align="center" width="1%">{{ $data->cekin }}</td>
                                                     <td align="center" width="1%">{{ $data->cekout }}</td>
                                                     @if ($data->used_time <= '00:05:00')
@@ -438,6 +445,10 @@
                 </div>
             </div>
         </div>
+        <div class="card-body">
+            <div id="containercall" style="overflow: hidden;">
+            </div>
+        </div>
         {{-- <div class="table-responsive">
         <table class="table table-striped table-hover text-dark" id="tbltagihancustlog">
             <thead style="text-align: center !important;">
@@ -477,7 +488,6 @@
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
 
-
 <script>
     $(function() {
         var start = moment().subtract(29, 'days');
@@ -508,30 +518,30 @@
 <script>
     $(function() {
         var start2 = moment().subtract(29, 'days');
-        var end2 = moment();
-
+        var startInput = $('#startdatereport');
         function cb2(start2, end2) {
-            $('#reportrange2 span').html(start2.format('MMMM D, YYYY') + ' - ' + end2.format('MMMM D, YYYY'));
+            $('#reportrange2 span').html(start2.format('YYYY-MM-DD'));
+            startInput.val(start2.format('YYYY-MM-DD'));
 
-            console.log("A new date selection2 was made: " + start2.format('YYYY-MM-DD') + ' to ' + end2.format(
-                'YYYY-MM-DD'));
         }
 
         $('#reportrange2').daterangepicker({
             startDate: start2,
-            endDate: end2,
+            singleDatePicker: true,
+            showDropdowns: true,
+            showCustomRangeLabel: false,
+            maxYear: parseInt(moment().format('YYYY'),10)+1,
+            linkedCalendars: false,
             ranges: {
                 'Today': [moment(), moment()],
                 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
-                    'month').endOf('month')]
+                'Last 7 Days': [moment().subtract(6, 'days'), moment().subtract(6, 'days')],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment().subtract(29, 'days'),],
+
             }
         }, cb2);
 
-        cb2(start2, end2);
+        cb2(start2);
     });
 </script>
 
