@@ -266,7 +266,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         class="knob" value="{{ $datac->csales }}"
                                                                         data-width="90" data-height="90"
                                                                         data-fgColor="#80d1d0" data-min="0"
-                                                                        data-max="300">
+                                                                        data-max={{$datas->jcust}}>
                                                                     <div class="knob-label"
                                                                         style="padding-top: 1rem !important;">
                                                                         {{ $datas->salesmans->NmSlm }} -
@@ -277,7 +277,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         class="knob" value="{{ $datac->csales }}"
                                                                         data-width="90" data-height="90"
                                                                         data-fgColor="#ff3333" data-min="0"
-                                                                        data-max="300">
+                                                                        data-max={{$datas->jcust}}>
                                                                     <div class="knob-label"
                                                                         style="padding-top: 1rem !important;">
                                                                         {{ $datas->salesmans->NmSlm }} -
@@ -288,7 +288,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         class="knob" value="{{ $datac->csales }}"
                                                                         data-width="90" data-height="90"
                                                                         {{-- data-fgColor="#91e32d" data-min="0" --}} data-fgColor="#fff873"
-                                                                        data-min="0" data-max="300">
+                                                                        data-min="0" data-max={{$datas->jcust}}
                                                                     <div class="knob-label"
                                                                         style="padding-top: 1rem !important;">
                                                                         {{ $datas->salesmans->NmSlm }} -
@@ -299,7 +299,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         class="knob" value="{{ $datac->csales }}"
                                                                         data-width="90" data-height="90"
                                                                         data-fgColor="#a6f04d" data-min="0"
-                                                                        data-max="300">
+                                                                        data-max={{$datas->jcust}}>
                                                                     <div class="knob-label"
                                                                         style="padding-top: 1rem !important;">
                                                                         {{ $datas->salesmans->NmSlm }} -
