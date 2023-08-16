@@ -258,7 +258,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                             <div class="row">
                                                 @foreach ($targets as $datas)
                                                     <div id="kolom__jcust" style="padding: 0 !important;"
-                                                        class="col-lg-2 col-sm-2 col-md-3 text-center mt-3">
+                                                        class="col-lg-2 col-sm-2 col-md-3 text-center mt-2">
                                                         @foreach ($countsales as $datac)
                                                             @if ($datac->Kdslm == $datas->salesmans->KdSlm)
                                                                 @if ($datac->csales >= $datas->jcust || $datac->csales == $datas->jcust)
@@ -288,7 +288,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         class="knob" value="{{ $datac->csales }}"
                                                                         data-width="90" data-height="90"
                                                                         {{-- data-fgColor="#91e32d" data-min="0" --}} data-fgColor="#fff873"
-                                                                        data-min="0" data-max={{$datas->jcust}}
+                                                                        data-min="0" data-max={{$datas->jcust}}>
                                                                     <div class="knob-label"
                                                                         style="padding-top: 1rem !important;">
                                                                         {{ $datas->salesmans->NmSlm }} -

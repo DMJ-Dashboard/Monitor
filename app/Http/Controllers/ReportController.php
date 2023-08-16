@@ -538,17 +538,11 @@ class ReportController extends Controller
     {
         // MAINTANANCE
 
-        $tgllog = Customerlog::select(
-            'customer_log.tgl',
-        )
-            ->where('customer_log.tgl', $request->startfilterreport)
-            ->groupBy('customer_log.tgl')->get();
-
+        $tgllog = $request->startfilterreport;
+        // MAINTANANCE
         $data['custlogs1'] = Customerlog::join('customer', 'customer_log.custno', '=', 'customer.CustNo')
             ->join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
-            // ->whereBetween('customer_log.tgl', [$request->startfilterreport, $request->endfilterreport])
-            ->where('customer_log.tgl', $request->startfilterreport)
-            // ->where('customer_log.tgl', date('Y-m-d'))
+            ->where('customer_log.tgl', date('Y-m-d'))
             ->where('customer_log.cekin', '!=', NULL)
             ->where('customer_log.kdslm', '!=', "")
             ->orderBy('customer_log.kdslm')
@@ -561,6 +555,7 @@ class ReportController extends Controller
 
 
         $hari = date('l');
+        /*$new = date('l, F d, Y', strtotime($Today));*/
         if ($hari == "Sunday") {
             $hariindo = "Minggu";
         } elseif ($hari == "Monday") {
@@ -584,9 +579,7 @@ class ReportController extends Controller
             DB::raw("GROUP_CONCAT(CONCAT(' ( ',tagihanheader.kdslm,'-',tagihandetail.nofaktur, ' / Rp.', CAST(tagihandetail.nilai AS INT) ,' )')) as datafakturs"),
             DB::raw('SUM(tagihandetail.nilai) as total'),
         )->Join('tagihanheader', 'tagihandetail.nobukti', '=', 'tagihanheader.nobukti')
-            // ->whereBetween('tagihanheader.tgltagih', [$request->startfilterreport, $request->endfilterreport])
-            ->where('tagihanheader.tgltagih', $request->startfilterreport)
-            // ->where('tagihanheader.tgltagih', date('Y-m-d'))
+            ->where('tagihanheader.tgltagih', date('Y-m-d'))
             ->groupBy('tagihandetail.custno', 'tagihanheader.kdslm');
 
         $subquerytagdM = TagihanMobileDetail::select(
@@ -594,17 +587,10 @@ class ReportController extends Controller
             'tagihanmobiledetail.custno as custnotagdm',
             DB::raw('SUM(tagihanmobiledetail.nilaibayar) as nilaibayar'),
         )->Join('tagihanmobileheader', 'tagihanmobiledetail.nobukti', '=', 'tagihanmobileheader.nobukti')
-            // ->whereBetween('tagihanmobileheader.tgl', [$request->startfilterreport, $request->endfilterreport])
-            ->where('tagihanmobileheader.tgl', $request->startfilterreport)
-            // ->where('tagihanmobileheader.tgl', date('Y-m-d'))
+            ->where('tagihanmobileheader.tgl', date('Y-m-d'))
             ->groupBy('tagihanmobiledetail.custno');
 
-
-        $data['tgllog'] = Customerlog::select(
-            'customer_log.tgl',
-        )
-            ->where('customer_log.tgl', $request->startfilterreport)
-            ->groupBy('customer_log.tgl')->get();
+    
 
         $subquerycustlog = Customerlog::select(
             'customer_log.custno as custnolog',
@@ -613,14 +599,12 @@ class ReportController extends Controller
             'customer_log.cekout',
             'customer_log.salesorder',
             'customer_log.bayar',
-            'customer_log.alasangagal',
             'customer_log.tgl',
+            'customer_log.alasangagal',
             DB::raw('TIMEDIFF(cekout, cekin) AS used_time'),
             DB::raw('SUM(customer_log.salesorder) as totalsalesorder'),
         )
-            // ->where('customer_log.tgl', date('Y-m-d'))
-            ->where('customer_log.tgl', $request->startfilterreport)
-            // ->whereBetween('customer_log.tgl', [$request->startfilterreport, $request->endfilterreport])
+            ->where('customer_log.tgl', date('Y-m-d'))
             ->groupBy('customer_log.custno');
 
         $data['pjpreport'] = PjpPersonildetailDMJ::join('salesman', 'pjppersonildetail.kdslm', '=', 'salesman.kdslm')

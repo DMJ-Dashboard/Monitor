@@ -40,7 +40,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="refresh" content="1500; url=/reportadmin">
+    <meta http-equiv="refresh" content="1500; url=/report">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ asset('/dmj/dist/css/style.css') }}">
@@ -176,11 +176,10 @@
             </div> --}}
                 <div class="chart tab-pane active" id="tagihan-log">
                     <center>
-                        <b>SALESMAN EGING LOGs {{ $tgllog[0]['tgl'] }}</b>
-
+                        <b>SALESMAN EGING LOG {{$tgllog}}</b>
                     </center>
                     <div class="row justify-content-center align-items-center g-2">
-                        <div class="col-4" style="width: 10% !important;">
+                        <div class="col-4" style="width: 12% !important;">
                             <form action="{{ route('reportfilter') }}" method="POST" class="mb-3">
                                 @csrf
                                 <div class="form-group">
@@ -193,11 +192,9 @@
                                         <input type="text" class="form-control float-right" id="reportrange2"
                                             placeholder="FILTER DATE_RANGE">
                                         <input type="date" class="form-control" id="startdatereport"
-                                            placeholder="FILTER DATE_RANGE" name="startfilterreport"
-                                            style="display: none;">
+                                            placeholder="FILTER DATE_RANGE" name="startfilterreport" style="display: none;">
                                         <input type="date" class="form-control" id="enddatereport"
-                                            placeholder="FILTER DATE_RANGE" name="endfilterreport"
-                                            style="display: none;">
+                                            placeholder="FILTER DATE_RANGE" name="endfilterreport" style="display: none;">
                                         <button class="btn btn-info"><i class="fas fa-search fa-sm"></i></button>
                                     </div>
                                 </div>
@@ -448,7 +445,10 @@
                 </div>
             </div>
         </div>
-
+        <div class="card-body">
+            <div id="containercall" style="overflow: hidden;">
+            </div>
+        </div>
         {{-- <div class="table-responsive">
         <table class="table table-striped table-hover text-dark" id="tbltagihancustlog">
             <thead style="text-align: center !important;">
@@ -464,17 +464,11 @@
         </table>
     </div> --}}
     </div>
-    <div class="card-body">
-        ANJAT
-        <div id="containercall" style="overflow: hidden;">
-        </div>
-
-    </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
     < script src = "https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js" >
@@ -493,72 +487,6 @@
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
-
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-<script src="https://code.highcharts.com/modules/drilldown.js"></script>
-
-<script>
-    const sales = {!! json_encode($salesmans) !!}
-    const callperfom = {!! json_encode($callinput) !!}
-
-
-    Highcharts.chart('containercall', {
-        title: {
-            text: ' DAILY CALL OA SALESMAN ',
-            align: 'center'
-        },
-        subtitle: {
-            text: 'DMJ SourceCode - 2022',
-            align: 'center'
-        },
-        yAxis: {
-            title: {
-                text: 'Number of Count'
-            }
-        },
-
-        xAxis: {
-            categories: sales
-        },
-
-        legend: {
-            layout: 'horizontal',
-            align: 'center',
-            verticalAlign: 'bottom'
-        },
-
-        plotOptions: {
-
-        },
-
-        series: [
-
-            {
-                name: 'Input Call OA',
-                data: callperfom,
-                type: 'column'
-            },
-
-        ],
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500
-                },
-                chartOptions: {
-                    legend: {
-                        layout: 'horizontal',
-                        align: 'center',
-                        verticalAlign: 'bottom'
-                    }
-                }
-            }]
-        }
-    });
-</script>
 
 <script>
     $(function() {
@@ -590,37 +518,25 @@
 <script>
     $(function() {
         var start2 = moment().subtract(29, 'days');
-        // var end2 = moment();
         var startInput = $('#startdatereport');
-        // var endInput = $('#enddatereport');
-        // console.log("FILTER TANGGAL : " + startInput.format('YYYY-MM-DD') + ' to ' + endInput.format(
-        //         'YYYY-MM-DD'));
         function cb2(start2, end2) {
             $('#reportrange2 span').html(start2.format('YYYY-MM-DD'));
-            // $('#reportrange2 span').html(start2.format('MMMM D, YYYY') + ' - ' + end2.format('MMMM D, YYYY'));
-
-            // console.log("A new date selection2 was made: " + start2.format('YYYY-MM-DD') + ' to ' + end2.format(
-            //     'YYYY-MM-DD'));
-
-            // Set value for start and end date inputs
             startInput.val(start2.format('YYYY-MM-DD'));
-            // endInput.val(end2.format('YYYY-MM-DD'));
 
         }
 
-        // $('#reportrange2').daterangepicker({
         $('#reportrange2').daterangepicker({
             startDate: start2,
             singleDatePicker: true,
             showDropdowns: true,
             showCustomRangeLabel: false,
-            maxYear: parseInt(moment().format('YYYY'), 10),
-            // endDate: end2,
+            maxYear: parseInt(moment().format('YYYY'),10)+1,
+            linkedCalendars: false,
             ranges: {
                 'Today': [moment(), moment()],
                 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
                 'Last 7 Days': [moment().subtract(6, 'days'), moment().subtract(6, 'days')],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment().subtract(29, 'days'), ],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment().subtract(29, 'days'),],
 
             }
         }, cb2);

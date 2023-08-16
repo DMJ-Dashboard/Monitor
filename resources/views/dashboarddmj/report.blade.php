@@ -179,7 +179,7 @@
                         <b>SALESMAN EGING LOG {{$tgllog[0]['tgl']}}</b>
                     </center>
                     <div class="row justify-content-center align-items-center g-2">
-                        <div class="col-4" style="width: 10% !important;">
+                        <div class="col-4" style="width: 12% !important;">
                             <form action="{{ route('reportfilter') }}" method="POST" class="mb-3">
                                 @csrf
                                 <div class="form-group">
