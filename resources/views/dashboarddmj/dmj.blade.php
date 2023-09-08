@@ -45,6 +45,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ asset('/dmj/dist/css/style.css') }}">
+    <link rel="icon" href="{{ url('') }}/dmj/dist/img/LOGO_DMJ.png" type="image/x-icon">
     <title>DMJ DASHBOARD - 2022</title>
 
 </head>
