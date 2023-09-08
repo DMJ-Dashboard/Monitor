@@ -332,7 +332,6 @@ class ReportController extends Controller
 
 
         $subquerycustlog = Customerlog::select(
-            'customer_log.custno as custnolog',
             'customer_log.kdslm',
             'customer_log.cekin',
             'customer_log.cekout',
