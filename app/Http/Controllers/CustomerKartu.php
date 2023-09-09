@@ -71,6 +71,6 @@ class CustomerKartu extends Controller
                 ->get();
 
             dd($subquerytagd);
-        return view('dashboarddmj.custkartu', $data);
+        return view('dashboarddmj.custkartu');
     }
 }
