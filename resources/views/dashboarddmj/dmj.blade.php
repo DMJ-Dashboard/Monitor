@@ -273,7 +273,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         {{ $datas->salesmans->NmSlm }} -
                                                                         {{ $datas->jcust }}
                                                                     </div>
-                                                                @elseif($datac->csales < '100')
+                                                                @elseif($datac->csales < $datas->jcust*0.50)
                                                                     <input data-readonly="true" type="text"
                                                                         class="knob" value="{{ $datac->csales }}"
                                                                         data-width="90" data-height="90"
@@ -284,7 +284,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         {{ $datas->salesmans->NmSlm }} -
                                                                         {{ $datas->jcust }}
                                                                     </div>
-                                                                @elseif($datac->csales < '125')
+                                                                @elseif($datac->csales < $datas->jcust*0.65)
                                                                     <input data-readonly="true" type="text"
                                                                         class="knob" value="{{ $datac->csales }}"
                                                                         data-width="90" data-height="90"
@@ -295,7 +295,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                                                         {{ $datas->salesmans->NmSlm }} -
                                                                         {{ $datas->jcust }}
                                                                     </div>
-                                                                @elseif($datac->csales >= '125')
+                                                                @elseif($datac->csales >= $datas->jcust*0.65)
                                                                     <input data-readonly="true" type="text"
                                                                         class="knob" value="{{ $datac->csales }}"
                                                                         data-width="90" data-height="90"
@@ -1138,7 +1138,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                                         <option value="" hidden>
                                             Silahkan Pilih Salesman
                                         </option>
-                                        @foreach ($salesmanall as $data)
+                                        @foreach ($salesmantarget as $data)
                                             <option value="{{ $data->Id }}">
                                                 {{ $data->NmSlm }} - {{ $data->KdSlm }}
                                             </option>
@@ -1606,7 +1606,7 @@ border-style: solid; color:aliceblue !important; padding-bottom: 0;">
                 type: 'column'
             },
             {
-                name: 'Efectice Call OA',
+                name: 'Effective Call OA',
                 data: sukses,
                 zones: [{
                     value: 7,

@@ -10,7 +10,7 @@ class TargetSalesman extends Model
     use HasFactory;
     protected $connection = 'mysql2';
     protected $table = "target";
-    public $timestamps = false;
+    // public $timestamps = false;
 
     public function salesmans()
     {

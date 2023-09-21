@@ -327,7 +327,7 @@ class DashboardDMJ extends Controller
             ->where('tagihanheader.TglTagih', date('Y-m-d'))
             ->groupBy('tagihanheader.kdslm')
             // ->get()
-            ;
+        ;
         $data['custlogs2'] = Customerlog::join('salesman', 'customer_log.kdslm', '=', 'salesman.kdslm')
             ->leftJoinSub($subquerypjpdetail, 'pjp', function ($join) {
                 $join->on('salesman.kdslm', '=', 'pjp.kdslm');
@@ -474,8 +474,8 @@ class DashboardDMJ extends Controller
             ->pluck('salesmans');
 
         $data['deliverydata'] = Fakturjual::
-        // Join('draft1', 'fakturjualheader.nodraft', '=', 'draft1.nodraft')
-        where("TglKirim", date('Y-m-d'))
+            // Join('draft1', 'fakturjualheader.nodraft', '=', 'draft1.nodraft')
+            where("TglKirim", date('Y-m-d'))
             ->GroupBy(DB::raw("Nodraft"))
             ->select(
                 DB::raw("Nodraft"),
@@ -667,15 +667,37 @@ class DashboardDMJ extends Controller
             ->select(DB::raw('Kdslm, sum(Netto) as ecsum'))
             ->get();
 
+        $data['salesmantarget'] = Salesman::where('stat', '1')->get();
         $data['salesmanall'] = Salesman::all();
-        $data['targets'] = TargetSalesman::all();
+
+        // $data['targets'] = TargetSalesman::all();
+        $data['targets'] = TargetSalesman::select('salesmans_id', 'jcust')
+        ->whereIn(DB::raw('(salesmans_id, updated_at)'), function ($query) {
+            $query->select(DB::raw('salesmans_id, MAX(updated_at) as max_updated_at'))
+                ->from('target')
+                ->groupBy('salesmans_id');
+        })
+        ->orderBy('salesmans_id')
+        ->get();
+        // $data['targets'] = TargetSalesman::select('salesmans_id', 'jcust', DB::raw('MAX(updated_at) as latest_updated_at'))
+        //     ->groupBy('salesmans_id')
+        //     ->orderBy('salesmans_id')
+        //     ->havingRaw('latest_updated_at = MAX(updated_at)')
+        //     ->get();
+        // $data['targets'] = Target::select(DB::raw("salesmans_id,jcust"))
+        // ->latest('updated_at')
+        // ->groupBy('salesmans_id')
+        // ->get();
+
+
+
         $data['supplier'] = Supplier::where('stat', '=', '1')->get();
 
 
-        $stokK = StokKartu::where("mk", "k")
+        $stokK = StokKartu::select(DB::raw('SUM(hpp*qty) as stokk'))->where("mk", "k")
             ->whereYear("Tgl", date('Y'))
-            ->select(DB::raw('SUM(hpp*qty) as stokk'))
             ->get();
+
         $stokM = StokKartu::where("mk", "m")
             ->whereYear("Tgl", date('Y'))
             ->select(DB::raw("SUM(hpp*qty) as stokm"))
